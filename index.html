@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="احجز دورك عند حلاقك في دمياط الجديدة على واتساب">
+<meta name="theme-color" content="#0D6A6D">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>دورك</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@500;700&display=swap">
+<style id="dk-style">
+/* Layout: one column of shop cards, a bottom sheet for each shop, the booking summary drawn as a queue ticket */
+:root{
+  --bg:#EEF3F2; --surface:#FFFFFF; --sunk:#E4ECEB; --ink:#10282B; --muted:#56696B; --line:#D3DEDD;
+  --accent:#0D6A6D; --accent-ink:#FFFFFF; --brass:#A97A22; --wa:#1C8A4A; --danger:#B23A2E;
+  --display:"Reem Kufi","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --body:"IBM Plex Sans Arabic",system-ui,"Segoe UI",Tahoma,sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0B1819; --surface:#122426; --sunk:#0E1D1F; --ink:#E4EEED; --muted:#98ADAC; --line:#24393B;
+  --accent:#4DB3AF; --accent-ink:#06201F; --brass:#D6A64B; --wa:#3DBA6E; --danger:#E0705F; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B1819; --surface:#122426; --sunk:#0E1D1F; --ink:#E4EEED; --muted:#98ADAC; --line:#24393B;
+  --accent:#4DB3AF; --accent-ink:#06201F; --brass:#D6A64B; --wa:#3DBA6E; --danger:#E0705F; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6}
+*{box-sizing:border-box}
+.wrap{max-width:640px;margin:0 auto;padding-inline:16px;padding-block:20px 48px;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.25}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.brand{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand h1{font-size:2.6rem;color:var(--accent);letter-spacing:0}
+.brand p{margin:0;color:var(--muted)}
+.brand .count{font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.search{display:flex;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px 12px}
+.search input{border:0;background:transparent;flex:1;min-width:0;padding:10px 0;outline:none}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;white-space:nowrap;cursor:pointer;font-size:.9rem}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.chip:disabled{opacity:.4;cursor:not-allowed;text-decoration:line-through}
+.list{display:flex;flex-direction:column;gap:10px}
+.card{display:flex;gap:14px;align-items:center;width:100%;text-align:start;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;cursor:pointer}
+.card:hover{border-color:var(--accent)}
+.card .info{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.card .name{font-weight:700;font-size:1.05rem}
+.card .meta{color:var(--muted);font-size:.88rem}
+.card .price{font-size:.88rem;color:var(--brass);font-weight:600;font-variant-numeric:tabular-nums}
+.av{width:58px;height:58px;border-radius:12px;flex:none;display:grid;place-items:center;font-family:var(--display);font-size:1.5rem;color:var(--accent-ink);background:var(--accent);object-fit:cover}
+.tag{display:inline-block;font-size:.72rem;font-weight:600;padding:1px 8px;border-radius:999px;background:var(--sunk);color:var(--muted);border:1px dashed var(--line);margin-inline-start:6px;vertical-align:middle}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:var(--r);padding:24px;text-align:center;color:var(--muted)}
+.join{background:var(--sunk);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:8px}
+.join h3{font-size:1.1rem}
+.num{direction:ltr;unicode-bidi:isolate;font-variant-numeric:tabular-nums;user-select:all}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:12px;padding:10px 16px;border:1px solid var(--line);background:var(--surface);cursor:pointer;text-decoration:none;color:var(--ink);font-weight:600}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.wa{background:var(--wa);color:#fff;border-color:var(--wa)}
+.btn.danger{color:var(--danger);border-color:var(--danger)}
+.btn.small{padding:6px 12px;font-size:.85rem}
+.btn[aria-disabled="true"],.btn:disabled{opacity:.45;pointer-events:none}
+.adminbar{background:var(--surface);border:1px solid var(--brass);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:10px}
+.adminbar h2{font-size:1.1rem;color:var(--brass)}
+.adminbar .status{font-size:.88rem;color:var(--muted)}
+.dirty{color:var(--brass);font-weight:600}
+/* sheet */
+.scrim{position:fixed;inset:0;background:rgb(0 0 0 / .45);z-index:10;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--bg);width:100%;max-width:640px;max-height:92%;overflow-y:auto;border-radius:20px 20px 0 0;padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))}
+@media (min-width:700px){.scrim{align-items:center}.sheet{border-radius:20px;max-height:88%}}
+.sheet-head{position:sticky;top:0;background:var(--bg);display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);z-index:1}
+.sheet-body{padding-inline:16px;padding-block:16px;display:flex;flex-direction:column;gap:18px}
+.hero{width:100%;aspect-ratio:16/7;max-width:100%;border-radius:var(--r);object-fit:cover;background:var(--accent);display:grid;place-items:center;color:var(--accent-ink);font-family:var(--display);font-size:3rem}
+.sec{display:flex;flex-direction:column;gap:10px}
+.sec h3{font-size:1.05rem}
+.svc{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer}
+.svc input{width:20px;height:20px;accent-color:var(--accent);flex:none}
+.svc .n{flex:1;min-width:0}
+.svc .d{color:var(--muted);font-size:.82rem}
+.svc .p{font-weight:700;color:var(--brass);font-variant-numeric:tabular-nums}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:8px}
+.slots .chip{text-align:center}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:.88rem;color:var(--muted)}
+label.f input,label.f select{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--ink);font-size:1rem;width:100%;min-width:0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:420px){.grid2{grid-template-columns:1fr}}
+.err{color:var(--danger);font-size:.82rem;min-height:1.2em}
+/* ticket */
+.ticket{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);position:relative;overflow:hidden}
+.ticket .top{padding:14px 16px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.ticket .when{font-family:var(--display);font-size:1.6rem;color:var(--accent);line-height:1.2}
+.ticket .label{font-size:.75rem;color:var(--muted);letter-spacing:.02em}
+.ticket .perf{border-top:2px dashed var(--line);margin-inline:14px;position:relative}
+.ticket .perf::before,.ticket .perf::after{content:"";position:absolute;top:-11px;width:20px;height:20px;border-radius:50%;background:var(--bg);border:1px solid var(--line)}
+.ticket .perf::before{inset-inline-start:-25px}.ticket .perf::after{inset-inline-end:-25px}
+.ticket dl{margin:0;padding:12px 16px 16px;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.92rem}
+.ticket dt{color:var(--muted)}.ticket dd{margin:0;min-width:0}
+.ticket .total{font-weight:700;color:var(--brass);font-variant-numeric:tabular-nums}
+.note{background:var(--sunk);border-radius:12px;padding:12px;font-size:.9rem;color:var(--muted)}
+.msgbox{white-space:pre-wrap;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px;font-size:.85rem;max-height:180px;overflow:auto}
+.svc-edit{display:grid;grid-template-columns:1fr 84px 72px auto;gap:6px;align-items:end}
+@media (max-width:460px){.svc-edit{grid-template-columns:1fr 1fr}.svc-edit label:first-child{grid-column:1/-1}}
+.toast{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));inset-inline:16px;max-width:420px;margin:0 auto;background:var(--ink);color:var(--bg);padding:10px 14px;border-radius:12px;z-index:30;text-align:center;font-size:.9rem}
+@media (prefers-reduced-motion:no-preference){.sheet{animation:up .22s ease-out}@keyframes up{from{transform:translateY(24px);opacity:.6}to{transform:none;opacity:1}}}
+</style>
+</head>
+<body>
+<div id="app" dir="rtl" lang="ar"><div class="wrap"><div class="brand"><div><h1>دورك</h1><p>احجز دورك عند حلاقك في دمياط الجديدة</p></div></div><div class="empty">بيحمّل المحلات…</div></div></div>
+<script type="application/json" id="dk-data">{"version":1,"admins":[{"name":"كريم مختار","phone":"01029948329","role":"أدمن"}],"areas":["الحي الأول","الحي الثاني","الحي الثالث","الحي الرابع","الحي الخامس","الحي السادس","المنطقة المركزية","منطقة الشاليهات"],"barbers":[{"id":"b1","sample":true,"name":"صالون الأمواج","area":"المنطقة المركزية","phone":"","whatsapp":"","map":"","open":"11:00","close":"23:00","offDay":5,"photo":"","services":[{"name":"قص شعر","price":80,"mins":30},{"name":"ذقن","price":50,"mins":20},{"name":"قص + ذقن","price":120,"mins":45},{"name":"حلاقة أطفال","price":60,"mins":25},{"name":"تنظيف بشرة","price":150,"mins":40}]},{"id":"b2","sample":true,"name":"حلاق الكورنيش","area":"منطقة الشاليهات","phone":"","whatsapp":"","map":"","open":"13:00","close":"01:00","offDay":null,"photo":"","services":[{"name":"قص شعر","price":100,"mins":30},{"name":"ذقن","price":60,"mins":20},{"name":"قص + ذقن","price":150,"mins":45},{"name":"تنظيف بشرة","price":180,"mins":40}]},{"id":"b3","sample":true,"name":"صالون الفنار","area":"الحي الثاني","phone":"","whatsapp":"","map":"","open":"10:00","close":"22:00","offDay":5,"photo":"","services":[{"name":"قص شعر","price":70,"mins":30},{"name":"ذقن","price":40,"mins":15},{"name":"قص + ذقن","price":100,"mins":40},{"name":"حلاقة أطفال","price":50,"mins":25}]},{"id":"b4","sample":true,"name":"ستايل الحي الرابع","area":"الحي الرابع","phone":"","whatsapp":"","map":"","open":"12:00","close":"00:00","offDay":1,"photo":"","services":[{"name":"قص شعر","price":90,"mins":30},{"name":"قص + ذقن","price":130,"mins":45},{"name":"حلاقة أطفال","price":60,"mins":25},{"name":"تنظيف بشرة","price":160,"mins":40}]},{"id":"b5","sample":true,"name":"صالون المرسى","area":"الحي السادس","phone":"","whatsapp":"","map":"","open":"11:00","close":"23:30","offDay":5,"photo":"","services":[{"name":"قص شعر","price":75,"mins":30},{"name":"ذقن","price":45,"mins":20},{"name":"قص + ذقن","price":110,"mins":45},{"name":"حلاقة أطفال","price":55,"mins":25},{"name":"تنظيف بشرة","price":140,"mins":40}]}]}</script>
+<script id="dk-app">
+(function(){
+"use strict";
+var FONT_HREF="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@500;700&display=swap";
+var state=JSON.parse(document.getElementById("dk-data").textContent);
+var ui={q:"",area:"الكل"};
+var canEdit=false,artNs=null,dirty=false,adminMode=false;
+var DAYS=["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+var MONTHS=["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+document.documentElement.lang="ar";
+function $(s,r){return (r||document).querySelector(s)}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]})}
+function ar(n){return Number(n).toLocaleString("ar-EG")}
+function money(n){return ar(n)+" جنيه"}
+function waNum(p){p=String(p||"").replace(/\D/g,"");if(!p)return "";if(p.indexOf("0")===0)p="20"+p.slice(1);else if(p.indexOf("20")!==0)p="20"+p;return p}
+function validPhone(p){return /^01[0125]\d{8}$/.test(String(p||"").replace(/\s/g,""))}
+function admin(){return state.admins&&state.admins[0]||null}
+function mapUrl(b){return /^https:\/\//.test(b.map||"")?b.map:"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(b.name+" "+b.area+" دمياط الجديدة")}
+function target(b){return (!b.sample&&b.whatsapp)?b.whatsapp:(admin()?admin().phone:"")}
+function mins(t){var a=String(t||"0:0").split(":");return (+a[0])*60+(+a[1]||0)}
+function fmtT(m){m=((m%1440)+1440)%1440;var h=Math.floor(m/60),mm=m%60,h12=h%12||12;return ar(h12)+":"+(mm<10?"٠":"")+ar(mm)+" "+(h>=12?"م":"ص")}
+function hours(b){return fmtT(mins(b.open))+" – "+fmtT(mins(b.close))}
+function minPrice(b){var p=b.services.map(function(s){return +s.price||0}).filter(Boolean);return p.length?Math.min.apply(null,p):0}
+function initials(n){n=String(n||"").replace(/^(صالون|حلاق)\s+/,"").trim();return n.charAt(0)||"✂"}
+function avatar(b,cls){return b.photo?'<img class="'+cls+'" src="'+esc(b.photo)+'" alt="">':'<div class="'+cls+'" aria-hidden="true">'+esc(initials(b.name))+'</div>'}
+function toast(t){var el=document.createElement("div");el.className="toast";el.setAttribute("role","status");el.textContent=t;document.body.appendChild(el);setTimeout(function(){el.remove()},2600)}
+function copy(text,btn){var done=function(){toast("اتنسخ")};try{navigator.clipboard.writeText(text).then(done,function(){sel(btn)})}catch(e){sel(btn)}}
+function sel(btn){var t=btn&&btn.parentNode&&btn.parentNode.querySelector(".num,.msgbox");if(!t)return;var r=document.createRange();r.selectNodeContents(t);var s=getSelection();s.removeAllRanges();s.addRange(r);toast("اضغط نسخ من الموبايل")}
+
+/* ---------- home ---------- */
+function filtered(){var q=ui.q.trim();return state.barbers.filter(function(b){
+  if(ui.area!=="الكل"&&b.area!==ui.area)return false;
+  if(!q)return true;return (b.name+" "+b.area).indexOf(q)>-1})}
+function render(){
+  var app=$("#app"),list=filtered(),areas=["الكل"].concat(state.areas.filter(function(a){return state.barbers.some(function(b){return b.area===a})}));
+  var h='<div class="wrap">';
+  h+='<div class="brand"><div><h1>دورك</h1><p>احجز دورك عند حلاقك في دمياط الجديدة</p></div><span class="count">'+ar(state.barbers.length)+' محل</span></div>';
+  if(canEdit)h+=adminBar();
+  h+='<label class="search"><span aria-hidden="true">⌕</span><input id="q" type="search" placeholder="دوّر باسم المحل أو المنطقة" value="'+esc(ui.q)+'" aria-label="بحث"></label>';
+  h+='<div class="chips" role="group" aria-label="المنطقة">'+areas.map(function(a){return '<button class="chip" data-area="'+esc(a)+'" aria-pressed="'+(ui.area===a)+'">'+esc(a)+'</button>'}).join("")+'</div>';
+  h+='<div class="list" id="list">'+listHTML(list)+'</div>';
+  var ad=admin();
+  h+='<div class="join"><h3>صاحب محل حلاقة؟</h3><p style="margin:0">انضم لدورك مجاناً، والزباين يحجزوا عندك على واتساب. كلّم الإدارة'+(ad?': '+esc(ad.name):'')+'.</p>';
+  if(ad)h+='<div class="row"><span class="num">'+esc(ad.phone)+'</span><button class="btn small" data-copy="'+esc(ad.phone)+'">نسخ الرقم</button><a class="btn small wa" target="_blank" rel="noopener" href="https://wa.me/'+waNum(ad.phone)+'?text='+encodeURIComponent("السلام عليكم، عايز أضيف محلي على دورك")+'">واتساب</a></div>';
+  h+='</div></div>';
+  app.innerHTML=h;
+}
+function listHTML(list){
+  if(!list.length)return '<div class="empty">'+(state.barbers.length?'مفيش محل بالاسم ده. جرّب منطقة تانية.':'لسه مفيش محلات. '+(canEdit?'اضغط "إضافة محل" فوق.':''))+'</div>';
+  return list.map(function(b){return '<button class="card" data-open="'+esc(b.id)+'">'+avatar(b,"av")+'<span class="info"><span class="name">'+esc(b.name)+(b.sample?'<span class="tag">مثال</span>':'')+'</span><span class="meta">'+esc(b.area)+' · '+hours(b)+'</span>'+(minPrice(b)?'<span class="price">من '+money(minPrice(b))+'</span>':'')+'</span><span aria-hidden="true" style="color:var(--muted)">‹</span></button>'}).join("");
+}
+
+/* ---------- booking sheet ---------- */
+var bk=null;
+function openSheet(html,label){
+  closeSheet();var s=document.createElement("div");s.className="scrim";s.id="scrim";s.dir="rtl";s.lang="ar";
+  s.innerHTML='<div class="sheet" role="dialog" aria-modal="true" aria-label="'+esc(label)+'">'+html+'</div>';
+  document.body.appendChild(s);document.body.style.overflow="hidden";
+  s.addEventListener("click",function(e){if(e.target===s)closeSheet()});
+  var f=s.querySelector("[data-close]");if(f)f.focus();
+}
+function closeSheet(){var s=$("#scrim");if(s)s.remove();document.body.style.overflow="";bk=null}
+function days(b){var out=[],d=new Date();d.setHours(0,0,0,0);for(var i=0;i<7;i++){var x=new Date(d);x.setDate(d.getDate()+i);out.push({date:x,off:b.offDay!=null&&x.getDay()===+b.offDay})}return out}
+function dayLabel(x,i){return i===0?"النهارده":i===1?"بكره":DAYS[x.getDay()]}
+function slots(b,date){var o=mins(b.open),c=mins(b.close);if(c<=o)c+=1440;var now=new Date(),out=[],isToday=date.toDateString()===now.toDateString(),nm=now.getHours()*60+now.getMinutes()+30;
+  for(var m=o;m+30<=c;m+=30){if(isToday&&m<nm)continue;out.push(m)}return out}
+function showBarber(id){
+  var b=state.barbers.find(function(x){return x.id===id});if(!b)return;
+  var ds=days(b),first=ds.findIndex(function(d){return !d.off&&slots(b,d.date).length});
+  bk={b:b,ds:ds,day:first<0?0:first,slot:null,svc:{},name:"",phone:""};
+  var h='<div class="sheet-head"><strong>'+esc(b.name)+'</strong><button class="btn small" data-close>إغلاق</button></div><div class="sheet-body">';
+  h+=b.photo?'<img class="hero" src="'+esc(b.photo)+'" alt="صورة '+esc(b.name)+'">':'<div class="hero" aria-hidden="true">'+esc(initials(b.name))+'</div>';
+  h+='<div class="sec"><h2 style="font-size:1.5rem">'+esc(b.name)+(b.sample?'<span class="tag">مثال</span>':'')+'</h2><div style="color:var(--muted)">'+esc(b.area)+' · '+hours(b)+(b.offDay!=null?' · إجازة يوم '+DAYS[b.offDay]:'')+'</div>';
+  if(b.sample)h+='<div class="note">ده محل تجريبي. الحجز منه هيروح للإدارة على واتساب عشان التجربة بس.</div>';
+  h+='<div class="row">';
+  if(!b.sample&&b.phone)h+='<span class="num">'+esc(b.phone)+'</span><button class="btn small" data-copy="'+esc(b.phone)+'">نسخ الرقم</button>';
+  if(!b.sample&&b.whatsapp)h+='<a class="btn small wa" target="_blank" rel="noopener" href="https://wa.me/'+waNum(b.whatsapp)+'">واتساب</a>';
+  h+='<a class="btn small" target="_blank" rel="noopener" href="'+esc(mapUrl(b))+'">الموقع على الخريطة</a></div></div>';
+  h+='<div class="sec"><h3>اختار الخدمة</h3>'+b.services.map(function(s,i){return '<label class="svc"><input type="checkbox" id="svc'+i+'" data-svc="'+i+'"><span class="n">'+esc(s.name)+'<div class="d">'+ar(s.mins)+' دقيقة</div></span><span class="p">'+money(s.price)+'</span></label>'}).join("")+'</div>';
+  h+='<div class="sec"><h3>اليوم</h3><div class="chips" id="days"></div></div>';
+  h+='<div class="sec"><h3>الساعة</h3><div class="slots" id="slots"></div></div>';
+  h+='<div class="sec"><h3>بياناتك</h3><div class="grid2"><label class="f">الاسم<input id="bk-name" autocomplete="name" placeholder="اسمك"></label><label class="f">رقم الموبايل<input id="bk-phone" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="01xxxxxxxxx"></label></div><div class="err" id="bk-err"></div></div>';
+  h+='<div id="ticket"></div><div id="send"></div></div>';
+  openSheet(h,b.name);drawDays();drawSlots();drawTicket();
+}
+function drawDays(){var el=$("#days");if(!el)return;el.innerHTML=bk.ds.map(function(d,i){return '<button class="chip" data-day="'+i+'" aria-pressed="'+(bk.day===i)+'"'+(d.off?' disabled title="إجازة"':'')+'>'+dayLabel(d.date,i)+' '+ar(d.date.getDate())+'</button>'}).join("")}
+function drawSlots(){var el=$("#slots");if(!el)return;var d=bk.ds[bk.day],s=d.off?[]:slots(bk.b,d.date);
+  el.innerHTML=s.length?s.map(function(m){return '<button class="chip" data-slot="'+m+'" aria-pressed="'+(bk.slot===m)+'">'+fmtT(m)+'</button>'}).join(""):'<div class="empty" style="grid-column:1/-1">مفيش مواعيد في اليوم ده. اختار يوم تاني.</div>'}
+function chosen(){return bk.b.services.filter(function(s,i){return bk.svc[i]})}
+function message(){var d=bk.ds[bk.day].date,sv=chosen(),tot=sv.reduce(function(a,s){return a+(+s.price||0)},0);
+  return "السلام عليكم، عايز أحجز دور عن طريق دورك\n"+(bk.b.sample?"(حجز تجريبي)\n":"")+
+  "المحل: "+bk.b.name+"\nالخدمة: "+sv.map(function(s){return s.name}).join(" + ")+
+  "\nاليوم: "+DAYS[d.getDay()]+" "+ar(d.getDate())+" "+MONTHS[d.getMonth()]+
+  "\nالساعة: "+fmtT(bk.slot)+"\nالاسم: "+bk.name.trim()+"\nالموبايل: "+bk.phone.trim()+"\nالإجمالي: "+money(tot)}
+function drawTicket(){
+  var sv=chosen(),tot=sv.reduce(function(a,s){return a+(+s.price||0)},0),dur=sv.reduce(function(a,s){return a+(+s.mins||0)},0),d=bk.ds[bk.day].date;
+  var missing=[];if(!sv.length)missing.push("الخدمة");if(bk.slot==null)missing.push("الساعة");if(!bk.name.trim())missing.push("الاسم");if(!validPhone(bk.phone))missing.push("رقم موبايل صحيح");
+  $("#ticket").innerHTML='<div class="ticket" aria-label="ملخص الحجز"><div class="top"><div><div class="label">دورك</div><div class="when">'+(bk.slot!=null?fmtT(bk.slot):'—')+'</div><div style="color:var(--muted)">'+dayLabel(d,bk.day)+' '+ar(d.getDate())+' '+MONTHS[d.getMonth()]+'</div></div>'+avatar(bk.b,"av")+'</div><div class="perf"></div><dl><dt>المحل</dt><dd>'+esc(bk.b.name)+'</dd><dt>الخدمة</dt><dd>'+(sv.length?esc(sv.map(function(s){return s.name}).join(" + ")):'—')+'</dd><dt>المدة</dt><dd>'+(dur?ar(dur)+' دقيقة':'—')+'</dd><dt>الإجمالي</dt><dd class="total">'+money(tot)+'</dd></dl></div>';
+  var to=target(bk.b),ok=!missing.length&&to;
+  var s='';
+  if(ok){s+='<a class="btn wa" style="width:100%" id="bk-send" target="_blank" rel="noopener" href="https://wa.me/'+waNum(to)+'?text='+encodeURIComponent(message())+'">ابعت الحجز على واتساب</a>';}
+  else s+='<button class="btn wa" style="width:100%" disabled>ابعت الحجز على واتساب</button><div class="err" style="color:var(--muted)">'+(to?'لسه ناقص: '+missing.join("، "):'المحل ده لسه ماعندوش رقم واتساب.')+'</div>';
+  s+='<div id="sent" hidden class="sec" style="margin-top:12px"><div class="note">لو واتساب فتح، دوس إرسال هناك، والحلاق هيرد يأكد معاك المعاد. لو ما فتحش، انسخ الرسالة دي وابعتها على الرقم <span class="num">'+esc(to)+'</span></div><div class="msgbox" id="bk-msg"></div><button class="btn small" data-copymsg>نسخ الرسالة</button></div>';
+  $("#send").innerHTML=s;
+}
+
+/* ---------- admin ---------- */
+function adminBar(){
+  return '<section class="adminbar" aria-label="لوحة الإدارة"><h2>لوحة الإدارة</h2><div class="status">إنت شايف اللوحة دي عشان عندك صلاحية تعديل. الزباين مش شايفينها.</div>'+
+  '<div class="row"><button class="btn small primary" data-add>إضافة محل</button><button class="btn small" data-admins>الإدارة</button><button class="btn small" data-mode>'+(adminMode?'إخفاء أزرار التعديل':'تعديل المحلات')+'</button></div>'+
+  (dirty?'<div class="row"><span class="dirty">فيه تعديلات لسه ما اتنشرتش.</span><button class="btn small primary" data-save>حفظ ونشر</button></div>':'')+'</section>';
+}
+function editBarber(id){
+  var b=id?state.barbers.find(function(x){return x.id===id}):{id:"b"+Date.now().toString(36),sample:false,name:"",area:state.areas[0],phone:"",whatsapp:"",map:"",open:"11:00",close:"23:00",offDay:null,photo:"",services:[{name:"قص شعر",price:80,mins:30},{name:"ذقن",price:50,mins:20}]};
+  var w=JSON.parse(JSON.stringify(b));bk={edit:w,isNew:!id};
+  var h='<div class="sheet-head"><strong>'+(id?'تعديل المحل':'إضافة محل')+'</strong><button class="btn small" data-close>إلغاء</button></div><div class="sheet-body">';
+  h+='<div class="grid2"><label class="f">اسم المحل<input id="e-name" value="'+esc(w.name)+'"></label><label class="f">المنطقة<select id="e-area">'+state.areas.map(function(a){return '<option'+(a===w.area?' selected':'')+'>'+esc(a)+'</option>'}).join("")+'</select></label>';
+  h+='<label class="f">رقم التليفون<input id="e-phone" dir="ltr" inputmode="tel" value="'+esc(w.phone)+'" placeholder="01xxxxxxxxx"></label><label class="f">رقم الواتساب (الحجوزات بتروح عليه)<input id="e-wa" dir="ltr" inputmode="tel" value="'+esc(w.whatsapp)+'" placeholder="01xxxxxxxxx"></label>';
+  h+='<label class="f">بيفتح الساعة<input id="e-open" type="time" value="'+esc(w.open)+'"></label><label class="f">بيقفل الساعة<input id="e-close" type="time" value="'+esc(w.close)+'"></label>';
+  h+='<label class="f">يوم الإجازة<select id="e-off"><option value="">مفيش</option>'+DAYS.map(function(d,i){return '<option value="'+i+'"'+(w.offDay===i?' selected':'')+'>'+d+'</option>'}).join("")+'</select></label><label class="f">لينك جوجل ماب (اختياري)<input id="e-map" dir="ltr" value="'+esc(w.map)+'" placeholder="https://maps.app.goo.gl/..."></label></div>';
+  h+='<label class="f">صورة المحل<input id="e-photo" type="file" accept="image/*"></label><div id="e-photo-prev">'+(w.photo?'<img class="hero" src="'+esc(w.photo)+'" alt=""><button class="btn small" data-delphoto style="margin-top:6px">شيل الصورة</button>':'')+'</div>';
+  h+='<label class="row" style="gap:8px"><input type="checkbox" id="e-sample"'+(w.sample?' checked':'')+'> محل تجريبي (الحجز يروح للإدارة)</label>';
+  h+='<div class="sec"><h3>الخدمات والأسعار</h3><div id="e-svcs"></div><button class="btn small" data-addsvc>إضافة خدمة</button></div>';
+  h+='<div class="err" id="e-err"></div><div class="row"><button class="btn primary" data-apply>'+(id?'حفظ التعديل':'إضافة المحل')+'</button>'+(id?'<button class="btn danger" data-del>مسح المحل</button>':'')+'</div><div id="e-confirm"></div></div>';
+  openSheet(h,id?'تعديل المحل':'إضافة محل');drawSvcEdit();
+}
+function readSvcs(){var rows=document.querySelectorAll("[data-svcrow]");bk.edit.services=[].map.call(rows,function(r){return{name:r.querySelector("[data-k=name]").value.trim(),price:+r.querySelector("[data-k=price]").value||0,mins:+r.querySelector("[data-k=mins]").value||30}})}
+function drawSvcEdit(){$("#e-svcs").innerHTML=bk.edit.services.map(function(s,i){return '<div class="svc-edit" data-svcrow="'+i+'" style="margin-bottom:8px"><label class="f">الخدمة<input id="es-n'+i+'" data-k="name" value="'+esc(s.name)+'"></label><label class="f">السعر<input id="es-p'+i+'" data-k="price" type="number" min="0" inputmode="numeric" value="'+esc(s.price)+'"></label><label class="f">دقايق<input id="es-m'+i+'" data-k="mins" type="number" min="5" step="5" inputmode="numeric" value="'+esc(s.mins)+'"></label><button class="btn small danger" data-delsvc="'+i+'" aria-label="مسح الخدمة">مسح</button></div>'}).join("")}
+function applyEdit(){
+  readSvcs();var w=bk.edit,err=$("#e-err");
+  w.name=$("#e-name").value.trim();w.area=$("#e-area").value;w.phone=$("#e-phone").value.trim();w.whatsapp=$("#e-wa").value.trim();
+  w.open=$("#e-open").value||"11:00";w.close=$("#e-close").value||"23:00";var off=$("#e-off").value;w.offDay=off===""?null:+off;w.map=$("#e-map").value.trim();w.sample=$("#e-sample").checked;
+  w.services=w.services.filter(function(s){return s.name});
+  if(!w.name){err.textContent="اكتب اسم المحل.";return}
+  if(!w.sample&&!validPhone(w.whatsapp)){err.textContent="رقم الواتساب لازم يبقى ١١ رقم ويبدأ بـ 01، أو علّم إنه محل تجريبي.";return}
+  if(w.phone&&!validPhone(w.phone)){err.textContent="رقم التليفون مش صحيح.";return}
+  if(w.map&&!/^https:\/\//.test(w.map)){err.textContent="لينك الخريطة لازم يبدأ بـ https://";return}
+  if(!w.services.length){err.textContent="ضيف خدمة واحدة على الأقل.";return}
+  var i=state.barbers.findIndex(function(x){return x.id===w.id});if(i<0)state.barbers.push(w);else state.barbers[i]=w;
+  markDirty();closeSheet();render();toast("اتحفظ هنا. اضغط حفظ ونشر عشان الناس تشوفه.");
+}
+function editAdmins(){
+  bk={admins:JSON.parse(JSON.stringify(state.admins))};
+  var h='<div class="sheet-head"><strong>الإدارة</strong><button class="btn small" data-close>إلغاء</button></div><div class="sheet-body"><div class="note">أول اسم هنا هو اللي بيظهر للزباين وأصحاب المحلات، وبتروح عليه الحجوزات التجريبية. صلاحية التعديل نفسها بتتدي من زرار المشاركة في Claude.</div><div id="a-rows"></div><button class="btn small" data-addadmin>إضافة اسم</button><div class="err" id="a-err"></div><button class="btn primary" data-saveadmins>حفظ</button></div>';
+  openSheet(h,"الإدارة");drawAdmins();
+}
+function drawAdmins(){$("#a-rows").innerHTML=bk.admins.map(function(a,i){return '<div class="grid2" data-arow style="margin-bottom:8px"><label class="f">الاسم<input id="a-n'+i+'" data-k="name" value="'+esc(a.name)+'"></label><label class="f">الموبايل<input id="a-p'+i+'" data-k="phone" dir="ltr" inputmode="tel" value="'+esc(a.phone)+'"></label></div>'}).join("")}
+function readAdmins(){bk.admins=[].map.call(document.querySelectorAll("[data-arow]"),function(r){return{name:r.querySelector("[data-k=name]").value.trim(),phone:r.querySelector("[data-k=phone]").value.trim(),role:"أدمن"}})}
+function markDirty(){dirty=true}
+function shell(content){return '<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body>'+content+'</body></html>'}
+function buildDoc(){
+  var css=document.getElementById("dk-style").textContent,js=document.getElementById("dk-app").textContent;
+  var data=JSON.stringify(state).replace(/</g,"\\u003c");
+  var SC="scr"+"ipt";
+  return shell('<title>دورك</title>\n<link rel="stylesheet" href="'+FONT_HREF+'">\n<style id="dk-style">'+css+'</style>\n<div id="app" dir="rtl" lang="ar"><div class="wrap"><div class="brand"><div><h1>دورك</h1><p>احجز دورك عند حلاقك في دمياط الجديدة</p></div></div><div class="empty">بيحمّل المحلات…</div></div></div>\n<'+SC+' type="application/json" id="dk-data">'+data+'</'+SC+'>\n<'+SC+' id="dk-app">'+js+'</'+SC+'>');
+}
+function save(btn){
+  if(!artNs){toast("الحفظ مش متاح هنا.");return}
+  btn.disabled=true;btn.textContent="بيتنشر…";
+  artNs.publish(buildDoc()).then(function(){dirty=false;toast("اتنشر")},function(e){
+    btn.disabled=false;btn.textContent="حفظ ونشر";var c=e&&e.code;
+    if(c==="conflict")toast("حد تاني نشر تعديل قبلك. الصفحة هتتحدث، اعمل تعديلك تاني.");
+    else if(c==="not_writer"||c==="not_granted"||c==="capability_disabled"||c==="consent_required"){canEdit=false;render();toast("الحساب ده مايقدرش يعدّل الصفحة.")}
+    else if(c==="too_large")toast("الصفحة كبرت أوي. صغّر الصور أو شيل بعضها.");
+    else toast("النشر ما نجحش. جرّب تاني بعد شوية.");
+  });
+}
+function loadPhoto(file){
+  if(!file)return;var rd=new FileReader();rd.onload=function(){var img=new Image();img.onload=function(){var max=560,sc=Math.min(1,max/Math.max(img.width,img.height)),c=document.createElement("canvas");c.width=Math.round(img.width*sc);c.height=Math.round(img.height*sc);c.getContext("2d").drawImage(img,0,0,c.width,c.height);bk.edit.photo=c.toDataURL("image/jpeg",.72);$("#e-photo-prev").innerHTML='<img class="hero" src="'+bk.edit.photo+'" alt=""><button class="btn small" data-delphoto style="margin-top:6px">شيل الصورة</button>'};img.onerror=function(){$("#e-err").textContent="الصورة دي مش مدعومة. جرّب صورة JPG أو PNG."};img.src=rd.result};rd.readAsDataURL(file)}
+
+/* ---------- events ---------- */
+document.addEventListener("input",function(e){
+  var t=e.target;
+  if(t.id==="q"){ui.q=t.value;$("#list").innerHTML=listHTML(filtered());return}
+  if(bk&&bk.b){if(t.id==="bk-name"){bk.name=t.value;drawTicket()}else if(t.id==="bk-phone"){bk.phone=t.value;drawTicket();$("#bk-err").textContent=t.value.length>=11&&!validPhone(t.value)?"الرقم لازم يبقى ١١ رقم ويبدأ بـ 01":""}}
+});
+document.addEventListener("change",function(e){var t=e.target;
+  if(bk&&bk.b&&t.dataset.svc!=null){bk.svc[t.dataset.svc]=t.checked;drawTicket()}
+  if(t.id==="e-photo")loadPhoto(t.files[0]);
+});
+document.addEventListener("click",function(e){
+  var t=e.target.closest("button,a");if(!t)return;var d=t.dataset;
+  if(d.area!=null){ui.area=d.area;render();return}
+  if(d.open!=null){if(adminMode)editBarber(d.open);else showBarber(d.open);return}
+  if(d.close!=null){closeSheet();return}
+  if(d.copy!=null){copy(d.copy,t);return}
+  if(d.day!=null&&bk){bk.day=+d.day;bk.slot=null;drawDays();drawSlots();drawTicket();return}
+  if(d.slot!=null&&bk){bk.slot=+d.slot;drawSlots();drawTicket();return}
+  if(t.id==="bk-send"){var m=message();setTimeout(function(){var s=$("#sent");if(s){s.hidden=false;$("#bk-msg").textContent=m}},400);return}
+  if(d.copymsg!=null){copy($("#bk-msg").textContent,t);return}
+  if(d.add!=null){editBarber(null);return}
+  if(d.mode!=null){adminMode=!adminMode;render();if(adminMode)toast("دوس على أي محل عشان تعدّله");return}
+  if(d.admins!=null){editAdmins();return}
+  if(d.save!=null){save(t);return}
+  if(d.addsvc!=null){readSvcs();bk.edit.services.push({name:"",price:0,mins:30});drawSvcEdit();return}
+  if(d.delsvc!=null){readSvcs();bk.edit.services.splice(+d.delsvc,1);drawSvcEdit();return}
+  if(d.delphoto!=null){bk.edit.photo="";$("#e-photo-prev").innerHTML="";$("#e-photo").value="";return}
+  if(d.apply!=null){applyEdit();return}
+  if(d.del!=null){$("#e-confirm").innerHTML='<div class="note">متأكد إنك عايز تمسح '+esc(bk.edit.name)+'؟</div><div class="row" style="margin-top:8px"><button class="btn danger" data-delyes>أيوه، امسح</button><button class="btn" data-delno>لأ</button></div>';return}
+  if(d.delyes!=null){var id=bk.edit.id;state.barbers=state.barbers.filter(function(x){return x.id!==id});markDirty();closeSheet();render();toast("اتمسح. اضغط حفظ ونشر.");return}
+  if(d.delno!=null){$("#e-confirm").innerHTML="";return}
+  if(d.addadmin!=null){readAdmins();bk.admins.push({name:"",phone:"",role:"أدمن"});drawAdmins();return}
+  if(d.saveadmins!=null){readAdmins();var a=bk.admins.filter(function(x){return x.name||x.phone});if(!a.length||a.some(function(x){return !x.name||!validPhone(x.phone)})){$("#a-err").textContent="كل اسم محتاج رقم موبايل صحيح، ولازم يفضل أدمن واحد على الأقل.";return}state.admins=a;markDirty();closeSheet();render();toast("اتحفظ هنا. اضغط حفظ ونشر.");return}
+});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeSheet()});
+
+render();
+})();
+</script>
+
+</body>
+</html>
