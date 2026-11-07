@@ -7,6 +7,13 @@
 <meta name="theme-color" content="#62664B">
 <title>دورك</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2362664B'/%3E%3Ccircle cx='32' cy='32' r='19' fill='%23EFECE4'/%3E%3Cpath d='M32 32V19M32 32l9 6' stroke='%2362664B' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='11.5' r='4' fill='%23AB8872'/%3E%3C/svg%3E">
+<!-- Home-screen app (v2.2): these files sit next to index.html on GitHub -->
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="دورك">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Brand font: Tufuli Arabic once a commercial licence is bought (the DEMO is personal use only).
@@ -143,6 +150,13 @@ label.f textarea{min-height:90px;resize:vertical}
 @media (max-width:480px){.svc-edit{grid-template-columns:1fr 1fr}.svc-edit>label:first-child{grid-column:1/-1}}
 .note{background:#F4ECE6;border:1px solid #E2D2C6;border-radius:12px;padding:12px;font-size:.9rem;color:var(--olive-deep)}
 .note.ok{background:#EEF2E8;border-color:#CFD9C4}
+/* install-on-phone banner */
+.install{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--card);border:1px solid var(--sage);border-radius:var(--r);padding:12px}
+.install svg{flex:none}
+.install .it{flex:1;min-width:150px;display:flex;flex-direction:column;gap:2px}
+.install .it strong{color:var(--olive-deep)}
+ol.steps{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:8px}
+.kbd{display:inline-block;border:1px solid var(--line);background:#fff;border-radius:8px;padding:0 8px;font-weight:600}
 /* footer */
 footer{margin-top:8px;border-top:1px solid var(--line);background:#E6E3D9}
 footer .in{max-width:680px;margin:0 auto;padding:20px 16px 28px;display:flex;flex-direction:column;gap:10px}
@@ -170,10 +184,12 @@ table.t th{color:var(--muted);font-weight:500}
 
 <script type="module">
 /* ============================================================
-   Dawrak (دورك) — barber booking for New Damietta
+   Dawrak (دورك) — barber booking for New Damietta — v2.2
    Static page on GitHub Pages + Firebase Auth + Cloud Firestore (free Spark plan).
    Permissions are enforced by firestore.rules on the server.
+   v2.2: installable on the phone's home screen (manifest.webmanifest + sw.js + icons next to this file).
    ============================================================ */
+const APP_VERSION = "2.2";
 
 // ---- 1) Firebase project settings: paste the values from Firebase console → Project settings → Your apps ----
 const firebaseConfig = {
@@ -276,6 +292,59 @@ async function compressImage(file, max = 560) {
   return c.toDataURL("image/jpeg", .7);
 }
 
+/* ---------------- barber invite links: ?invite=barber&name=...&area=...&wa=... ---------------- */
+function getInvite() { try { return JSON.parse(load("dawrak.invite") || "null"); } catch (e) { return null; } }
+(function captureInvite() {
+  try {
+    const q = new URLSearchParams(location.search);
+    if (q.get("invite") !== "barber") return;
+    const inv = { name: (q.get("name") || "").slice(0, 60), area: AREAS.includes(q.get("area")) ? q.get("area") : "", wa: normPhone(q.get("wa") || "") };
+    if (!validPhone(inv.wa)) inv.wa = "";
+    store("dawrak.invite", JSON.stringify(inv)); store("dawrak.role", "barber");
+    history.replaceState(null, "", location.pathname);
+  } catch (e) {}
+})();
+
+/* ---------------- install on the phone (home-screen app) ---------------- */
+let installEvt = null;   // Android/Chrome install prompt, kept until the user taps "نزّل"
+function isStandalone() { try { return matchMedia("(display-mode: standalone)").matches || navigator.standalone === true; } catch (e) { return false; } }
+function isIOS() { const u = navigator.userAgent; return /iphone|ipad|ipod/i.test(u) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1); }
+function inAppBrowser() { return /FBAN|FBAV|FB_IAB|Instagram|WhatsApp|Snapchat|TikTok|musical_ly|Line\//i.test(navigator.userAgent); }
+function canShowInstall() { return !isStandalone(); }
+function installBanner() {
+  if (!canShowInstall() || load("dawrak.installHide") === "1") return "";
+  return `<div class="install" id="installbar">${logo(44)}<div class="it"><strong>نزّل دورك على موبايلك</strong><span class="small muted">أيقونة على الشاشة الرئيسية، تفتحه بلمسة زي أي أبلكيشن.</span></div>
+  <div class="row"><button class="btn sm pri" data-act="install">نزّل</button><button class="btn sm ghost" data-act="installhide" aria-label="إخفاء">✕</button></div></div>`;
+}
+async function doInstall() {
+  if (installEvt) {
+    const e = installEvt; installEvt = null;
+    try { await e.prompt(); const r = await e.userChoice; if (r && r.outcome === "accepted") { store("dawrak.installHide", "1"); const b = $("#installbar"); if (b) b.remove(); } return; } catch (x) {}
+  }
+  installHelp();
+}
+function installHelp() {
+  const link = location.origin + location.pathname;
+  let body;
+  if (inAppBrowser()) {
+    body = `<p style="margin:0">إنت فاتح دورك من جوه أبلكيشن تاني (واتساب أو فيسبوك). افتحه في المتصفح الأول:</p>
+    <ol class="steps"><li>دوس على <span class="kbd">⋮</span> أو <span class="kbd">…</span> فوق.</li><li>اختار <strong>${isIOS() ? "فتح في Safari" : "فتح في Chrome"}</strong>.</li><li>هناك دوس على زرار <strong>نزّل</strong> تاني.</li></ol>
+    <div class="row"><span class="num small">${esc(link)}</span><button class="btn sm" data-act="copy" data-t="${esc(link)}">نسخ اللينك</button></div>`;
+  } else if (isIOS()) {
+    body = `<ol class="steps"><li>دوس على زرار <strong>المشاركة</strong> <span class="kbd">⬆︎</span> (المربع اللي طالع منه سهم) تحت أو فوق الشاشة.</li>
+    <li>انزل شوية واختار <strong>إضافة إلى الشاشة الرئيسية</strong> (Add to Home Screen).</li><li>دوس <strong>إضافة</strong> (Add) فوق.</li></ol>
+    <p class="muted small" style="margin:0">لو مش لاقي الاختيار، افتح اللينك في Safari الأول.</p>`;
+  } else {
+    body = `<ol class="steps"><li>دوس على <span class="kbd">⋮</span> فوق في Chrome.</li>
+    <li>اختار <strong>تثبيت التطبيق</strong> أو <strong>إضافة إلى الشاشة الرئيسية</strong> (Install app / Add to Home screen).</li><li>دوس <strong>تثبيت</strong> أو <strong>إضافة</strong>.</li></ol>
+    <p class="muted small" style="margin:0">لو بتستخدم متصفح تاني (سامسونج مثلاً) هتلاقي نفس الاختيار في القائمة.</p>`;
+  }
+  openSheet("نزّل دورك على موبايلك", `<div class="row">${logo(56)}<div><strong>دورك</strong><div class="muted small">هيظهر بالأيقونة دي على الشاشة الرئيسية.</div></div></div>${body}`);
+}
+window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); installEvt = e; });
+window.addEventListener("appinstalled", () => { installEvt = null; store("dawrak.installHide", "1"); const b = $("#installbar"); if (b) b.remove(); closeSheet(); toast("دورك اتنزّل على موبايلك ✔"); });
+if ("serviceWorker" in navigator) { window.addEventListener("load", () => { navigator.serviceWorker.register("sw.js").catch(() => {}); }); }
+
 /* ---------------- logo ---------------- */
 function logo(size = 40) {
   return `<svg width="${size}" height="${size}" viewBox="0 0 64 64" role="img" aria-label="شعار دورك"><rect width="64" height="64" rx="16" fill="#62664B"/><circle cx="32" cy="32" r="19" fill="#EFECE4"/><circle cx="32" cy="32" r="19" fill="none" stroke="#BBC2B6" stroke-width="2"/><path d="M32 32V19M32 32l9 6" stroke="#62664B" stroke-width="4.5" stroke-linecap="round"/><circle cx="32" cy="32" r="3" fill="#62664B"/><circle cx="32" cy="11.5" r="4" fill="#AB8872"/></svg>`;
@@ -317,8 +386,8 @@ function renderFoot() {
   <p class="muted small" style="margin:0">عندك شكوى أو فكرة تحسّن دورك؟ ابعتلنا وهنرد عليك.</p>
   <div class="kv"><dt>الإيميل</dt><dd>${s.supportEmail ? `<span class="num">${esc(s.supportEmail)}</span> <button class="btn sm ghost" data-act="copy" data-t="${esc(s.supportEmail)}">نسخ</button>` : `<span class="muted">هيتحدد قريباً</span>`}</dd>
   ${s.supportWhatsapp ? `<dt>واتساب</dt><dd><span class="num">${esc(s.supportWhatsapp)}</span>${s.supportName ? " · " + esc(s.supportName) : ""}</dd>` : ""}</div>
-  <div class="row"><button class="btn sm pri" data-act="feedback">ابعت شكوى أو اقتراح</button>${s.supportWhatsapp ? `<a class="btn sm wa" target="_blank" rel="noopener" href="${waLink(s.supportWhatsapp, "السلام عليكم، عندي شكوى/اقتراح بخصوص دورك")}">واتساب</a>` : ""}</div>
-  <p class="muted small" style="margin:0">دورك · نسخة تجريبية · دمياط الجديدة</p>`;
+  <div class="row"><button class="btn sm pri" data-act="feedback">ابعت شكوى أو اقتراح</button>${s.supportWhatsapp ? `<a class="btn sm wa" target="_blank" rel="noopener" href="${waLink(s.supportWhatsapp, "السلام عليكم، عندي شكوى/اقتراح بخصوص دورك")}">واتساب</a>` : ""}${canShowInstall() ? `<button class="btn sm" data-act="install">نزّل دورك على موبايلك</button>` : ""}</div>
+  <p class="muted small" style="margin:0">دورك · نسخة تجريبية <span class="num">${APP_VERSION}</span> · دمياط الجديدة</p>`;
 }
 function render() {
   renderTop(); renderFoot();
@@ -341,7 +410,8 @@ function vWelcome() {
   <div class="choice">
     <button data-act="pickrole" data-role="barber"><span class="ico">${icoScissors()}</span><span class="t">حلاق / صاحب محل</span><span class="d">استقبل الحجوزات ونظّم مواعيدك</span></button>
     <button data-act="pickrole" data-role="customer"><span class="ico">${icoPerson()}</span><span class="t">زبون</span><span class="d">دوّر على حلاق واحجز دورك</span></button>
-  </div></div>`;
+  </div>
+  ${installBanner()}</div>`;
 }
 function icoScissors() { return `<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#62664B" stroke-width="1.8" stroke-linecap="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/></svg>`; }
 function icoPerson() { return `<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#62664B" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>`; }
@@ -349,15 +419,17 @@ function icoPerson() { return `<svg width="30" height="30" viewBox="0 0 24 24" f
 /* ---------------- auth ---------------- */
 function vAuth() {
   const role = S.params.role || load("dawrak.role") || "customer";
-  const mode = S.params.mode || "login";
+  const inv = role === "barber" ? getInvite() : null;
+  const mode = S.params.mode || (inv ? "register" : "login");
   const isB = role === "barber";
   main.innerHTML = `<div class="wrap">
   <div class="card">
     <div class="row between"><h2>${isB ? "حساب الحلاق" : "حساب الزبون"}</h2><span class="ico">${isB ? icoScissors() : icoPerson()}</span></div>
+    ${inv && mode === "register" ? `<div class="note ok">أهلاً بيك${inv.name ? " يا " + esc(inv.name) : ""}! سجّل محلك على دورك في دقيقتين. اختار كلمة سر تفتكرها.</div>` : ""}
     <div class="tabs" role="tablist"><button class="tab" role="tab" aria-selected="${mode === "login"}" data-act="authmode" data-m="login">تسجيل دخول</button><button class="tab" role="tab" aria-selected="${mode === "register"}" data-act="authmode" data-m="register">حساب جديد</button></div>
     <form id="authform" novalidate class="card" style="padding:0;border:0;background:none">
       ${mode === "register" ? `<label class="f">${isB ? "اسمك" : "الاسم"}<input id="a-name" autocomplete="name" required maxlength="60"></label>` : ""}
-      <label class="f">رقم الموبايل<input id="a-phone" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="01xxxxxxxxx" required></label>
+      <label class="f">رقم الموبايل<input id="a-phone" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="01xxxxxxxxx" required value="${inv && inv.wa ? esc(inv.wa) : ""}"></label>
       <label class="f">كلمة السر<input id="a-pass" type="password" autocomplete="${mode === "register" ? "new-password" : "current-password"}" dir="ltr" minlength="6" required></label>
       <div class="err" id="a-err" role="alert"></div>
       <button class="btn pri block" type="submit" id="a-go">${mode === "register" ? "اعمل الحساب" : "ادخل"}</button>
@@ -422,6 +494,7 @@ async function loadShops() {
 function vHome() {
   const q = S.params.q || "", area = S.params.area || "الكل";
   main.innerHTML = `<div class="wrap">
+  ${installBanner()}
   ${!S.user ? `<div class="note">إنت بتتفرّج من غير حساب. هتحتاج تسجّل لما تحجز. <button class="btn sm" data-act="login" style="margin-inline-start:6px">دخول / حساب جديد</button></div>` : ""}
   ${S.user && S.profile && S.profile.role === "barber" ? `<div class="note">إنت داخل بحساب حلاق. الحجز من حساب زبون بس.</div>` : ""}
   <div><h2 style="font-size:1.5rem">الحلاقين في دمياط الجديدة</h2><p class="muted small" style="margin:0">اختار حلاق، الخدمة، والمعاد. الدفع في المحل.</p></div>
@@ -574,7 +647,8 @@ function vBooked() {
   <div class="ticket"><div class="tp"><div><div class="small" style="opacity:.8">دورك عند</div><div style="font-weight:600">${esc(p.shopName)}</div></div><div style="text-align:end"><div class="when">${fmtT(p.time)}</div><div class="small">${fmtDate(p.day)}</div></div></div><div class="perf"></div>
   <dl><dt>الخدمة</dt><dd>${esc(p.svc)}</dd><dt>الدفع</dt><dd>في المحل</dd><dt>الإجمالي</dt><dd class="total">${money(p.total)}</dd><dt>الحالة</dt><dd>${stBadge("pending")}</dd></dl></div>
   ${p.wa ? `<a class="btn wa block" target="_blank" rel="noopener" href="${waLink(p.wa, msg)}">نبّه الحلاق على واتساب (اختياري)</a>` : ""}
-  <button class="btn pri block" data-act="go" data-v="mybookings">تابع حجوزاتي</button></div>`;
+  <button class="btn pri block" data-act="go" data-v="mybookings">تابع حجوزاتي</button>
+  ${installBanner()}</div>`;
 }
 
 /* ---------------- customer: my bookings ---------------- */
@@ -638,6 +712,7 @@ function vBarber() {
   <div class="row between"><div><h2 style="font-size:1.45rem">${esc(s.name)}</h2><div class="muted small">${esc(s.area)} · ${s.ratingCount ? `<span class="stars">${stars(ratingOf(s))}</span> ${n(ratingOf(s).toFixed(1))} (${n(s.ratingCount)})` : "لسه مفيش تقييمات"}</div></div>${stBadge(s.status === "pending" ? "pending" : s.status, s.status === "pending" ? "في انتظار موافقة الإدارة" : null)}</div>
   ${s.status === "pending" ? `<div class="note">محلك اتسجل وفي انتظار موافقة الإدارة. لحد ما يتوافق عليه مش هيظهر للزباين. كمّل خدماتك ومواعيدك على ما يتوافق.</div>` : ""}
   ${s.status === "suspended" ? `<div class="note">محلك موقوف ومش ظاهر للزباين. كلّم الدعم.</div>` : ""}
+  ${installBanner()}
   ${"Notification" in window && Notification.permission === "default" ? `<div class="note">فعّل التنبيهات عشان يوصلك صوت وإشعار أول ما ييجي حجز جديد والأبلكيشن مفتوح. <button class="btn sm pri" data-act="notifyperm" style="margin-inline-start:6px">فعّل التنبيهات</button></div>` : ""}
   <div class="tabs" role="tablist">${tabs.map(t => `<button class="tab" role="tab" aria-selected="${tab === t[0]}" data-act="btab" data-t="${t[0]}">${t[1]}${t[2] ? ` <span class="badge">${n(t[2])}</span>` : ""}</button>`).join("")}</div>
   <div id="bpanel"></div></div>`;
@@ -760,7 +835,8 @@ function bShopForm() {
 function bindPhoto() { const f = $("#sh-photo"); if (!f) return; f.addEventListener("change", async () => { try { S.photoDraft = await compressImage(f.files[0]); $("#sh-prev").innerHTML = `<img class="hero-img" src="${S.photoDraft}" alt=""><button class="btn sm" data-act="delphoto" style="margin-top:6px">شيل الصورة</button>`; } catch (e) { $("#sh-err").textContent = errText(e); } }); }
 function barberOnboarding() {
   S.photoDraft = undefined;
-  const draft = { name: "", area: AREAS[0], phone: S.profile.phone, whatsapp: S.profile.phone, mapUrl: "", capacity: 1, photo: "", hours: defaultHours() };
+  const inv = getInvite() || {};
+  const draft = { name: inv.name || "", area: inv.area || AREAS[0], phone: S.profile.phone, whatsapp: inv.wa || S.profile.phone, mapUrl: "", capacity: 1, photo: "", hours: defaultHours() };
   S.svcDraft = [{ name: "قص شعر", price: 80, mins: 30 }, { name: "ذقن", price: 50, mins: 20 }, { name: "قص + ذقن", price: 120, mins: 45 }];
   main.innerHTML = `<div class="wrap"><div><h2 style="font-size:1.5rem">أهلاً ${esc(S.profile.name)}، سجّل محلك</h2><p class="muted small" style="margin:0">املا البيانات دي مرة واحدة. بعد موافقة الإدارة محلك هيظهر للزباين.</p></div>
   <div class="card"><h3>١. بيانات المحل</h3>${shopFields(draft)}</div>
@@ -860,6 +936,7 @@ function vAccount() {
   <div class="card"><dl class="kv"><dt>الاسم</dt><dd>${esc(p.name)}</dd><dt>الموبايل</dt><dd class="num">${esc(p.phone)}</dd><dt>نوع الحساب</dt><dd>${p.role === "barber" ? "حلاق / صاحب محل" : "زبون"}${S.isAdmin ? " · أدمن" : ""}</dd><dt>الحالة</dt><dd>${stBadge(p.status)}</dd></dl>
   <label class="f">غيّر الاسم<input id="ac-name" value="${esc(p.name)}" maxlength="60"></label><div class="err" id="ac-err"></div>
   <div class="row"><button class="btn pri sm" data-act="savename">حفظ الاسم</button><button class="btn sm bad" data-act="logout">خروج</button></div></div>
+  ${canShowInstall() ? `<div class="card"><h3>دورك على موبايلك</h3><p class="muted small" style="margin:0">نزّله على الشاشة الرئيسية وافتحه بلمسة زي أي أبلكيشن.</p><button class="btn pri" data-act="install" style="align-self:flex-start">نزّل دورك</button></div>` : ""}
   <div class="card"><h3>رقم الحساب</h3><p class="muted small" style="margin:0">محتاجه بس لو الإدارة طلبت تضيفك كأدمن.</p><div class="row"><span class="num small" style="overflow-wrap:anywhere">${esc(S.user.uid)}</span><button class="btn sm" data-act="copy" data-t="${esc(S.user.uid)}">نسخ</button></div></div></div>`;
 }
 function feedbackSheet() {
@@ -916,6 +993,8 @@ document.addEventListener("click", async e => {
     case "pickrole": store("dawrak.role", d.role); go(d.role === "customer" ? "auth" : "auth", { role: d.role, mode: "register" }); break;
     case "authmode": go("auth", { ...S.params, mode: d.m }, false); break;
     case "copy": copyText(d.t); break;
+    case "install": doInstall(); break;
+    case "installhide": store("dawrak.installHide", "1"); { const b = $("#installbar"); if (b) b.remove(); } toast("تقدر تنزّله بعدين من \"حسابي\" أو من تحت الصفحة."); break;
     case "feedback": feedbackSheet(); break;
     case "closesheet": closeSheet(); break;
     case "logout": await fb.signOut(auth); store("dawrak.role", S.profile ? S.profile.role : load("dawrak.role")); go(homeView()); break;
@@ -945,6 +1024,7 @@ document.addEventListener("click", async e => {
         const base = readShopFields({ name: "", area: "", phone: "", whatsapp: "", mapUrl: "", capacity: 1, photo: "" });
         const services = cleanServices(readServices()), hours = readHours();
         await fb.setDoc(fb.doc(db, "shops", S.user.uid), { name: base.name, area: base.area, phone: base.phone, whatsapp: base.whatsapp, mapUrl: base.mapUrl, capacity: base.capacity, photo: base.photo, services, hours, status: "pending", ratingSum: 0, ratingCount: 0, createdAt: fb.serverTimestamp() });
+        store("dawrak.invite", null);
         toast("اتسجل المحل. مستنيين موافقة الإدارة.");
       } catch (x) { $("#sh-err").textContent = errText(x); btn.disabled = false; }
       break;
