@@ -1,7 +1,7 @@
-/* Dawrak (دورك) service worker — makes the app installable on the home screen.
+/* احجز دورك (Dorak) service worker — makes the app installable on the home screen.
    Pages are always fetched from the network first, so every new index.html shows up at once;
    the cached copy is used only when there is no internet. Firebase traffic is never touched. */
-const CACHE = "dawrak-v2.2";
+const CACHE = "dawrak-v3.0";
 const SHELL = ["./", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png", "./icon-maskable-512.png", "./apple-touch-icon.png"];
 
 self.addEventListener("install", e => {
