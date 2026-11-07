@@ -39,7 +39,7 @@ h1,h2,h3{font-family:var(--font-display);margin:0;line-height:1.3;text-wrap:bala
 .wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:16px 32px;display:flex;flex-direction:column;gap:16px}
 /* header */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--navy);border-bottom:2px solid var(--gold)}
-.top .in{max-width:720px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.top .in{max-width:1080px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:start}
 .brand .word{font-family:var(--font-display);font-weight:800;font-size:1.35rem;color:#fff;line-height:1.1;display:block}
 .brand .sub{font-size:.78rem;color:var(--gold);display:block;line-height:1.2;font-weight:700;letter-spacing:.5px}
@@ -210,7 +210,7 @@ ol.steps li>.t::before{content:counter(s);flex:none;width:26px;height:26px;borde
 @media (prefers-reduced-motion:reduce){.ios-arrow{animation:none}}
 /* footer: complaints & suggestions, separate dark block */
 footer{margin-top:8px;background:var(--navy-deep);color:#E6ECF5;border-top:3px solid var(--gold)}
-footer .in{max-width:720px;margin:0 auto;padding:22px 16px 30px;display:flex;flex-direction:column;gap:10px}
+footer .in{max-width:1080px;margin:0 auto;padding:22px 16px 30px;display:flex;flex-direction:column;gap:10px}
 footer h3{font-size:1.15rem;color:var(--gold)}
 footer .muted{color:#AFC0D8}
 footer .phone{color:#fff}
@@ -236,6 +236,170 @@ table.t{width:100%;border-collapse:collapse;font-size:.88rem}
 table.t th,table.t td{padding:8px;border-bottom:1px solid var(--line);text-align:start;vertical-align:top}
 table.t th{color:var(--muted);font-weight:600}
 .scrollx{overflow-x:auto}
+
+/* ===== v4.0 premium look (mobile first) ===== */
+.wrap.wide{max-width:1080px}
+.secs{display:flex;flex-direction:column;gap:22px}
+.secs>*{min-width:0}
+.phero{position:relative;isolation:isolate;overflow:hidden;border-radius:24px;min-height:360px;padding:22px 18px 20px;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;gap:10px;box-shadow:0 14px 34px rgb(7 31 66 / .3)}
+.phero>.art{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
+.phero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgb(6 26 56 / .96) 0%,rgb(6 26 56 / .7) 42%,rgb(6 26 56 / .05) 78%)}
+.phero h1{font-size:clamp(1.9rem,8vw,3rem);color:#fff;line-height:1.2}
+.phero h1 .g{color:var(--gold);display:block}
+.phero p{margin:0;color:#DCE4F1;max-width:40ch}
+.phero.center{align-items:center;text-align:center}
+.phero.center p{margin-inline:auto}
+@media (min-width:720px){.phero{min-height:430px;padding:36px 34px 30px}}
+.kicker{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;background:rgb(212 175 55 / .16);border:1px solid rgb(212 175 55 / .55);color:var(--gold);border-radius:999px;padding:2px 12px;font-size:.8rem;font-weight:700}
+.phero.center .kicker{align-self:center}
+.search.big{padding:6px 8px 6px 14px;border-radius:16px;border:2px solid var(--gold);box-shadow:0 8px 22px rgb(0 0 0 / .25);margin-top:4px;color:var(--navy)}
+.search.big input{font-size:1rem;color:var(--ink)}
+.search.big svg{flex:none;color:var(--gold-deep)}
+.pcats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media (min-width:720px){.pcats{grid-template-columns:repeat(3,1fr);gap:16px}}
+.pcat{position:relative;isolation:isolate;overflow:hidden;aspect-ratio:1/1.05;border:0;border-radius:20px;padding:0;cursor:pointer;color:#fff;text-align:start;box-shadow:0 8px 22px rgb(7 31 66 / .18);background:var(--navy)}
+@media (min-width:720px){.pcat{aspect-ratio:4/3.3}}
+.pcat>.art{position:absolute;inset:0;width:100%;height:100%;z-index:-2;transition:transform .45s ease}
+.pcat::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgb(6 26 56 / .92) 0%,rgb(6 26 56 / .35) 45%,transparent 70%);border-radius:inherit;box-shadow:inset 0 0 0 1.5px rgb(212 175 55 / .35)}
+.pcat:hover>.art,.pcat:focus-visible>.art{transform:scale(1.06)}
+.pcat .lbl{position:absolute;inset-inline:12px;bottom:10px;display:flex;flex-direction:column;line-height:1.25}
+.pcat .ar{font-weight:800;font-size:1.12rem}
+.pcat .enl{font-size:.74rem;color:var(--gold);font-weight:700;letter-spacing:.8px;text-transform:uppercase;direction:ltr;text-align:start}
+.pcat .cnt{position:absolute;top:10px;inset-inline-start:10px;background:rgb(6 26 56 / .7);border:1px solid rgb(212 175 55 / .6);color:var(--gold);border-radius:999px;padding:0 10px;font-size:.74rem;font-weight:700;backdrop-filter:blur(4px)}
+.pcat .cnt:empty{display:none}
+@media (prefers-reduced-motion:reduce){.pcat>.art{transition:none}}
+.feats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media (min-width:720px){.feats{grid-template-columns:repeat(4,1fr);gap:14px}}
+.feat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 12px;display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow)}
+.feat .fi{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--navy);color:var(--gold);box-shadow:inset 0 0 0 1.5px rgb(212 175 55 / .5)}
+.feat strong{color:var(--navy);font-size:1rem;line-height:1.35}
+.feat span{font-size:.84rem;color:var(--muted);line-height:1.5}
+.how{display:grid;grid-template-columns:1fr;gap:10px;counter-reset:h}
+@media (min-width:720px){.how{grid-template-columns:repeat(3,1fr);gap:14px}}
+.how>div{position:relative;counter-increment:h;display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:var(--shadow)}
+.how>div::before{content:counter(h);flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#E3C55E,var(--gold) 55%,var(--gold-deep));color:var(--navy-deep);font-weight:800;font-size:1.15rem}
+.how strong{color:var(--navy);display:block}
+.how span{font-size:.86rem;color:var(--muted)}
+.join{position:relative;isolation:isolate;overflow:hidden;border-radius:24px;padding:24px 18px;color:#fff;display:flex;flex-direction:column;gap:10px;align-items:flex-start;background:radial-gradient(120% 140% at 0% 0%,#16407A 0%,var(--navy) 45%,var(--navy-deep) 100%);border:1.5px solid rgb(212 175 55 / .6);box-shadow:0 14px 34px rgb(7 31 66 / .28)}
+.join::after{content:"";position:absolute;z-index:-1;inset-inline-end:-70px;top:-70px;width:240px;height:240px;border-radius:50%;border:24px solid rgb(212 175 55 / .12)}
+.join h2{color:var(--gold);font-size:1.7rem}
+.join p{margin:0;color:#DCE4F1;max-width:46ch}
+.join .ji{width:58px;height:58px;border-radius:18px;display:grid;place-items:center;background:rgb(212 175 55 / .15);color:var(--gold);border:1px solid rgb(212 175 55 / .5)}
+.cathead{position:relative;isolation:isolate;overflow:hidden;border-radius:22px;min-height:150px;padding:18px;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 10px 26px rgb(7 31 66 / .22)}
+.cathead>.art{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
+.cathead::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgb(6 26 56 / .95),rgb(6 26 56 / .2) 75%)}
+.cathead h2{color:#fff;font-size:1.6rem}
+.cathead p{margin:0;color:#DCE4F1;font-size:.9rem}
+.cathead .enl{color:var(--gold);font-weight:700;letter-spacing:.8px;font-size:.78rem;text-transform:uppercase}
+.hero-img.hasart{position:relative;overflow:hidden}
+.hero-img.hasart>.art{position:absolute;inset:0;width:100%;height:100%}
+/* owner panel: sidebar on desktop, bottom tabs on the phone */
+.olay{display:flex;flex-direction:column;gap:16px}
+.omain{min-width:0;display:flex;flex-direction:column;gap:16px}
+.oside{display:none}
+.av.sm{width:44px;height:44px;font-size:1.2rem;border-radius:12px}
+.onav{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;color:#C9D3E1;padding:10px 12px;border-radius:12px;cursor:pointer;font-weight:700;text-align:start}
+.onav:hover{background:rgb(255 255 255 / .07);color:#fff}
+.onav[aria-current="page"]{background:linear-gradient(135deg,#E3C55E,var(--gold) 55%,var(--gold-deep));color:var(--navy-deep)}
+.onav span:not(.badge){flex:1}
+.oshop{display:flex;align-items:center;gap:10px;padding:4px 4px 12px;margin-bottom:6px;border-bottom:1px solid rgb(255 255 255 / .12);color:#fff}
+.oshop strong{display:block;line-height:1.3}
+.oshop small{color:#AFC0D8}
+.bnav{position:fixed;bottom:0;inset-inline:0;z-index:15;background:var(--navy-deep);border-top:2px solid var(--gold);display:grid;grid-template-columns:repeat(5,1fr);padding-bottom:env(safe-area-inset-bottom,0px);box-shadow:0 -6px 18px rgb(0 0 0 / .18)}
+.bnav button{position:relative;background:none;border:0;color:#AFC0D8;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px 7px;font-size:.72rem;font-weight:700;cursor:pointer;min-height:58px}
+.bnav button[aria-current="page"]{color:var(--gold)}
+.bnav button[aria-current="page"]::before{content:"";position:absolute;top:0;inset-inline:22%;height:3px;border-radius:0 0 3px 3px;background:var(--gold)}
+.bnav .badge{position:absolute;top:4px;inset-inline-start:calc(50% + 4px)}
+body:has(.bnav) footer .in{padding-bottom:96px}
+body:has(.bnav) .toast{bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+@media (min-width:900px){
+  .olay{display:grid;grid-template-columns:250px 1fr;align-items:start;gap:20px}
+  .oside{display:flex;flex-direction:column;gap:4px;position:sticky;top:84px;background:var(--navy);border:1px solid rgb(212 175 55 / .35);border-radius:20px;padding:14px;box-shadow:0 10px 26px rgb(7 31 66 / .2)}
+  .bnav,.otabs-m{display:none}
+  body:has(.bnav) footer .in{padding-bottom:30px}
+  body:has(.bnav) .toast{bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+}
+/* forgot password */
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--navy-soft);border-radius:14px;padding:4px}
+.seg button{border:0;background:transparent;border-radius:11px;padding:10px 8px;font-weight:700;color:var(--navy);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.seg button[aria-pressed="true"]{background:var(--navy);color:var(--gold);box-shadow:0 3px 10px rgb(7 31 66 / .2)}
+
+/* v4.0: hours editor, durations, branches, review pop-ups */
+.hrs{display:flex;flex-direction:column;gap:8px}
+.hday{border:1px solid var(--line);border-radius:14px;padding:10px 12px;background:#fff;display:flex;flex-direction:column;gap:8px}
+.hday:has([data-hk=open]:not(:checked)){background:#F4F6F9}
+.hday:has([data-hk=open]:not(:checked)) .htimes,.hday:has([data-hk=open]:not(:checked)) .allday{display:none}
+label.f.inl{flex-direction:row;align-items:center;gap:8px;color:var(--ink);font-size:.95rem}
+label.f.inl input{width:20px;height:20px;accent-color:var(--navy)}
+.allday{border:1.5px solid var(--gold);border-radius:999px;padding:2px 12px;color:var(--gold-deep)!important;font-weight:700}
+.htimes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.durs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.durs .chip{text-align:center;padding:10px 4px;font-weight:700}
+.bgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media (min-width:720px){.bgrid{grid-template-columns:repeat(3,1fr)}}
+.bcard{position:relative;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:18px;background:var(--card);overflow:hidden;cursor:pointer;padding:0;text-align:start;box-shadow:var(--shadow);color:inherit}
+.bcard:hover{border-color:var(--gold)}
+.bcard .bimg{position:relative;aspect-ratio:16/10;background:var(--navy);overflow:hidden}
+.bcard .bimg>.art,.bcard .bimg>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bcard .bimg .status,.bcard .bimg .badge{position:absolute;top:8px}
+.bcard .bimg .status{inset-inline-start:8px;background:#fff}
+.bcard .bimg .badge{inset-inline-end:8px;min-width:24px;height:24px;font-size:.8rem}
+.bcard .bt{padding:10px 12px;display:flex;flex-direction:column;gap:1px}
+.bcard .bt strong{color:var(--navy);line-height:1.35}
+.bcard .bt span{font-size:.8rem;color:var(--muted)}
+.bcard.add{align-items:center;justify-content:center;gap:8px;min-height:150px;border:2px dashed var(--gold);background:var(--gold-soft);color:var(--gold-deep);font-weight:800}
+.bcard.add .plus{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:var(--gold);font-size:2rem;line-height:1}
+.umb{position:relative;isolation:isolate;overflow:hidden;border-radius:22px;padding:20px 18px;color:#fff;display:flex;gap:14px;align-items:center;background:radial-gradient(120% 140% at 100% 0%,#16407A 0%,var(--navy) 45%,var(--navy-deep) 100%);border:1.5px solid rgb(212 175 55 / .55);box-shadow:0 12px 30px rgb(7 31 66 / .25)}
+.umb .ui{flex:none;width:64px;height:64px;border-radius:18px;display:grid;place-items:center;background:rgb(212 175 55 / .15);border:1px solid rgb(212 175 55 / .55);color:var(--gold);font-size:1.8rem;font-weight:800}
+.umb h2{color:#fff;font-size:1.45rem}
+.umb .muted{color:#C9D3E1}
+.umb .btn{background:transparent;color:var(--gold);border-color:rgb(212 175 55 / .6)}
+.shop.brandrow{border-color:rgb(212 175 55 / .6);background:linear-gradient(0deg,var(--card),var(--card)) padding-box}
+.avs{position:relative;width:62px;height:62px;flex:none}
+.avs .av{position:absolute;width:50px;height:50px;font-size:1.3rem;border:2px solid #fff}
+.avs .av:first-child{top:0;inset-inline-start:0;z-index:2}
+.avs .av:nth-child(2){bottom:0;inset-inline-end:0}
+.brpill{display:inline-flex;align-items:center;gap:4px;background:var(--navy);color:var(--gold);border-radius:999px;padding:0 10px;font-size:.75rem;font-weight:700}
+.sibs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.sib{flex:none;display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:14px;padding:6px 12px 6px 6px;cursor:pointer;text-align:start}
+.sib:hover{border-color:var(--gold)}
+.sib .av{width:38px;height:38px;font-size:1rem;border-radius:10px}
+.sib strong{display:block;color:var(--navy);font-size:.9rem;line-height:1.3}
+.sib span{font-size:.75rem;color:var(--muted)}
+.bigstars{display:flex;justify-content:center;gap:4px;direction:ltr}
+.bigstars button{background:none;border:0;cursor:pointer;font-size:2.6rem;line-height:1;color:var(--mist);padding:2px 4px;transition:transform .12s}
+.bigstars button.on{color:var(--gold);text-shadow:0 2px 6px rgb(212 175 55 / .4)}
+.bigstars button:active{transform:scale(1.2)}
+.askhead{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px}
+.askhead .ai{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:var(--gold);box-shadow:inset 0 0 0 2px rgb(212 175 55 / .6)}
+.askhead h3{font-size:1.3rem}
+.revbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:linear-gradient(135deg,#FFF8DE,var(--gold-soft));border:1.5px solid var(--gold);border-radius:16px;padding:12px 14px}
+.revbar .rs{font-size:1.6rem;color:var(--gold)}
+.revbar .rt{flex:1;min-width:150px;font-weight:700;color:var(--navy)}
+
+/* v4.0: logo, banner, gallery */
+.pics{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:start}
+.pbox{display:flex;flex-direction:column;gap:6px;font-size:.85rem;color:var(--muted);font-weight:600}
+.pbox .pv{position:relative;border:2px dashed var(--mist);border-radius:14px;background:var(--navy-soft);display:grid;place-items:center;overflow:hidden;color:var(--navy);cursor:pointer}
+.pbox .pv img{width:100%;height:100%;object-fit:cover}
+.pbox .pv.logo{width:96px;height:96px;border-radius:22px}
+.pbox .pv.ban{width:100%;aspect-ratio:2/1}
+.pbox input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media (min-width:720px){.gal{grid-template-columns:repeat(4,1fr)}}
+.gal .g{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background:var(--navy-soft);border:0;padding:0;cursor:pointer}
+.gal .g img{width:100%;height:100%;object-fit:cover;display:block}
+.gal .g .x{position:absolute;top:4px;inset-inline-end:4px;width:28px;height:28px;border-radius:50%;border:0;background:rgb(6 26 56 / .8);color:#fff;font-size:1rem;cursor:pointer}
+.gal .add{display:grid;place-items:center;border:2px dashed var(--gold);background:var(--gold-soft);color:var(--gold-deep);font-weight:800;font-size:.85rem;text-align:center;position:relative}
+.gal .add input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.shophero{position:relative}
+.shophero .lg{position:absolute;bottom:-26px;inset-inline-start:16px;width:72px;height:72px;border-radius:20px;border:3px solid #fff;object-fit:cover;background:var(--navy);box-shadow:0 6px 16px rgb(7 31 66 / .25);display:grid;place-items:center;color:var(--gold);font-size:1.8rem;font-weight:800}
+.shophero+.card{padding-top:34px}
+.strip{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory}
+.strip button{flex:none;width:42%;max-width:220px;aspect-ratio:4/3;border-radius:14px;overflow:hidden;border:0;padding:0;cursor:pointer;scroll-snap-align:start;background:var(--navy-soft)}
+.strip img{width:100%;height:100%;object-fit:cover;display:block}
+.viewer{display:flex;flex-direction:column;gap:10px}
+.viewer img{width:100%;max-height:70vh;object-fit:contain;border-radius:12px;background:#000}
 </style>
 </head>
 <body>
@@ -250,8 +414,10 @@ table.t th{color:var(--muted);font-weight:600}
    Permissions are enforced by firestore.rules on the server.
    v2.2: installable on the phone's home screen (manifest.webmanifest + sw.js + icons next to this file).
    v3.0: new name + navy/gold look, 6 categories, owner dashboard, password change, forgot-password via support.
+   v4.0: premium home (hero + search, illustrated categories, features, how it works, join banner), owner sidebar
+         (desktop) / bottom tabs (phone), forgot-password screen (mobile or email), optional email on the account.
    ============================================================ */
-const APP_VERSION = "3.0";
+const APP_VERSION = "4.0";
 
 // ---- 1) Firebase project settings: paste the values from Firebase console → Project settings → Your apps ----
 const firebaseConfig = {
@@ -293,6 +459,15 @@ function stepOf(s) { return CATS[catOf(s)].step; }
 function unitOf(s) { return CATS[catOf(s)].unit; }
 function unitsOf(s) { return CATS[catOf(s)].units; }
 function stepLabel(s) { return stepOf(s) === 60 ? "ساعة" : "نص ساعة"; }
+const MAX_HRS = 4;   // v4.0: hour-based places (padel, football, gaming, cyber) can be booked for 1-4 hours in a row
+function multiHour(s) { return stepOf(s) === 60; }
+function hrsLabel(h) { h = +h || 1; return h === 1 ? "ساعة" : h === 2 ? "ساعتين" : n(h) + " ساعات"; }
+function ownerOf(s) { return (s && s.ownerId) || (s && s.id); }   // shops from before v4.0 use the owner's uid as their id
+function brandOf(list) { const b = list.find(s => s.brand); return b ? b.brand : (list[0] ? list[0].name : ""); }
+function bkSlots(b) { return Array.isArray(b.slots) && b.slots.length ? b.slots : [slotId(b.date, b.time)]; }
+function bkEnd(b) { return hhmm(mins(b.time) + 60 * (+b.hours || 1)); }
+function bkTime(b) { return (+b.hours || 1) > 1 ? `${fmtT(b.time)} ← ${fmtT(bkEnd(b))} <span class="muted small">(${hrsLabel(b.hours)})</span>` : fmtT(b.time); }
+function hoursText(h) { return !h || !h.open ? `<span class="muted">إجازة</span>` : h.from === h.to ? "٢٤ ساعة" : `من ${fmtT(h.from)} لحد ${fmtT(h.to)}`; }
 const MAX_CAP = 30;
 const BOOK_DAYS = 7;   // customers can book up to 7 days ahead
 const SDK = "https://www.gstatic.com/firebasejs/10.12.2/";
@@ -348,7 +523,7 @@ function nextDays(count) { const out = [], d = new Date(); d.setHours(0, 0, 0, 0
 function stars(avg) { const r = Math.round(avg); return "★★★★★".slice(0, r) + "☆☆☆☆☆".slice(0, 5 - r); }
 function ratingOf(s) { return s.ratingCount ? s.ratingSum / s.ratingCount : 0; }
 function initials(name) { const w = String(name || "").replace(/^(صالون|حلاق|محل|استوديو|ملعب|ملاعب|نادي|سيبر|بلايستيشن|كوافير)\s+/, "").trim().replace(/^ال(?=\S)/, ""); return w.charAt(0) || "د"; }
-function avatar(s, cls) { return s.photo ? `<img class="${cls}" src="${esc(s.photo)}" alt="">` : `<div class="${cls}" aria-hidden="true">${esc(initials(s.name))}</div>`; }
+function avatar(s, cls) { if (s.logo) return `<img class="${cls}" src="${esc(s.logo)}" alt="">`; return s.photo ? `<img class="${cls}" src="${esc(s.photo)}" alt="">` : `<div class="${cls}" aria-hidden="true">${esc(initials(s.name))}</div>`; }
 function minPrice(s) { const p = (s.services || []).map(x => +x.price || 0).filter(Boolean); return p.length ? Math.min(...p) : 0; }
 const STATUS = { pending: "في انتظار التأكيد", accepted: "متأكد", rejected: "مرفوض", cancelled: "ملغي", done: "خلص", active: "شغال", suspended: "موقوف", new: "جديد", resolved: "اتحل" };
 function stBadge(s, label) { return `<span class="status st-${esc(s)}">${esc(label || STATUS[s] || s)}</span>`; }
@@ -379,6 +554,20 @@ async function compressImage(file, max = 560) {
   c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
   return c.toDataURL("image/jpeg", .7);
 }
+// v4.0: shrink until the picture fits in the database (pictures live in Firestore, so no paid Storage plan is needed)
+async function fitImage(file, max, limit) {
+  if (!file) throw userErr("اختار صورة.");
+  for (const m of [max, Math.round(max * .8), Math.round(max * .6), Math.round(max * .45)]) {
+    const url = await new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(file); });
+    const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = () => rej(userErr("الصورة دي مش مدعومة. جرّب صورة JPG أو PNG.")); i.src = url; });
+    const sc = Math.min(1, m / Math.max(img.width, img.height)), c = document.createElement("canvas");
+    c.width = Math.round(img.width * sc); c.height = Math.round(img.height * sc);
+    const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height);
+    for (const q of [.82, .72, .6, .5]) { const out = c.toDataURL("image/jpeg", q); if (out.length < limit) return out; }
+  }
+  throw userErr("الصورة كبيرة قوي. جرّب صورة تانية.");
+}
+const MAX_PHOTOS = 8;
 
 /* ---------------- owner invite links: ?invite=barber&name=...&area=...&wa=...&cat=padel|football|barber|salon|gaming|cyber ---------------- */
 function getInvite() { try { return JSON.parse(load("dawrak.invite") || "null"); } catch (e) { return null; } }
@@ -386,7 +575,7 @@ function getInvite() { try { return JSON.parse(load("dawrak.invite") || "null");
   try {
     const q = new URLSearchParams(location.search);
     if (q.get("invite") !== "barber") return;
-    const inv = { name: (q.get("name") || "").slice(0, 60), area: AREAS.includes(q.get("area")) ? q.get("area") : "", wa: normPhone(q.get("wa") || ""), cat: CATS[q.get("cat")] ? q.get("cat") : "" };
+    const inv = { name: (q.get("name") || "").slice(0, 60), area: (q.get("area") || "").slice(0, 60), wa: normPhone(q.get("wa") || ""), cat: CATS[q.get("cat")] ? q.get("cat") : "" };
     if (!validPhone(inv.wa)) inv.wa = "";
     store("dawrak.invite", JSON.stringify(inv)); store("dawrak.role", "barber");
     history.replaceState(null, "", location.pathname);
@@ -446,6 +635,95 @@ window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); instal
 window.addEventListener("appinstalled", () => { installEvt = null; store("dawrak.installHide", "1"); const b = $("#installbar"); if (b) b.remove(); closeSheet(); toast("احجز دورك اتنزّل على موبايلك ✔"); });
 if ("serviceWorker" in navigator) { window.addEventListener("load", () => { navigator.serviceWorker.register("sw.js").catch(() => {}); }); }
 
+/* ---------------- illustrations (v4.0): drawn in the brand colours, no photo files needed ---------------- */
+let artSeq = 0;
+const ARTS = {
+  hero: id => `<defs><radialGradient id="${id}h" cx=".78" cy=".22" r=".6"><stop offset="0" stop-color="#F3DC86" stop-opacity=".5"/><stop offset="1" stop-color="#F3DC86" stop-opacity="0"/></radialGradient><linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D4AF37" stop-opacity=".0"/><stop offset="1" stop-color="#D4AF37" stop-opacity=".35"/></linearGradient></defs>
+    <rect width="800" height="520" fill="url(#${id}h)"/>
+    <g fill="#F3DC86">${[[60,40],[140,90],[250,30],[330,120],[420,60],[90,170],[480,150],[200,200],[700,330],[760,80]].map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="${i % 3 ? 1.4 : 2.2}" opacity="${i % 2 ? .5 : .85}"/>`).join("")}</g>
+    <g transform="translate(610 175)" fill="none" stroke="#D4AF37"><circle r="128" stroke-opacity=".25" stroke-width="2"/><circle r="104" stroke-width="5"/><circle r="92" stroke-opacity=".35"/>
+      ${Array.from({ length: 12 }, (_, i) => `<path d="M0 -${i % 3 ? 86 : 80}V-96" stroke-width="${i % 3 ? 3 : 5}" stroke-linecap="round" transform="rotate(${i * 30})"/>`).join("")}
+      <path d="M0 0V-62M0 0l44 26" stroke-width="8" stroke-linecap="round"/><circle r="9" fill="#F3DC86" stroke="none"/></g>
+    <path d="M0 330h800v190H0z" fill="url(#${id}s)"/>
+    <g fill="#061A38"><path d="M0 520V392h40v-30h34v50h28v-86h46v86h22v-40h40v-62h18v-24h12v24h18v62h30v-30h46v54h30v-110h56v110h24v-46h44v-58h20v58h30v52h38v-92h54v92h22v-34h50v-40h30v40h40v-70h48v170z"/></g>
+    <g fill="#F3DC86" opacity=".75">${[[112,340],[124,360],[112,380],[200,300],[214,320],[200,340],[386,290],[400,310],[414,330],[386,350],[566,310],[580,330],[566,350],[656,330],[670,350],[752,310],[766,330],[752,350],[300,400],[480,380]].map(([x, y]) => `<rect x="${x}" y="${y}" width="6" height="8" rx="1"/>`).join("")}</g>
+    <path d="M0 470q100-16 200 0t200 0 200 0 200 0" stroke="#D4AF37" stroke-opacity=".5" stroke-width="2" fill="none"/><path d="M0 492q100-14 200 0t200 0 200 0 200 0" stroke="#D4AF37" stroke-opacity=".3" stroke-width="2" fill="none"/>`,
+  padel: id => `<defs><pattern id="${id}m" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M0 0l6 6M6 0 0 6" stroke="#fff" stroke-opacity=".4" stroke-width=".8"/></pattern></defs>
+    <ellipse cx="70" cy="10" rx="150" ry="100" fill="url(#${id}g)"/><ellipse cx="330" cy="10" rx="150" ry="100" fill="url(#${id}g)"/>
+    <g fill="#FFF6D6"><rect x="58" y="16" width="26" height="8" rx="3"/><rect x="316" y="16" width="26" height="8" rx="3"/></g>
+    <path d="M110 90h180v65H110z" fill="#3B74BC" fill-opacity=".22" stroke="#C9D3E1" stroke-opacity=".4"/><path d="M146 90v65M182 90v65M218 90v65M254 90v65" stroke="#C9D3E1" stroke-opacity=".22"/>
+    <path d="M110 155h180l78 145H32z" fill="#1E5AA6"/><path d="M110 155h180l78 145H32z" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="2.5"/>
+    <path d="M200 155v145M97 180h206M58 255h284" stroke="#fff" stroke-opacity=".6" stroke-width="2"/>
+    <rect x="76" y="190" width="248" height="24" fill="url(#${id}m)"/><path d="M76 190h248" stroke="#fff" stroke-width="3"/><path d="M76 190v44M324 190v44" stroke="#D4AF37" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="246" cy="146" r="9" fill="#E9F27A"/><path d="M240 140q7 6 0 13" stroke="#fff" stroke-width="1.5" fill="none"/>
+    <g transform="translate(318 236) rotate(-32)"><rect x="-7" y="34" width="14" height="50" rx="6" fill="#D4AF37"/><ellipse rx="36" ry="42" fill="#0B2D5B" stroke="#D4AF37" stroke-width="7"/>${[[-14,-16],[0,-20],[14,-16],[-18,0],[0,-3],[18,0],[-14,16],[0,14],[14,16]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3" fill="#061A38"/>`).join("")}</g>`,
+  football: id => `<defs><clipPath id="${id}c"><path d="M90 150h220l90 150H0z"/></clipPath><pattern id="${id}m" width="5" height="5" patternUnits="userSpaceOnUse"><path d="M0 0l5 5M5 0 0 5" stroke="#fff" stroke-opacity=".45" stroke-width=".7"/></pattern></defs>
+    <ellipse cx="200" cy="0" rx="230" ry="120" fill="url(#${id}g)"/>
+    <path d="M36 40v116M364 40v116" stroke="#8FA3C0" stroke-width="3"/><g fill="#FFF6D6"><rect x="20" y="28" width="32" height="14" rx="3"/><rect x="348" y="28" width="32" height="14" rx="3"/></g>
+    <g clip-path="url(#${id}c)"><rect y="150" width="400" height="150" fill="#1C6440"/><rect y="163" width="400" height="16" fill="#237A4F"/><rect y="198" width="400" height="22" fill="#237A4F"/><rect y="244" width="400" height="30" fill="#237A4F"/></g>
+    <path d="M90 150h220l90 150H0z" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="2.5"/><path d="M45 225h310" stroke="#fff" stroke-opacity=".75" stroke-width="2"/><ellipse cx="200" cy="225" rx="58" ry="17" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="2"/>
+    <path d="M160 150l-6 18h92l-6-18" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="2"/>
+    <path d="M168 150v-28h64v28" fill="url(#${id}m)" stroke="#fff" stroke-width="3.5" stroke-linejoin="round"/>
+    <ellipse cx="206" cy="292" rx="34" ry="6" fill="#000" opacity=".3"/>
+    <g transform="translate(200 262)"><circle r="27" fill="#fff"/><path d="M0-10l9.5 7-3.6 11H-5.9l-3.6-11z" fill="#0B2D5B"/><path d="M0-10V-27M9.5-3l16-5M5.9 8l9 14M-5.9 8l-9 14M-9.5-3l-16-5" stroke="#0B2D5B" stroke-width="2"/></g>`,
+  barber: id => `<defs><linearGradient id="${id}r" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5D86BF"/><stop offset=".5" stop-color="#244E8A"/><stop offset="1" stop-color="#0E2A52"/></linearGradient><clipPath id="${id}p"><rect x="-9" y="0" width="18" height="110" rx="9"/></clipPath></defs>
+    <ellipse cx="200" cy="0" rx="200" ry="110" fill="url(#${id}g)"/>
+    <path d="M40 0v250M120 0v250M280 0v250M360 0v250" stroke="#fff" stroke-opacity=".05" stroke-width="2"/>
+    <path d="M122 175V108a78 78 0 0 1 156 0v67z" fill="url(#${id}r)" stroke="#D4AF37" stroke-width="6"/><path d="M150 80l40-30M160 110l60-46" stroke="#fff" stroke-opacity=".25" stroke-width="6" stroke-linecap="round"/>
+    <g transform="translate(345 70)"><rect x="-13" y="-10" width="26" height="12" rx="4" fill="#D4AF37"/><g clip-path="url(#${id}p)"><rect x="-9" y="0" width="18" height="110" fill="#fff"/>${[0, 1, 2, 3, 4, 5, 6].map(i => `<path d="M-9 ${i * 18 - 6}l18-12v10l-18 12z" fill="${i % 2 ? "#0B2D5B" : "#C0392B"}"/>`).join("")}</g><rect x="-13" y="108" width="26" height="12" rx="4" fill="#D4AF37"/></g>
+    <rect y="250" width="400" height="50" fill="#061A38"/><path d="M0 250h400" stroke="#D4AF37" stroke-opacity=".5" stroke-width="2"/>
+    <rect x="180" y="116" width="40" height="18" rx="8" fill="#16243A"/><rect x="194" y="132" width="12" height="10" fill="#9AA9C0"/>
+    <path d="M162 142h76q10 0 10 12v56h-96v-56q0-12 10-12z" fill="#16243A" stroke="#D4AF37" stroke-opacity=".7" stroke-width="2"/>
+    <rect x="128" y="186" width="22" height="42" rx="9" fill="#D4AF37"/><rect x="250" y="186" width="22" height="42" rx="9" fill="#D4AF37"/>
+    <rect x="140" y="206" width="120" height="28" rx="11" fill="#22324D" stroke="#D4AF37" stroke-opacity=".5"/>
+    <path d="M195 234h10v34h-10z" fill="#C9D3E1"/><ellipse cx="200" cy="274" rx="54" ry="9" fill="#C9D3E1"/><path d="M170 250h60" stroke="#D4AF37" stroke-width="5" stroke-linecap="round"/>`,
+  salon: id => `<defs><linearGradient id="${id}r" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5D86BF"/><stop offset=".55" stop-color="#244E8A"/><stop offset="1" stop-color="#0E2A52"/></linearGradient><radialGradient id="${id}b"><stop offset="0" stop-color="#FFF3C4" stop-opacity=".9"/><stop offset="1" stop-color="#F3DC86" stop-opacity="0"/></radialGradient></defs>
+    <rect x="104" y="34" width="192" height="150" rx="16" fill="url(#${id}r)" stroke="#D4AF37" stroke-width="5"/><path d="M140 70l50-28M150 112l84-56" stroke="#fff" stroke-opacity=".22" stroke-width="7" stroke-linecap="round"/>
+    ${[[120,34],[160,34],[200,34],[240,34],[280,34],[104,74],[104,114],[104,154],[296,74],[296,114],[296,154]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="17" fill="url(#${id}b)"/><circle cx="${x}" cy="${y}" r="6.5" fill="#FFF6D6"/>`).join("")}
+    <rect x="40" y="198" width="320" height="16" rx="4" fill="#D4AF37"/><rect x="52" y="214" width="296" height="86" fill="#061A38"/><path d="M200 222v70M60 256h280" stroke="#D4AF37" stroke-opacity=".35"/>
+    <g><rect x="80" y="160" width="18" height="38" rx="5" fill="#E8EEF7"/><rect x="84" y="150" width="10" height="12" rx="2" fill="#D4AF37"/><rect x="106" y="172" width="16" height="26" rx="6" fill="#C98FA8"/><rect x="110" y="164" width="8" height="9" rx="2" fill="#D4AF37"/></g>
+    <g transform="translate(300 170) rotate(-14)"><path d="M-30-14h46a16 16 0 0 1 0 32h-46z" fill="#E8EEF7"/><circle cx="-30" cy="2" r="17" fill="#0B2D5B" stroke="#E8EEF7" stroke-width="5"/><path d="M4 18l4 26h14l-4-26" fill="#E8EEF7"/><path d="M-30-6v16M-38 2h16" stroke="#D4AF37" stroke-width="2"/></g>`,
+  gaming: id => `<defs><linearGradient id="${id}t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4B2FA0"/><stop offset=".6" stop-color="#1550A8"/><stop offset="1" stop-color="#0A2C66"/></linearGradient><radialGradient id="${id}l"><stop offset="0" stop-color="#6E8CFF" stop-opacity=".55"/><stop offset="1" stop-color="#6E8CFF" stop-opacity="0"/></radialGradient></defs>
+    <ellipse cx="200" cy="120" rx="230" ry="130" fill="url(#${id}l)"/>
+    <rect x="66" y="30" width="268" height="158" rx="12" fill="#040D1E" stroke="#2B3E5E" stroke-width="4"/><rect x="78" y="42" width="244" height="134" rx="4" fill="url(#${id}t)"/>
+    <path d="M78 176l52-46 34 26 52-62 50 50 30-18 26 22v28z" fill="#D4AF37" opacity=".45"/><circle cx="270" cy="72" r="14" fill="#F3DC86" opacity=".8"/>
+    <path d="M190 188l-10 22h40l-10-22" fill="#2B3E5E"/><rect y="236" width="400" height="64" fill="#061A38"/>
+    <ellipse cx="200" cy="290" rx="120" ry="10" fill="#000" opacity=".35"/>
+    <path d="M118 236c10-18 32-24 56-20h52c24-4 46 2 56 20l16 42c5 16-14 27-28 16l-20-18h-100l-20 18c-14 11-33 0-28-16z" fill="#0E1F3D" stroke="#D4AF37" stroke-width="3.5" stroke-linejoin="round"/>
+    <path d="M160 238v20M150 248h20" stroke="#D4AF37" stroke-width="5" stroke-linecap="round"/>
+    <g fill="#D4AF37"><circle cx="242" cy="236" r="5"/><circle cx="256" cy="248" r="5"/><circle cx="228" cy="248" r="5"/><circle cx="242" cy="260" r="5"/></g><circle cx="186" cy="264" r="8" fill="#16294A" stroke="#D4AF37" stroke-opacity=".6"/><circle cx="214" cy="264" r="8" fill="#16294A" stroke="#D4AF37" stroke-opacity=".6"/>`,
+  cyber: id => `<defs><linearGradient id="${id}t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1D5AB0"/><stop offset="1" stop-color="#0A2C66"/></linearGradient></defs>
+    <ellipse cx="200" cy="40" rx="220" ry="120" fill="url(#${id}g)"/>
+    ${[[24, 92, 112, 72], [140, 64, 120, 84], [264, 92, 112, 72]].map(([x, y, w, h], j) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6" fill="#040D1E" stroke="#2B3E5E" stroke-width="3"/><rect x="${x + 7}" y="${y + 7}" width="${w - 14}" height="${h - 14}" rx="2" fill="url(#${id}t)"/>${[0, 1, 2, 3].map(i => `<rect x="${x + 14 + (i % 2) * 10}" y="${y + 16 + i * 12}" width="${w * (.25 + ((i + j) % 3) * .15)}" height="4" rx="2" fill="${i % 2 ? "#F3DC86" : "#8FB4F0"}" opacity=".85"/>`).join("")}<path d="M${x + w / 2 - 6} ${y + h}h12l4 ${190 - y - h}h-20z" fill="#2B3E5E"/>`).join("")}
+    <rect y="190" width="400" height="110" fill="#0A1A33"/><path d="M0 190h400" stroke="#D4AF37" stroke-width="3"/>
+    <rect x="140" y="206" width="120" height="22" rx="4" fill="#13284A" stroke="#D4AF37" stroke-opacity=".7"/>${[0, 1, 2].map(r => Array.from({ length: 10 }, (_, i) => `<rect x="${146 + i * 11.2}" y="${210 + r * 6}" width="8" height="3.5" rx="1" fill="#8FB4F0" opacity=".55"/>`).join("")).join("")}
+    <ellipse cx="290" cy="218" rx="10" ry="14" fill="#13284A" stroke="#D4AF37" stroke-opacity=".7"/>
+    <path d="M160 300v-40q0-14 14-14h52q14 0 14 14v40" fill="#16243A" stroke="#D4AF37" stroke-opacity=".5" stroke-width="2"/>`
+};
+function art(k, cls = "art") {
+  const id = "ar" + (++artSeq), wide = k === "hero";
+  return `<svg class="${cls}" viewBox="0 0 ${wide ? "800 520" : "400 300"}" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><defs><linearGradient id="${id}bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A4A8A"/><stop offset=".55" stop-color="#0B2D5B"/><stop offset="1" stop-color="#061A38"/></linearGradient><radialGradient id="${id}g" cx=".5" cy=".1" r=".7"><stop offset="0" stop-color="#F3DC86" stop-opacity=".4"/><stop offset="1" stop-color="#F3DC86" stop-opacity="0"/></radialGradient></defs><rect width="100%" height="100%" fill="url(#${id}bg)"/>${ARTS[k](id)}</svg>`;
+}
+
+const ICO_SEARCH = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>`;
+const FI = {
+  fast: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>`,
+  clock: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>`,
+  cash: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.8"/><path d="M6 9.5v5M18 9.5v5"/></svg>`,
+  star: `<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>`
+};
+const OI = {
+  dash: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7.5" height="9" rx="2"/><rect x="13.5" y="3" width="7.5" height="5" rx="2"/><rect x="13.5" y="11" width="7.5" height="10" rx="2"/><rect x="3" y="15" width="7.5" height="6" rx="2"/></svg>`,
+  inbox: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>`,
+  cal: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>`,
+  tag: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>`,
+  store: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 4.5 4h15L21 9.5"/><path d="M3 9.5a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M5 12v8h14v-8M10 20v-5h4v5"/></svg>`,
+  eye: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  phone: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>`,
+  mail: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>`
+};
+function validEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e) && e.length <= 100; }
+
 /* ---------------- logo ---------------- */
 function logo(size = 40) {
   const g = "lg" + size;
@@ -495,7 +773,7 @@ function render() {
   renderTop(); renderFoot();
   if (!CONFIGURED) { main.innerHTML = `<div class="wrap"><div class="card"><h2>احجز دورك محتاج يتربط بـ Firebase</h2><p class="muted" style="margin:0">حط بيانات مشروع Firebase في أول الكود (firebaseConfig) وارفع الملف تاني.</p></div></div>`; return; }
   if (!S.ready) { main.innerHTML = `<div class="spinner" role="status" aria-label="بيحمّل"></div>`; return; }
-  const v = S.view, views = { setpass: vSetPass, welcome: vWelcome, auth: vAuth, profile: vProfile, home: vHome, shop: vShop, booked: vBooked, mybookings: vMyBookings, barber: vBarber, admin: vAdmin, account: vAccount };
+  const v = S.view, views = { forgot: vForgot, setpass: vSetPass, welcome: vWelcome, auth: vAuth, profile: vProfile, home: vHome, shop: vShop, booked: vBooked, mybookings: vMyBookings, barber: vBarber, admin: vAdmin, account: vAccount };
   // guards
   if ((v === "mybookings" || v === "account") && !S.user) return go("auth", { role: "customer", next: v }, false);
   if (v === "barber" && (!S.profile || S.profile.role !== "barber")) return go(homeView(), {}, false);
@@ -508,7 +786,7 @@ function render() {
 /* ---------------- welcome (first visit) ---------------- */
 function vWelcome() {
   main.innerHTML = `<div class="wrap">
-  <div class="hero center">${logo(76)}<h1>وقتك غالي.. <span class="g">احجز دورك الآن</span></h1><p>احجز ملعب بادل أو كورة، حلاق، كوافير، بلايستيشن أو سيبر في دمياط الجديدة، وادفع في المكان.</p></div>
+  <section class="phero center">${art("hero")}${logo(72)}<span class="kicker">دمياط الجديدة · New Damietta</span><h1>وقتك غالي.. <span class="g">احجز دورك الآن</span></h1><p>احجز ملعب بادل أو كورة، حلاق، كوافير، بلايستيشن أو سيبر، وادفع في المكان.</p></section>
   <div class="sechead"><h2>إنت مين؟</h2></div>
   <div class="choice">
     <button data-act="pickrole" data-role="customer"><span class="ico">${icoPerson()}</span><span class="t">عميل<span class="en">Customer</span></span><span class="d">دوّر على مكان واحجز دورك</span></button>
@@ -535,6 +813,7 @@ function vAuth() {
     <form id="authform" novalidate class="card" style="padding:0;border:0;background:none">
       ${mode === "register" ? `<label class="f">${isB ? "اسمك" : "الاسم"}<input id="a-name" autocomplete="name" required maxlength="60"></label>` : ""}
       <label class="f">رقم الموبايل<input id="a-phone" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="01xxxxxxxxx" required value="${inv && inv.wa ? esc(inv.wa) : ""}"></label>
+      ${mode === "register" ? `<label class="f">الإيميل (اختياري)<input id="a-email" type="email" inputmode="email" autocomplete="email" dir="ltr" maxlength="100" placeholder="name@gmail.com"><span class="small muted" style="font-weight:400">بيساعدنا نعرفك لو نسيت كلمة السر.</span></label>` : ""}
       <label class="f">كلمة السر<input id="a-pass" type="password" autocomplete="${mode === "register" ? "new-password" : "current-password"}" dir="ltr" minlength="6" required></label>
       <div class="err" id="a-err" role="alert"></div>
       <button class="btn pri block" type="submit" id="a-go">${mode === "register" ? "اعمل الحساب" : "ادخل"}</button>
@@ -549,6 +828,8 @@ function vAuth() {
     e.preventDefault();
     const err = $("#a-err"), btn = $("#a-go"); err.textContent = "";
     const phone = normPhone($("#a-phone").value), pass = $("#a-pass").value, name = mode === "register" ? $("#a-name").value.trim() : "";
+    const email = mode === "register" ? ($("#a-email").value || "").trim().toLowerCase() : "";
+    if (email && !validEmail(email)) { err.textContent = "الإيميل مش مكتوب صح، أو سيبه فاضي."; return; }
     if (mode === "register" && name.length < 2) { err.textContent = "اكتب اسمك."; return; }
     if (!validPhone(phone)) { err.textContent = "رقم الموبايل لازم يبقى ١١ رقم ويبدأ بـ 01."; return; }
     if (pass.length < 6) { err.textContent = "كلمة السر لازم تبقى ٦ حروف أو أرقام على الأقل."; return; }
@@ -556,21 +837,23 @@ function vAuth() {
     store("dawrak.role", role);
     S.afterLogin = S.params.next || null; S.afterLoginParams = S.params.nextParams || {};
     try {
-      const email = phone + "@" + PHONE_DOMAIN;
+      const login = phone + "@" + PHONE_DOMAIN;
       if (mode === "register") {
-        S.pendingProfile = { role, name, phone };
-        const cred = await fb.createUserWithEmailAndPassword(auth, email, pass);
+        S.pendingProfile = { role, name, phone, ...(email ? { email } : {}) };
+        const cred = await fb.createUserWithEmailAndPassword(auth, login, pass);
         await createProfile(cred.user.uid, S.pendingProfile);
       } else {
-        await fb.signInWithEmailAndPassword(auth, email, pass);
+        await fb.signInWithEmailAndPassword(auth, login, pass);
       }
     } catch (ex) {
       S.afterLogin = null; err.textContent = errText(ex); btn.disabled = false; btn.textContent = mode === "register" ? "اعمل الحساب" : "ادخل"; }
   });
 }
 async function createProfile(uid, p) {
-  await fb.setDoc(fb.doc(db, "users", uid), { role: p.role, name: p.name, phone: p.phone, status: "active", createdAt: fb.serverTimestamp() });
-  S.profile = { role: p.role, name: p.name, phone: p.phone, status: "active" };
+  const d = { role: p.role, name: p.name, phone: p.phone, status: "active" };
+  if (p.email) d.email = p.email;
+  await fb.setDoc(fb.doc(db, "users", uid), { ...d, createdAt: fb.serverTimestamp() });
+  S.profile = d;
 }
 // account exists in Auth but its profile was never written
 function vProfile() {
@@ -596,24 +879,50 @@ async function loadShops() {
   shopsCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
   return shopsCache;
 }
+function brandRow(g, cat) {
+  const best = Math.max(...g.map(ratingOf)), cnt = g.reduce((a, s) => a + (s.ratingCount || 0), 0), mp = Math.min(...g.map(minPrice).filter(Boolean).concat([Infinity]));
+  return `<button class="shop brandrow" data-act="brand" data-o="${esc(ownerOf(g[0]))}" data-c="${esc(cat)}"><span class="avs">${g.slice(0, 2).map(s => avatar(s, "av")).join("")}</span><span class="info"><span class="name">${esc(brandOf(g))}</span><span><span class="brpill">${OI.store.replace(/22/g, "14")} ${n(g.length)} فروع</span></span><span class="muted small">${esc([...new Set(g.map(s => s.area))].join(" · "))}</span><span class="small">${cnt ? `<span class="stars">${stars(best)}</span> ${n(best.toFixed(1))}` : `<span class="muted">لسه مفيش تقييمات</span>`}${isFinite(mp) ? ` · <span class="price">من ${money(mp)}</span>` : ""}</span></span><span aria-hidden="true" class="muted">‹</span></button>`;
+}
+// customer taps a business with several branches: its branches as icons, tap one to open its page
+function brandListSheet(owner, cat) {
+  const all = (shopsCache || []).filter(s => ownerOf(s) === owner).sort((a, b) => (catOf(a) === cat ? 0 : 1) - (catOf(b) === cat ? 0 : 1) || ratingOf(b) - ratingOf(a));
+  if (!all.length) return;
+  openSheet(esc(brandOf(all)), `<p class="muted small" style="margin:0">${n(all.length)} فروع. اختار الفرع اللي يناسبك.</p>
+  <div class="bgrid">${all.map(s => `<button class="bcard" data-act="openshop" data-id="${esc(s.id)}"><span class="bimg">${s.photo ? `<img src="${esc(s.photo)}" alt="">` : art(catOf(s))}</span><span class="bt"><strong>${esc(s.name)}</strong><span>${esc(s.area)} · ${esc(CATS[catOf(s)].ar)}</span><span>${s.ratingCount ? `<span class="stars">${stars(ratingOf(s))}</span> ${n(ratingOf(s).toFixed(1))}` : "لسه مفيش تقييمات"}${minPrice(s) ? ` · <span class="price">من ${money(minPrice(s))}</span>` : ""}</span></span></button>`).join("")}</div>`);
+}
+// shop page: the other branches of the same business
+function drawSiblings(s) {
+  const put = l => {
+    const el = $("#sibs"); if (!el || !bk || bk.s.id !== s.id) return;
+    const sib = l.filter(x => ownerOf(x) === ownerOf(s) && x.id !== s.id);
+    if (!sib.length) { el.innerHTML = ""; return; }
+    el.innerHTML = `<div class="card"><h3>فروع تانية لـ ${esc(brandOf([s, ...sib]))}</h3><div class="sibs">${sib.map(x => `<button class="sib" data-act="openshop" data-id="${esc(x.id)}">${avatar(x, "av")}<span><strong>${esc(x.name)}</strong><span>${esc(x.area)} · ${esc(CATS[catOf(x)].ar)}</span></span></button>`).join("")}</div></div>`;
+  };
+  (shopsCache ? Promise.resolve(shopsCache) : loadShops()).then(put).catch(() => {});
+}
+function shopRow(s, withCat) {
+  return `<button class="shop" data-act="openshop" data-id="${esc(s.id)}">${avatar(s, "av")}<span class="info"><span class="name">${esc(s.name)}</span><span class="muted small">${withCat && s.brand && s.brand !== s.name ? esc(s.brand) + " · " : ""}${withCat ? `حجز ${esc(CATS[catOf(s)].ar)} · ` : ""}${esc(s.area)}</span><span class="small">${s.ratingCount ? `<span class="stars" aria-label="التقييم ${n(ratingOf(s).toFixed(1))} من ٥">${stars(ratingOf(s))}</span> ${n(ratingOf(s).toFixed(1))} <span class="muted">(${n(s.ratingCount)} تقييم)</span>` : `<span class="muted">لسه مفيش تقييمات</span>`}</span>${minPrice(s) ? `<span class="price small">من ${money(minPrice(s))}</span>` : ""}</span><span aria-hidden="true" class="muted">‹</span></button>`;
+}
 function vHome() {
   const cat = S.params.cat && CATS[S.params.cat] ? S.params.cat : null;
   if (!cat) return vCats();
   const C = CATS[cat], q = S.params.q || "";
   main.innerHTML = `<div class="wrap">
   <button class="btn switch sm" data-act="cats" style="align-self:flex-start">› كل الفئات</button>
-  <div class="row" style="gap:12px"><span class="ico">${C.icon}</span><div><h2 style="font-size:1.5rem">حجز ${C.ar} <span class="en small" style="color:var(--gold-deep)">${C.en}</span></h2><p class="muted small" style="margin:0">اختار المكان، الخدمة، والمعاد. الدفع في المكان.</p></div></div>
-  <label class="search"><span aria-hidden="true">⌕</span><input id="q" type="search" placeholder="دوّر باسم المكان أو المنطقة" value="${esc(q)}" aria-label="بحث"></label>
+  <div class="cathead">${art(cat)}<span class="enl en">${C.en}</span><h2>حجز ${C.ar}</h2><p>اختار المكان، الخدمة، والمعاد. الدفع في المكان.</p></div>
+  <label class="search">${ICO_SEARCH}<input id="q" type="search" placeholder="دوّر باسم المكان أو المنطقة" value="${esc(q)}" aria-label="بحث"></label>
   <div class="tabs" id="areas"></div>
   <div id="shoplist" class="stack"><div class="spinner" role="status" aria-label="بيحمّل"></div></div></div>`;
   const draw = all => {
     const list = all.filter(s => catOf(s) === cat);
     const qq = ($("#q") || {}).value || "", ar = S.params.area || "الكل";
-    const areas = ["الكل", ...AREAS.filter(a => list.some(s => s.area === a))];
+    const areas = ["الكل", ...new Set(list.map(s => s.area).filter(Boolean))];
     $("#areas").innerHTML = areas.length > 2 ? areas.map(a => `<button class="chip" data-act="area" data-a="${esc(a)}" aria-pressed="${a === ar}">${esc(a)}</button>`).join("") : "";
-    const f = list.filter(s => (ar === "الكل" || s.area === ar) && (!qq.trim() || (s.name + " " + s.area).includes(qq.trim())))
+    const f = list.filter(s => (ar === "الكل" || s.area === ar) && (!qq.trim() || (s.name + " " + s.area).toLowerCase().includes(qq.trim().toLowerCase())))
       .sort((a, b) => ratingOf(b) - ratingOf(a) || a.name.localeCompare(b.name, "ar"));
-    $("#shoplist").innerHTML = f.length ? f.map(s => `<button class="shop" data-act="openshop" data-id="${esc(s.id)}">${avatar(s, "av")}<span class="info"><span class="name">${esc(s.name)}</span><span class="muted small">${esc(s.area)}</span><span class="small">${s.ratingCount ? `<span class="stars" aria-label="التقييم ${n(ratingOf(s).toFixed(1))} من ٥">${stars(ratingOf(s))}</span> ${n(ratingOf(s).toFixed(1))} <span class="muted">(${n(s.ratingCount)} تقييم)</span>` : `<span class="muted">لسه مفيش تقييمات</span>`}</span>${minPrice(s) ? `<span class="price small">من ${money(minPrice(s))}</span>` : ""}</span><span aria-hidden="true" class="muted">‹</span></button>`).join("")
+    const groups = []; const gi = {};
+    f.forEach(s => { const o = ownerOf(s); if (gi[o] === undefined) { gi[o] = groups.length; groups.push([]); } groups[gi[o]].push(s); });
+    $("#shoplist").innerHTML = f.length ? groups.map(g => g.length > 1 ? brandRow(g, cat) : shopRow(g[0], false)).join("")
       : `<div class="empty">${list.length ? "مفيش مكان بالاسم ده. جرّب منطقة تانية." : `لسه مفيش أماكن ${esc(C.ar)} على احجز دورك. قريباً إن شاء الله.`}</div>`;
   };
   $("#q").addEventListener("input", () => { S.params.q = $("#q").value; if (shopsCache) draw(shopsCache); });
@@ -622,16 +931,52 @@ function vHome() {
   if (shopsCache) loadShops().then(l => { if (S.view === "home" && S.params.cat === cat) draw(l); }).catch(() => {});
 }
 function vCats() {
-  main.innerHTML = `<div class="wrap">
-  <div class="hero"><h1>وقتك غالي.. <span class="g">احجز دورك الآن</span></h1><p>ملاعب، حلاقين، كوافير، بلايستيشن وسيبر في دمياط الجديدة. اختار، احجز، وادفع في المكان.</p></div>
+  const q = S.params.gq || "", owner = S.profile && S.profile.role === "barber";
+  main.innerHTML = `<div class="wrap wide">
+  <section class="phero">${art("hero")}<span class="kicker">دمياط الجديدة · New Damietta</span><h1>وقتك غالي.. <span class="g">احجز دورك الآن</span></h1><p>ملاعب، حلاقين، كوافير، بلايستيشن وسيبر. اختار، احجز، وادفع في المكان.</p>
+    <label class="search big">${ICO_SEARCH}<input id="gq" type="search" enterkeyhint="search" placeholder="دوّر على ملعب، حلاق، كوافير…" value="${esc(q)}" aria-label="بحث في كل الأماكن"></label></section>
+  <div id="gres" class="stack" hidden></div>
+  <div id="hsecs" class="secs">
   ${installBanner()}
   ${!S.user ? `<div class="note">إنت بتتفرّج من غير حساب. هتحتاج تسجّل لما تحجز. <button class="btn switch sm" data-act="login" style="margin-inline-start:6px">دخول / حساب جديد</button></div>` : ""}
-  ${S.user && S.profile && S.profile.role === "barber" ? `<div class="note">إنت داخل بحساب صاحب مكان. الحجز من حساب عميل بس.</div>` : ""}
+  ${owner ? `<div class="note">إنت داخل بحساب صاحب مكان. الحجز من حساب عميل بس.</div>` : ""}
+  ${reviewBar()}
   <div class="sechead"><h2>اختار اللي عايز تحجزه</h2></div>
-  <div class="cats">${CAT_ORDER.map(k => `<button class="cat" data-act="cat" data-c="${k}"><span class="ci">${CATS[k].icon}</span><span class="ar">حجز ${CATS[k].ar}</span><span class="enl">${CATS[k].en}</span><span class="cnt" data-cnt="${k}">&nbsp;</span></button>`).join("")}</div></div>`;
+  <div class="pcats">${CAT_ORDER.map(k => `<button class="pcat" data-act="cat" data-c="${k}" aria-label="حجز ${CATS[k].ar}">${art(k)}<span class="cnt" data-cnt="${k}"></span><span class="lbl"><span class="ar">حجز ${CATS[k].ar}</span><span class="enl">${CATS[k].en}</span></span></button>`).join("")}</div>
+  <div class="sechead"><h2>ليه احجز دورك؟</h2></div>
+  <div class="feats">
+    <div class="feat"><span class="fi">${FI.fast}</span><strong>احجز في ثواني</strong><span>من موبايلك، من غير مكالمات ولا انتظار.</span></div>
+    <div class="feat"><span class="fi">${FI.clock}</span><strong>المواعيد الفاضية بس</strong><span>بتشوف المتاح فعلاً، فمفيش لخبطة.</span></div>
+    <div class="feat"><span class="fi">${FI.cash}</span><strong>الدفع في المكان</strong><span>كاش وقت ما تروح، من غير فيزا.</span></div>
+    <div class="feat"><span class="fi">${FI.star}</span><strong>تقييمات حقيقية</strong><span>من عملاء حجزوا وراحوا فعلاً.</span></div>
+  </div>
+  <div class="sechead"><h2>إزاي بيشتغل؟</h2></div>
+  <div class="how">
+    <div><div><strong>اختار الفئة والمكان</strong><span>ملعب، حلاق، كوافير، بلايستيشن أو سيبر قريب منك.</span></div></div>
+    <div><div><strong>اختار الخدمة والمعاد</strong><span>اليوم والساعة من المواعيد الفاضية بس.</span></div></div>
+    <div><div><strong>روح في معادك وادفع هناك</strong><span>المكان بيأكّد حجزك، وانت بتدفع في المكان.</span></div></div>
+  </div>
+  ${!S.user ? `<div class="join"><span class="ji">${OI.store}</span><span class="kicker">لأصحاب الأماكن · Business owners</span><h2>انضم لدورك</h2><p>عندك ملعب، محل حلاقة، كوافير، بلايستيشن أو سيبر؟ سجّل مكانك واستقبل الحجوزات ونظّم مواعيدك من موبايلك. مجاناً في فترة التجربة.</p><button class="btn pri lg" data-act="pickrole" data-role="barber">سجّل مكانك دلوقتي</button></div>` : ""}
+  </div></div>`;
+  const runQ = () => {
+    const el = $("#gq"); if (!el) return;
+    const v = el.value.trim().toLowerCase(); S.params.gq = el.value;
+    const res = $("#gres"), secs = $("#hsecs");
+    if (!v) { res.hidden = true; secs.hidden = false; return; }
+    res.hidden = false; secs.hidden = true;
+    if (!shopsCache) { res.innerHTML = `<div class="spinner" role="status" aria-label="بيحمّل"></div>`; return; }
+    const f = shopsCache.filter(s => { const C = CATS[catOf(s)]; return [s.name, s.brand || "", s.area, C.ar, "حجز " + C.ar, C.en, ...(s.services || []).map(x => x.name)].join(" ").toLowerCase().includes(v); })
+      .sort((a, b) => ratingOf(b) - ratingOf(a) || a.name.localeCompare(b.name, "ar"));
+    res.innerHTML = `<div class="row between"><h3>نتايج البحث <span class="muted small">(${n(f.length)})</span></h3><button class="btn switch sm" data-act="clearq">مسح البحث</button></div>` + (f.length ? f.map(s => shopRow(s, true)).join("") : `<div class="empty">مفيش أماكن بالاسم ده. جرّب كلمة تانية أو اختار فئة.</div>`);
+  };
+  S.runQ = runQ;
+  $("#gq").addEventListener("input", runQ);
+  $("#gq").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); e.target.blur(); } });
   (shopsCache ? Promise.resolve(shopsCache) : loadShops()).then(l => {
     CAT_ORDER.forEach(k => { const el = $(`[data-cnt="${k}"]`); if (!el) return; const c = l.filter(s => catOf(s) === k).length; el.textContent = c ? n(c) + " " + (c === 1 ? "مكان" : "أماكن") : "قريباً"; });
+    runQ();
   }).catch(() => {});
+  if (q) runQ();
 }
 
 /* ---------------- customer: shop + booking ---------------- */
@@ -644,24 +989,26 @@ async function vShop() {
   catch (e) { main.innerHTML = `<div class="wrap"><div class="empty">${esc(errText(e))}</div><button class="btn" data-act="home">رجوع</button></div>`; return; }
   if (S.view !== "shop" || S.params.id !== id) return;
   const days = nextDays(BOOK_DAYS);
-  bk = { s, days, day: S.params.day || null, time: S.params.time || null, svc: new Set(S.params.svc || []), slots: {}, note: S.params.note || "" };
+  bk = { s, days, day: S.params.day || null, time: S.params.time || null, hrs: multiHour(s) ? Math.min(MAX_HRS, Math.max(1, +S.params.hrs || 1)) : 1, svc: new Set(S.params.svc || []), slots: {}, note: S.params.note || "" };
   const canBook = !S.profile || S.profile.role === "customer";
   main.innerHTML = `<div class="wrap">
     <button class="btn switch sm" data-act="cat" data-c="${catOf(s)}" style="align-self:flex-start">› كل أماكن ${esc(CATS[catOf(s)].ar)}</button>
-    ${s.photo ? `<img class="hero-img" src="${esc(s.photo)}" alt="صورة ${esc(s.name)}">` : `<div class="hero-img" aria-hidden="true">${esc(initials(s.name))}</div>`}
+    <div class="shophero">${s.photo ? `<img class="hero-img" src="${esc(s.photo)}" alt="صورة ${esc(s.name)}">` : `<div class="hero-img hasart" aria-hidden="true">${art(catOf(s))}</div>`}${s.logo ? `<img class="lg" src="${esc(s.logo)}" alt="لوجو ${esc(s.name)}">` : `<span class="lg" aria-hidden="true">${esc(initials(s.name))}</span>`}</div>
     <div class="card">
-      <div><h2 style="font-size:1.6rem">${esc(s.name)}</h2><div class="muted">حجز ${esc(CATS[catOf(s)].ar)} · ${esc(s.area)}</div>
+      <div><h2 style="font-size:1.6rem">${esc(s.name)}</h2><div class="muted">${s.brand && s.brand !== s.name ? esc(s.brand) + " · " : ""}حجز ${esc(CATS[catOf(s)].ar)} · ${esc(s.area)}</div>${s.address ? `<div class="small">📍 ${esc(s.address)}</div>` : ""}
       <div class="small">${s.ratingCount ? `<span class="stars">${stars(ratingOf(s))}</span> ${n(ratingOf(s).toFixed(1))} <span class="muted">(${n(s.ratingCount)} تقييم)</span>` : `<span class="muted">لسه مفيش تقييمات</span>`}</div></div>
       <div class="row">
         ${s.phone ? `${tel(s.phone)}<button class="btn sm" data-act="copy" data-t="${esc(s.phone)}">نسخ الرقم</button>` : ""}
         ${s.whatsapp ? `<a class="btn sm wa" target="_blank" rel="noopener" href="${waLink(s.whatsapp)}">واتساب</a>` : ""}
         <a class="btn sm" target="_blank" rel="noopener" href="${esc(/^https:\/\//.test(s.mapUrl || "") ? s.mapUrl : "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(s.name + " " + s.area + " دمياط الجديدة"))}">الموقع على الخريطة</a>
       </div>
-      <details class="small"><summary class="muted" style="cursor:pointer">مواعيد العمل</summary><dl class="kv" style="margin-top:6px">${WEEK_ORDER.map(k => `<dt>${ISO_DAYS[k]}</dt><dd>${s.hours[k] && s.hours[k].open ? `من ${fmtT(s.hours[k].from)} لحد ${fmtT(s.hours[k].to)}` : `<span class="muted">إجازة</span>`}</dd>`).join("")}</dl></details>
+      <details class="small"><summary class="muted" style="cursor:pointer">مواعيد العمل</summary><dl class="kv" style="margin-top:6px">${WEEK_ORDER.map(k => `<dt>${ISO_DAYS[k]}</dt><dd>${hoursText(s.hours[k])}</dd>`).join("")}</dl></details>
     </div>
     <div class="card"><h3>١. اختار الخدمة</h3><div id="svcs" class="stack">${(s.services || []).map((x, i) => `<label class="svc"><input type="checkbox" id="svc-${i}" data-svc="${i}"${bk.svc.has(i) ? " checked" : ""}><span class="n">${esc(x.name)}<div class="muted small">${n(x.mins)} دقيقة</div></span><span class="price">${money(x.price)}</span></label>`).join("")}</div></div>
     <div class="card"><h3>٢. اختار اليوم</h3><div class="tabs" id="days"></div></div>
-    <div class="card"><h3>٣. اختار الساعة</h3><p class="muted small" style="margin:0">ظاهر بس المواعيد الفاضية. كل حجز ${stepLabel(s)}.</p><div class="slots" id="slots"></div></div>
+    <div class="card"><h3>٣. ${multiHour(s) ? "اختار المدة والساعة" : "اختار الساعة"}</h3>
+      ${multiHour(s) ? `<div class="durs" id="durs" role="group" aria-label="مدة الحجز"></div>` : ""}
+      <p class="muted small" style="margin:0">ظاهر بس المواعيد الفاضية${multiHour(s) ? " للمدة اللي اخترتها" : `. كل حجز ${stepLabel(s)}`}.</p><div class="slots" id="slots"></div></div>
     <div class="card"><h3>٤. الدفع والتأكيد</h3>
       <label class="svc"><input type="radio" name="pay" checked id="pay-cash"><span class="n">الدفع في المكان<div class="muted small">كاش وقت ما تروح</div></span></label>
       <label class="f">ملاحظة للمكان (اختياري)<input id="bk-note" maxlength="140" value="${esc(bk.note)}"></label>
@@ -669,23 +1016,49 @@ async function vShop() {
       <div class="err" id="bk-err" role="alert"></div>
       ${canBook ? `<button class="btn pri block" id="bk-go" data-act="confirm">${S.user ? "أكّد الحجز" : "سجّل دخول وأكّد الحجز"}</button>` : `<div class="note">الحجز متاح من حساب عميل بس.</div>`}
     </div>
+    <div id="gallery"></div>
+    <div id="sibs"></div>
     <div class="card"><h3>التقييمات</h3><div id="reviews"><div class="muted small">بيحمّل…</div></div></div>
   </div>`;
   if (!bk.day) bk.day = days.find(k => availableTimes(k).length || (s.hours[isoDow(parseKey(k))] || {}).open) || days[0];
-  drawDays(); subscribeSlots(); drawSummary();
+  drawDays(); drawDurs(); subscribeSlots(); drawSummary();
+  drawSiblings(s);
+  fb.getDocs(fb.collection(db, "shops", s.id, "photos")).then(snap => {
+    const el = $("#gallery"); if (!el || !bk || bk.s.id !== s.id || snap.empty) return;
+    S.gallery = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => (a.createdAt?.seconds || 0) - (b.createdAt?.seconds || 0));
+    el.innerHTML = `<div class="card"><h3>صور المكان</h3><div class="strip">${S.gallery.map((p, i) => `<button data-act="viewpic" data-i="${i}" aria-label="صورة ${n(i + 1)}"><img src="${esc(p.img)}" alt="" loading="lazy"></button>`).join("")}</div></div>`;
+  }).catch(() => {});
   $("#bk-note") && $("#bk-note").addEventListener("input", e => { bk.note = e.target.value; });
   loadReviews(s.id);
 }
+function nextKey(day) { const d = parseKey(day); d.setDate(d.getDate() + 1); return dkey(d); }
+// every bookable slot of a day in order; a day that runs until midnight continues into the next day if it opens at 00:00
+function timeline(day, s) {
+  s = s || bk.s;
+  const h = s.hours[isoDow(parseKey(day))], st = stepOf(s), own = slotTimes(h, st).map(t => ({ k: day, t }));
+  if (!own.length || st !== 60) return own;
+  const last = own[own.length - 1].t, overnight = mins(h.to) <= mins(h.from) && h.from !== h.to && mins(h.to) !== 0;
+  if (overnight || mins(last) + st !== 1440) return own;
+  const nk = nextKey(day), nh = s.hours[isoDow(parseKey(nk))];
+  if (!nh || !nh.open || mins(nh.from) !== 0) return own;
+  return own.concat(slotTimes(nh, st).slice(0, MAX_HRS - 1).map(t => ({ k: nk, t })));
+}
+function slotFree(k, t) {
+  const sd = bk.slots[slotId(k, t)], cap = sd && typeof sd.cap === "number" ? sd.cap : bk.s.capacity;
+  return !(sd && (sd.closed || sd.count >= cap));
+}
+function seqFor(day, time, hrs, s) { const tl = timeline(day, s), i = tl.findIndex(x => x.k === day && x.t === time); if (i < 0) return null; const q = tl.slice(i, i + hrs); return q.length === hrs ? q : null; }
 function availableTimes(day) {
   if (!bk) return [];
-  const h = bk.s.hours[isoDow(parseKey(day))], now = Date.now() + 15 * 60000;
+  const h = bk.s.hours[isoDow(parseKey(day))], now = Date.now() + 15 * 60000, hrs = bk.hrs || 1;
   return slotTimes(h, stepOf(bk.s)).filter(t => {
-    const sd = bk.slots[slotId(day, t)];
-    const cap = sd && typeof sd.cap === "number" ? sd.cap : bk.s.capacity;
-    if (sd && sd.closed) return false;
-    if (sd && sd.count >= cap) return false;
-    return slotDateTime(day, t, h).getTime() > now;
+    if (slotDateTime(day, t, h).getTime() <= now) return false;
+    const q = seqFor(day, t, hrs); return !!q && q.every(x => slotFree(x.k, x.t));
   });
+}
+function drawDurs() {
+  const el = $("#durs"); if (!el) return;
+  el.innerHTML = Array.from({ length: MAX_HRS }, (_, i) => i + 1).map(h => `<button class="chip" data-act="dur" data-h="${h}" aria-pressed="${bk.hrs === h}">${hrsLabel(h)}</button>`).join("");
 }
 function drawDays() {
   $("#days").innerHTML = bk.days.map(k => { const h = bk.s.hours[isoDow(parseKey(k))]; const off = !h || !h.open; return `<button class="chip" data-act="day" data-d="${k}" aria-pressed="${bk.day === k}"${off ? " disabled title=\"إجازة\"" : ""}>${dayLabel(k)} ${n(parseKey(k).getDate())}</button>`; }).join("");
@@ -694,7 +1067,7 @@ function subscribeSlots() {
   S.viewUnsubs.forEach(u => u()); S.viewUnsubs = [];
   const day = bk.day; bk.slots = {};
   $("#slots").innerHTML = `<div class="muted small">بيحمّل المواعيد…</div>`;
-  const u = fb.onSnapshot(fb.query(fb.collection(db, "shops", bk.s.id, "slots"), fb.where("date", "==", day)), snap => {
+  const u = fb.onSnapshot(fb.query(fb.collection(db, "shops", bk.s.id, "slots"), fb.where("date", "in", [day, nextKey(day)])), snap => {
     if (!bk || bk.day !== day) return;
     bk.slots = {}; snap.forEach(d => { bk.slots[d.id] = d.data(); });
     drawSlots();
@@ -709,9 +1082,10 @@ function drawSlots() {
 }
 function chosenServices() { return (bk.s.services || []).filter((_, i) => bk.svc.has(i)); }
 function drawSummary() {
-  const sv = chosenServices(), tot = sv.reduce((a, x) => a + (+x.price || 0), 0), dur = sv.reduce((a, x) => a + (+x.mins || 0), 0);
+  const sv = chosenServices(), hrs = bk.hrs || 1, tot = sv.reduce((a, x) => a + (+x.price || 0), 0) * hrs, dur = sv.reduce((a, x) => a + (+x.mins || 0), 0);
+  const durTxt = multiHour(bk.s) ? hrsLabel(hrs) + (bk.time ? ` · لحد ${fmtT(hhmm(mins(bk.time) + 60 * hrs))}` : "") : (dur ? n(dur) + " دقيقة" : "—");
   $("#summary").innerHTML = `<div class="ticket" aria-label="ملخص الحجز"><div class="tp"><div><div class="small" style="opacity:.8">دورك عند</div><div style="font-weight:600">${esc(bk.s.name)}</div></div><div style="text-align:end"><div class="when">${bk.time ? fmtT(bk.time) : "—"}</div><div class="small">${bk.day ? fmtDate(bk.day) : ""}</div></div></div><div class="perf"></div>
-  <dl><dt>الخدمة</dt><dd>${sv.length ? esc(sv.map(x => x.name).join(" + ")) : "—"}</dd><dt>المدة</dt><dd>${dur ? n(dur) + " دقيقة" : "—"}</dd><dt>الدفع</dt><dd>في المكان</dd><dt>الإجمالي</dt><dd class="total">${money(tot)}</dd></dl></div>`;
+  <dl><dt>الخدمة</dt><dd>${sv.length ? esc(sv.map(x => x.name).join(" + ")) : "—"}</dd><dt>المدة</dt><dd>${durTxt}</dd><dt>الدفع</dt><dd>في المكان</dd><dt>الإجمالي</dt><dd class="total">${money(tot)}${hrs > 1 && sv.length ? ` <span class="muted small">(${money(tot / hrs)} × ${hrsLabel(hrs)})</span>` : ""}</dd></dl></div>`;
   const b = $("#bk-go"); if (b) b.disabled = !(sv.length && bk.time);
 }
 async function confirmBooking() {
@@ -719,35 +1093,40 @@ async function confirmBooking() {
   const sv = chosenServices();
   if (!sv.length) { err.textContent = "اختار خدمة واحدة على الأقل."; return; }
   if (!bk.time) { err.textContent = "اختار الساعة."; return; }
-  if (!S.user) { go("auth", { role: "customer", next: "shop", nextParams: { id: bk.s.id, day: bk.day, time: bk.time, svc: [...bk.svc], note: bk.note } }); return; }
+  if (!S.user) { go("auth", { role: "customer", next: "shop", nextParams: { id: bk.s.id, day: bk.day, time: bk.time, hrs: bk.hrs, svc: [...bk.svc], note: bk.note } }); return; }
   if (!S.profile || S.profile.role !== "customer") { err.textContent = "الحجز من حساب عميل بس."; return; }
   if (S.profile.status !== "active") { err.textContent = "حسابك موقوف. كلّم الدعم."; return; }
   btn.disabled = true; btn.textContent = "بيتحجز…";
-  const s = bk.s, day = bk.day, time = bk.time, total = sv.reduce((a, x) => a + (+x.price || 0), 0);
+  const s = bk.s, day = bk.day, time = bk.time, hrs = bk.hrs || 1, total = sv.reduce((a, x) => a + (+x.price || 0), 0) * hrs;
   try {
     const bref = fb.doc(fb.collection(db, "bookings"));
-    const sref = fb.doc(db, "shops", s.id, "slots", slotId(day, time));
     await fb.runTransaction(db, async tx => {
       const shopSnap = await tx.get(fb.doc(db, "shops", s.id));
-      const sd = await tx.get(sref);
       const shop = shopSnap.data();
       if (!shop || shop.status !== "active") throw userErr("المكان ده مش متاح دلوقتي.");
       if (!slotTimes(shop.hours[isoDow(parseKey(day))], stepOf(shop)).includes(time)) throw userErr("المعاد ده مش ضمن مواعيد المكان.");
-      if (sd.exists()) {
+      const seq = seqFor(day, time, hrs, { ...shop, id: s.id });
+      if (!seq) throw userErr("المدة دي أطول من مواعيد المكان. اختار مدة أقل أو معاد بدري.");
+      const refs = seq.map(x => fb.doc(db, "shops", s.id, "slots", slotId(x.k, x.t)));
+      const snaps = [];
+      for (const r of refs) snaps.push(await tx.get(r));
+      snaps.forEach((sd, i) => {
+        if (!sd.exists()) return;
         const d = sd.data(), cap = typeof d.cap === "number" ? d.cap : shop.capacity;
-        if (d.closed) throw userErr("المكان قفل المعاد ده. اختار معاد تاني.");
-        if (d.count >= cap) throw userErr("المعاد ده اتحجز خلاص. اختار معاد تاني.");
-        tx.update(sref, { count: d.count + 1, lastBooking: bref.id });
-      } else {
-        tx.set(sref, { date: day, time, count: 1, closed: false, lastBooking: bref.id });
-      }
+        if (d.closed) throw userErr(`المكان قفل معاد ${fmtT(seq[i].t)}. اختار معاد تاني.`);
+        if (d.count >= cap) throw userErr(`معاد ${fmtT(seq[i].t)} اتحجز خلاص. اختار معاد تاني.`);
+      });
+      snaps.forEach((sd, i) => {
+        if (sd.exists()) tx.update(refs[i], { count: sd.data().count + 1, lastBooking: bref.id });
+        else tx.set(refs[i], { date: seq[i].k, time: seq[i].t, count: 1, closed: false, lastBooking: bref.id });
+      });
       tx.set(bref, {
-        shopId: s.id, shopName: shop.name, customerId: S.user.uid, customerName: S.profile.name, customerPhone: S.profile.phone,
-        services: sv.map(x => ({ name: x.name, price: +x.price || 0, mins: +x.mins || 0 })), total,
+        shopId: s.id, ownerId: shop.ownerId || s.id, shopName: shop.name, customerId: S.user.uid, customerName: S.profile.name, customerPhone: S.profile.phone,
+        services: sv.map(x => ({ name: x.name, price: +x.price || 0, mins: +x.mins || 0 })), total, hours: hrs, slots: seq.map(x => slotId(x.k, x.t)),
         date: day, time, status: "pending", payment: "cash", note: (bk.note || "").slice(0, 140), createdAt: fb.serverTimestamp()
       });
     });
-    go("booked", { id: bref.id, shopName: s.name, wa: s.whatsapp || "", day, time, total, svc: sv.map(x => x.name).join(" + ") });
+    go("booked", { id: bref.id, shopName: s.name, wa: s.whatsapp || "", day, time, hrs, total, svc: sv.map(x => x.name).join(" + ") });
   } catch (e) { err.textContent = errText(e); btn.disabled = false; btn.textContent = "أكّد الحجز"; }
 }
 async function loadReviews(shopId) {
@@ -760,10 +1139,11 @@ async function loadReviews(shopId) {
 }
 function vBooked() {
   const p = S.params;
-  const msg = `السلام عليكم، عملت حجز عن طريق احجز دورك\nالاسم: ${S.profile ? S.profile.name : ""}\nالخدمة: ${p.svc}\nالمعاد: ${fmtDate(p.day)} الساعة ${fmtT(p.time)}\nالإجمالي: ${money(p.total)}`;
+  const hrs = +p.hrs || 1, endT = fmtT(hhmm(mins(p.time) + 60 * hrs));
+  const msg = `السلام عليكم، عملت حجز عن طريق احجز دورك\nالاسم: ${S.profile ? S.profile.name : ""}\nالخدمة: ${p.svc}\nالمعاد: ${fmtDate(p.day)} الساعة ${fmtT(p.time)}${hrs > 1 ? ` لحد ${endT} (${hrsLabel(hrs)})` : ""}\nالإجمالي: ${money(p.total)}`;
   main.innerHTML = `<div class="wrap"><div class="note ok"><strong>اتبعت طلب الحجز.</strong> هيوصلك هنا أول ما المكان يأكد أو يرفض.</div>
   <div class="ticket"><div class="tp"><div><div class="small" style="opacity:.8">دورك عند</div><div style="font-weight:600">${esc(p.shopName)}</div></div><div style="text-align:end"><div class="when">${fmtT(p.time)}</div><div class="small">${fmtDate(p.day)}</div></div></div><div class="perf"></div>
-  <dl><dt>الخدمة</dt><dd>${esc(p.svc)}</dd><dt>الدفع</dt><dd>في المكان</dd><dt>الإجمالي</dt><dd class="total">${money(p.total)}</dd><dt>الحالة</dt><dd>${stBadge("pending")}</dd></dl></div>
+  <dl><dt>الخدمة</dt><dd>${esc(p.svc)}</dd>${hrs > 1 ? `<dt>المدة</dt><dd>${hrsLabel(hrs)} · لحد ${endT}</dd>` : ""}<dt>الدفع</dt><dd>في المكان</dd><dt>الإجمالي</dt><dd class="total">${money(p.total)}</dd><dt>الحالة</dt><dd>${stBadge("pending")}</dd></dl></div>
   ${p.wa ? `<a class="btn wa block" target="_blank" rel="noopener" href="${waLink(p.wa, msg)}">نبّه المكان على واتساب (اختياري)</a>` : ""}
   <button class="btn navy block" data-act="go" data-v="mybookings">تابع حجوزاتي</button>
   ${bigAsk()}</div>`;
@@ -779,10 +1159,10 @@ function vMyBookings() {
     const canCancel = ["pending", "accepted"].includes(b.status) && b.date >= today;
     const canReview = (b.status === "done" || (b.status === "accepted" && b.date < today)) && !S.myReviews.has(b.id);
     return `<div class="item"><div class="hd"><span class="ttl">${esc(b.shopName)}</span>${stBadge(b.status)}</div>
-    <dl class="kv"><dt>المعاد</dt><dd>${fmtDate(b.date)} · ${fmtT(b.time)}</dd><dt>الخدمة</dt><dd>${esc((b.services || []).map(x => x.name).join(" + "))}</dd><dt>الإجمالي</dt><dd class="total">${money(b.total)}</dd></dl>
+    <dl class="kv"><dt>المعاد</dt><dd>${fmtDate(b.date)} · ${bkTime(b)}</dd><dt>الخدمة</dt><dd>${esc((b.services || []).map(x => x.name).join(" + "))}</dd><dt>الإجمالي</dt><dd class="total">${money(b.total)}</dd></dl>
     <div class="row">${canCancel ? `<button class="btn sm bad" data-act="cancelbk" data-id="${esc(b.id)}">إلغاء الحجز</button>` : ""}${canReview ? `<button class="btn sm acc" data-act="review" data-id="${esc(b.id)}">قيّم المكان</button>` : ""}${S.myReviews.has(b.id) ? `<span class="muted small">اتقيّم، شكراً</span>` : ""}<button class="btn sm ghost" data-act="openshop" data-id="${esc(b.shopId)}">احجز تاني</button></div></div>`;
   };
-  main.innerHTML = `<div class="wrap"><h2 style="font-size:1.5rem">حجوزاتي</h2>
+  main.innerHTML = `<div class="wrap"><h2 style="font-size:1.5rem">حجوزاتي</h2>${reviewBar()}
   <h3>الجاية</h3>${up.length ? up.map(card).join("") : `<div class="empty">مفيش حجوزات جاية. <button class="btn sm pri" data-act="home">احجز دلوقتي</button></div>`}
   ${past.length ? `<h3>اللي فاتت</h3>${past.map(card).join("")}` : ""}</div>`;
 }
@@ -790,22 +1170,54 @@ async function cancelBooking(id) {
   const b = S.myBookings.find(x => x.id === id); if (!b) return;
   try {
     await fb.runTransaction(db, async tx => {
-      const bref = fb.doc(db, "bookings", id), sref = fb.doc(db, "shops", b.shopId, "slots", slotId(b.date, b.time));
-      const cur = await tx.get(bref), sd = await tx.get(sref);
+      const bref = fb.doc(db, "bookings", id), refs = bkSlots(b).map(x => fb.doc(db, "shops", b.shopId, "slots", x));
+      const cur = await tx.get(bref), snaps = [];
+      for (const r of refs) snaps.push(await tx.get(r));
       if (!["pending", "accepted"].includes(cur.data().status)) throw userErr("الحجز ده اتغيّرت حالته خلاص.");
       tx.update(bref, { status: "cancelled", updatedAt: fb.serverTimestamp() });
-      tx.update(sref, { count: Math.max(0, (sd.data().count || 1) - 1), lastBooking: id });
+      snaps.forEach((sd, i) => { if (sd.exists()) tx.update(refs[i], { count: Math.max(0, (sd.data().count || 1) - 1), lastBooking: id }); });
     });
     toast("اتلغى الحجز.");
   } catch (e) { toast(errText(e)); }
 }
-function reviewSheet(id) {
-  const b = S.myBookings.find(x => x.id === id); if (!b) return;
-  let rating = 5;
-  openSheet(`قيّم ${esc(b.shopName)}`, `<div class="row" id="rv-stars" role="radiogroup" aria-label="التقييم">${[1, 2, 3, 4, 5].map(i => `<button class="chip" role="radio" data-r="${i}" aria-pressed="${i === 5}">${"★".repeat(i)}</button>`).join("")}</div>
-  <label class="f">رأيك (اختياري)<textarea id="rv-text" maxlength="500"></textarea></label><div class="err" id="rv-err"></div><button class="btn pri block" id="rv-go">ابعت التقييم</button>`);
-  $("#rv-stars").addEventListener("click", e => { const t = e.target.closest("[data-r]"); if (!t) return; rating = +t.dataset.r; document.querySelectorAll("#rv-stars [data-r]").forEach(x => x.setAttribute("aria-pressed", String(+x.dataset.r === rating))); });
+// v4.0: bookings the customer finished but hasn't rated. Asked in a pop-up as soon as the place marks "العميل خلّص",
+// and again every time the app opens until they rate (\"بعدين\" only hides it until the next visit).
+function toReview() {
+  if (!S.profile || S.profile.role !== "customer") return [];
+  const today = dkey(new Date());
+  return S.myBookings.filter(b => (b.status === "done" || (b.status === "accepted" && b.date < today)) && !S.myReviews.has(b.id))
+    .sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time));
+}
+function reviewBar() {
+  const l = toReview(); if (!l.length) return "";
+  return `<div class="revbar"><span class="rs" aria-hidden="true">★</span><span class="rt">${l.length === 1 ? `قيّم تجربتك في ${esc(l[0].shopName)}` : `عندك ${n(l.length)} حجوزات مستنية تقييمك`}<br><span class="muted small" style="font-weight:600">رأيك بيساعد غيرك يختار صح، وبياخد ثواني.</span></span><button class="btn pri sm" data-act="askreview" data-id="${esc(l[0].id)}">قيّم دلوقتي</button></div>`;
+}
+function maybeAskReview() {
+  if (!S.reviewsLoaded || $("#scrim") || ["auth", "setpass", "profile", "forgot"].includes(S.view)) return;
+  S.reviewSnooze = S.reviewSnooze || new Set();
+  const b = toReview().find(x => !S.reviewSnooze.has(x.id));
+  if (b) reviewSheet(b.id, true);
+  if (S.view === "home" && !S.params.cat) { /* refresh banner */ const el = document.querySelector(".revbar"); if (!el && toReview().length) vCats(); }
+}
+function starsPicker(id, start = 0) {
+  return `<div class="bigstars" id="${id}" role="radiogroup" aria-label="التقييم">${[1, 2, 3, 4, 5].map(i => `<button type="button" role="radio" data-r="${i}" aria-label="${n(i)} من ٥" aria-checked="${i === start}" class="${i <= start ? "on" : ""}">★</button>`).join("")}</div>`;
+}
+function bindStars(id, cb) {
+  $("#" + id).addEventListener("click", e => { const t = e.target.closest("[data-r]"); if (!t) return; const r = +t.dataset.r; document.querySelectorAll(`#${id} [data-r]`).forEach(x => { x.classList.toggle("on", +x.dataset.r <= r); x.setAttribute("aria-checked", String(+x.dataset.r === r)); }); cb(r); });
+}
+const RATE_WORDS = ["", "وحش", "مش أحسن حاجة", "كويس", "حلو جداً", "ممتاز"];
+function reviewSheet(id, ask) {
+  const b = S.myBookings.find(x => x.id === id); if (!b || S.myReviews.has(id)) return;
+  let rating = 0;
+  openSheet(ask ? "رأيك يهمّنا" : `قيّم ${esc(b.shopName)}`, `<div class="askhead"><span class="ai">${FI.star.replace(/22/g, "32")}</span><h3>إزاي كانت تجربتك في ${esc(b.shopName)}؟</h3><span class="muted small">${fmtDate(b.date)} · ${bkTime(b)} · ${esc((b.services || []).map(x => x.name).join(" + "))}</span></div>
+  ${starsPicker("rv-stars")}<div id="rv-word" class="muted small" style="text-align:center;min-height:1.4em">دوس على النجوم</div>
+  <label class="f">اكتب رأيك (اختياري)<textarea id="rv-text" maxlength="500" placeholder="إيه اللي عجبك؟ إيه اللي ممكن يتحسّن؟"></textarea></label><div class="err" id="rv-err"></div>
+  <button class="btn pri block lg" id="rv-go" disabled>ابعت التقييم</button>
+  ${ask ? `<button class="btn ghost block" id="rv-later">بعدين</button>` : ""}`, { center: true });
+  bindStars("rv-stars", r => { rating = r; $("#rv-word").textContent = RATE_WORDS[r]; $("#rv-go").disabled = false; });
+  if (ask) $("#rv-later").addEventListener("click", () => { (S.reviewSnooze = S.reviewSnooze || new Set()).add(id); closeSheet(); toast("هنفكّرك المرة الجاية. تقدر تقيّم من «حجوزاتي» في أي وقت."); });
   $("#rv-go").addEventListener("click", async () => {
+    if (!rating) { $("#rv-err").textContent = "اختار عدد النجوم."; return; }
     const btn = $("#rv-go"); btn.disabled = true;
     try {
       await fb.runTransaction(db, async tx => {
@@ -813,29 +1225,98 @@ function reviewSheet(id) {
         tx.set(fb.doc(db, "reviews", id), { shopId: b.shopId, customerId: S.user.uid, customerName: S.profile.name.split(" ")[0].slice(0, 30), rating, text: $("#rv-text").value.trim().slice(0, 500), createdAt: fb.serverTimestamp() });
         tx.update(shRef, { ratingSum: (d.ratingSum || 0) + rating, ratingCount: (d.ratingCount || 0) + 1, lastReview: id });
       });
-      S.myReviews.add(id); closeSheet(); toast("شكراً على تقييمك!"); if (S.view === "mybookings") vMyBookings();
+      S.myReviews.add(id); closeSheet(); toast("شكراً على تقييمك! ⭐");
+      if (S.view === "mybookings") vMyBookings(); else if (S.view === "home" && !S.params.cat) vCats();
+      setTimeout(maybeAskReview, 900);
     } catch (e) { $("#rv-err").textContent = errText(e); btn.disabled = false; }
+  });
+}
+// owner: right after "العميل خلّص", and on later visits until they answer: rate the app + a nudge about reviews
+function ownerAskDue() { const t = +(load("dawrak.ownerRated") || 0); return !t || Date.now() - t > 30 * 864e5; }
+function ownerAskOnOpen() {
+  if (S.ownerAsked || !S.profile || S.profile.role !== "barber" || $("#scrim") || !ownerAskDue()) return;
+  const done = S.shopBookings.filter(b => b.status === "done");
+  if (done.length) ownerAsk(done[0]);
+}
+function ownerAsk(b) {
+  if (!ownerAskDue() || $("#scrim")) return;
+  S.ownerAsked = true;
+  let rating = 0;
+  openSheet("عاش! حجز تاني خلص ✔", `<div class="askhead"><span class="ai">${FI.star.replace(/22/g, "32")}</span><h3>عميلك هيقيّمك دلوقتي</h3><span class="muted small">بعتنا لـ ${esc(b.customerName)} رسالة يقيّم ${esc(b.shopName)}. الأماكن اللي تقييمها أعلى بتظهر الأول للعملاء، فكل تجربة حلوة بتجيبلك حجوزات أكتر.</span></div>
+  <div class="card" style="gap:10px"><h3 style="text-align:center">وإنت؟ قيّم تجربتك مع احجز دورك</h3>${starsPicker("ow-stars")}
+  <label class="f">إيه اللي ممكن نحسّنه أو نضيفه؟ (اختياري)<textarea id="ow-text" maxlength="900" placeholder="مثلاً: عايز تنبيه لما..."></textarea></label><div class="err" id="ow-err"></div>
+  <button class="btn pri block lg" id="ow-go" disabled>ابعت رأيك</button><button class="btn ghost block" id="ow-later">بعدين</button></div>`, { center: true });
+  bindStars("ow-stars", r => { rating = r; $("#ow-go").disabled = false; });
+  $("#ow-later").addEventListener("click", () => { closeSheet(); toast("ماشي، هنسألك تاني بعدين."); });
+  $("#ow-go").addEventListener("click", async () => {
+    const btn = $("#ow-go"); btn.disabled = true;
+    const text = `★${rating} من ٥ — ${b.shopName}` + ($("#ow-text").value.trim() ? "\n" + $("#ow-text").value.trim() : "");
+    try {
+      await fb.setDoc(fb.doc(fb.collection(db, "feedback")), { type: "rating", text: text.slice(0, 1000), name: (S.profile.name || "").slice(0, 60), contact: (S.profile.phone || "").slice(0, 80), uid: S.user.uid, status: "new", createdAt: fb.serverTimestamp() });
+      store("dawrak.ownerRated", String(Date.now())); closeSheet(); toast("شكراً! رأيك وصل للإدارة ⭐");
+    } catch (e) { $("#ow-err").textContent = errText(e); btn.disabled = false; }
   });
 }
 
 /* ---------------- barber ---------------- */
 function defaultHours() { const h = {}; ["1", "2", "3", "4", "5", "6", "7"].forEach(k => h[k] = { open: k !== "5", from: "12:00", to: "23:00" }); return h; }
 function vBarber() {
-  if (S.shop === undefined) { main.innerHTML = `<div class="spinner" role="status" aria-label="بيحمّل"></div>`; return; }
-  if (S.shop === null) return barberOnboarding();
+  if (S.shops === undefined) { main.innerHTML = `<div class="spinner" role="status" aria-label="بيحمّل"></div>`; return; }
+  if (!S.shops.length) { S.shop = null; return barberOnboarding(false); }
+  if (S.params.add) { S.shop = null; return barberOnboarding(true); }
+  const sid = S.params.sid || (S.shops.length === 1 && !S.params.list ? S.shops[0].id : null);
+  const s = sid ? S.shops.find(x => x.id === sid) : null;
+  if (!s) { S.shop = null; return vBranches(); }
+  S.shop = s; store("dawrak.branch", s.id);
   const tab = S.params.tab || "dash";
-  const s = S.shop;
-  const tabs = [["dash", "لوحة التحكم"], ["requests", "الطلبات", S.pendingCount], ["schedule", "الجدول والمواعيد"], ["services", "الخدمات والأسعار"], ["shop", "المكان ومواعيد العمل"]];
-  main.innerHTML = `<div class="wrap">
+  const pendHere = myBk().filter(b => b.status === "pending").length;
+  const tabs = [["dash", "لوحة التحكم", "اللوحة", OI.dash], ["requests", "الطلبات", "الطلبات", OI.inbox, pendHere], ["schedule", "الجدول والمواعيد", "الجدول", OI.cal], ["services", "الخدمات والأسعار", "الخدمات", OI.tag], ["shop", "المكان ومواعيد العمل", "المكان", OI.store]];
+  const bdg = c => c ? ` <span class="badge">${n(c)}</span>` : "";
+  main.innerHTML = `<div class="wrap wide"><div class="olay">
+  <aside class="oside" aria-label="قايمة صاحب المكان">
+    <div class="oshop">${avatar(s, "av sm")}<div><strong>${esc(s.name)}</strong><small>حجز ${esc(CATS[catOf(s)].ar)} · ${esc(s.area)}</small></div></div>
+    ${tabs.map(t => `<button class="onav" data-act="btab" data-t="${t[0]}" aria-current="${tab === t[0] ? "page" : "false"}">${t[3]}<span>${t[1]}</span>${bdg(t[4])}</button>`).join("")}
+    ${s.status === "active" ? `<button class="onav" data-act="openshop" data-id="${esc(s.id)}">${OI.eye}<span>صفحة مكانك زي ما العميل شايفها</span></button>` : ""}
+    <button class="onav" data-act="branches">${OI.store}<span>${S.shops.length > 1 ? `كل الفروع (${n(S.shops.length)})` : "فروعي · ضيف فرع"}</span>${S.pendingCount - pendHere > 0 ? `<span class="badge">${n(S.pendingCount - pendHere)}</span>` : ""}</button>
+  </aside>
+  <div class="omain">
+  <button class="btn switch sm otabs-m" data-act="branches" style="align-self:flex-start">${OI.store} ${S.shops.length > 1 ? `كل الفروع (${n(S.shops.length)})${S.pendingCount - pendHere > 0 ? ` <span class="badge">${n(S.pendingCount - pendHere)}</span>` : ""}` : "فروعي · ضيف فرع"}</button>
   <div class="row between"><div><h2 style="font-size:1.45rem">${esc(s.name)}</h2><div class="muted small">حجز ${esc(CATS[catOf(s)].ar)} · ${esc(s.area)} · ${s.ratingCount ? `<span class="stars">${stars(ratingOf(s))}</span> ${n(ratingOf(s).toFixed(1))} (${n(s.ratingCount)})` : "لسه مفيش تقييمات"}</div></div>${stBadge(s.status === "pending" ? "pending" : s.status, s.status === "pending" ? "في انتظار موافقة الإدارة" : null)}</div>
   ${s.status === "pending" ? `<div class="note">مكانك اتسجل وفي انتظار موافقة الإدارة. لحد ما يتوافق عليه مش هيظهر للعملاء. كمّل خدماتك ومواعيدك على ما يتوافق.</div>` : ""}
   ${s.status === "suspended" ? `<div class="note">مكانك موقوف ومش ظاهر للعملاء. كلّم الدعم.</div>` : ""}
   ${installBanner()}
   ${"Notification" in window && Notification.permission === "default" ? `<div class="note">فعّل التنبيهات عشان يوصلك صوت وإشعار أول ما ييجي حجز جديد والأبلكيشن مفتوح. <button class="btn sm pri" data-act="notifyperm" style="margin-inline-start:6px">فعّل التنبيهات</button></div>` : ""}
-  <div class="tabs" role="tablist">${tabs.map(t => `<button class="tab" role="tab" aria-selected="${tab === t[0]}" data-act="btab" data-t="${t[0]}">${t[1]}${t[2] ? ` <span class="badge">${n(t[2])}</span>` : ""}</button>`).join("")}</div>
-  <div id="bpanel"></div></div>`;
+  <h2 class="otabs-m" style="font-size:1.2rem">${esc(tabs.find(t => t[0] === tab)[1])}</h2>
+  <div id="bpanel"></div></div></div></div>
+  <nav class="bnav" aria-label="قايمة صاحب المكان">${tabs.map(t => `<button data-act="btab" data-t="${t[0]}" aria-current="${tab === t[0] ? "page" : "false"}">${t[3]}<span>${t[2]}</span>${t[4] ? `<span class="badge">${n(t[4])}</span>` : ""}</button>`).join("")}</nav>`;
   ({ dash: bDash, requests: bRequests, schedule: bSchedule, services: bServices, shop: bShopForm })[tab]();
 }
+// v4.0: one business, several places (branches). The owner sees them all here and taps one to manage it.
+function vBranches() {
+  const list = S.shops, brand = brandOf(list), pendOf = id => S.shopBookings.filter(b => b.shopId === id && b.status === "pending").length;
+  main.innerHTML = `<div class="wrap wide">
+  <div class="umb">${(list.find(s => s.logo) || {}).logo ? `<img class="ui" src="${esc(list.find(s => s.logo).logo)}" alt="" style="object-fit:cover;padding:0">` : `<span class="ui">${esc(initials(brand))}</span>`}<div style="flex:1;min-width:0"><span class="kicker" style="margin-bottom:4px">البيزنس · Business</span><h2>${esc(brand)}</h2><div class="muted small">${n(list.length)} ${list.length === 1 ? "فرع" : "فروع"}${S.pendingCount ? ` · ${n(S.pendingCount)} طلب جديد` : ""}</div></div><button class="btn sm" data-act="editbrand" aria-label="غيّر اسم البيزنس">✎ الاسم</button></div>
+  ${installBanner()}
+  <div class="sechead"><h2>فروعك</h2></div>
+  <p class="muted small" style="margin:0;text-align:center">دوس على أي فرع عشان تدخل عليه وتتابع حجوزاته ومواعيده وأسعاره.</p>
+  <div class="bgrid">${list.map(s => `<button class="bcard" data-act="branch" data-id="${esc(s.id)}"><span class="bimg">${s.photo ? `<img src="${esc(s.photo)}" alt="">` : art(catOf(s))}${stBadge(s.status, s.status === "pending" ? "في انتظار الموافقة" : null)}${pendOf(s.id) ? `<span class="badge">${n(pendOf(s.id))}</span>` : ""}</span><span class="bt"><strong>${esc(s.name)}</strong><span>${esc(CATS[catOf(s)].ar)} · ${esc(s.area)}</span></span></button>`).join("")}
+    <button class="bcard add" data-act="addbranch"><span class="plus">+</span>ضيف فرع جديد</button></div>
+  <div class="note">كل فرع ليه حجوزاته ومواعيده وأسعاره لوحده، وبيظهر للعملاء بعد موافقة الإدارة. العملاء بيشوفوا فروعك متجمّعة تحت اسم «${esc(brand)}».</div></div>`;
+}
+function picViewer(i) {
+  const l = S.gallery || []; if (!l.length) return; i = (i + l.length) % l.length;
+  openSheet(`صورة ${n(i + 1)} من ${n(l.length)}`, `<div class="viewer"><img src="${esc(l[i].img)}" alt="">${l.length > 1 ? `<div class="row between"><button class="btn" data-act="viewpic" data-i="${i + 1}">‹ اللي بعدها</button><button class="btn" data-act="viewpic" data-i="${i - 1}">اللي قبلها ›</button></div>` : ""}</div>`, { center: true });
+}
+function brandSheet() {
+  const cur = brandOf(S.shops);
+  openSheet("اسم البيزنس", `<p class="muted small" style="margin:0">الاسم اللي بيجمع كل فروعك، وبيظهر للعملاء فوق الفروع.</p>
+  <label class="f">اسم البيزنس<input id="br-name" maxlength="60" value="${esc(cur)}"></label><div class="err" id="br-err"></div><button class="btn pri block" id="br-go">حفظ</button>`);
+  $("#br-go").addEventListener("click", async () => {
+    const v = $("#br-name").value.trim(); if (v.length < 2) { $("#br-err").textContent = "اكتب الاسم."; return; }
+    try { await saveBrand(v); closeSheet(); toast("اتحفظ اسم البيزنس."); vBarber(); } catch (e) { $("#br-err").textContent = errText(e); }
+  });
+}
+async function saveBrand(v) { const b = fb.writeBatch(db); S.shops.forEach(s => b.update(fb.doc(db, "shops", s.id), { brand: v })); await b.commit(); S.shops.forEach(s => s.brand = v); }
 const SI = {
   cal: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>`,
   users: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c1-3.5 3.5-5.5 6.5-5.5s5.5 2 6.5 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5c2 .8 3 2.6 3.5 5.5"/></svg>`,
@@ -844,8 +1325,9 @@ const SI = {
   trend: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>`,
   gauge: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 18a9 9 0 1 1 16 0"/><path d="m12 14 4-5"/></svg>`
 };
+function myBk() { return S.shop ? S.shopBookings.filter(b => b.shopId === S.shop.id) : []; }
 function bDash() {
-  const s = S.shop, all = S.shopBookings, now = new Date(), today = dkey(now);
+  const s = S.shop, all = myBk(), now = new Date(), today = dkey(now);
   const live = all.filter(b => !["rejected", "cancelled"].includes(b.status));
   const ym = today.slice(0, 7), pym = dkey(new Date(now.getFullYear(), now.getMonth() - 1, 1)).slice(0, 7);
   const inM = (b, m) => String(b.date).slice(0, 7) === m, sum = l => l.reduce((a, b) => a + (+b.total || 0), 0);
@@ -855,7 +1337,7 @@ function bDash() {
   const dom = now.getDate(), cntM = live.filter(b => inM(b, ym)).length, cntP = live.filter(b => inM(b, pym) && +String(b.date).slice(8, 10) <= dom).length;   // same days of last month
   const growth = cntP ? Math.round((cntM - cntP) / cntP * 100) : null;
   const seats = slotTimes(s.hours[isoDow(now)], stepOf(s)).length * (s.capacity || 1);
-  const occ = seats ? Math.min(100, Math.round(todays.length / seats * 100)) : null;
+  const used = todays.reduce((a, b) => a + (+b.hours || 1), 0), occ = seats ? Math.min(100, Math.round(used / seats * 100)) : null;
   const stat = (ico, v, l, d) => `<div class="stat"><span class="si">${ico}</span><div class="v">${v}</div><div class="l">${l}</div>${d || ""}</div>`;
   // last 30 days
   const days = []; for (let i = 29; i >= 0; i--) { const d = new Date(now); d.setDate(d.getDate() - i); days.push(dkey(d)); }
@@ -874,23 +1356,23 @@ function bDash() {
     ${stat(SI.money, money(revM), "إيراد ده الشهر", `<div class="d muted">الإجمالي ${money(revAll)}</div>`)}
     ${stat(SI.star, s.ratingCount ? n(ratingOf(s).toFixed(1)) : "—", "التقييم", s.ratingCount ? `<div class="d muted">${n(s.ratingCount)} تقييم</div>` : "")}
     ${stat(SI.trend, growth === null ? "—" : `<span class="${growth >= 0 ? "up" : "down"}">${growth >= 0 ? "+" : "−"}${n(Math.abs(growth))}٪</span>`, "نمو الحجوزات", `<div class="d muted">${n(cntM)} ده الشهر · ${n(cntP)} نفس الفترة الشهر اللي فات</div>`)}
-    ${stat(SI.gauge, occ === null ? "—" : n(occ) + "٪", "نسبة الإشغال النهارده", `<div class="d muted">${n(todays.length)} من ${n(seats)} مكان متاح</div>`)}
+    ${stat(SI.gauge, occ === null ? "—" : n(occ) + "٪", "نسبة الإشغال النهارده", `<div class="d muted">${n(used)} من ${n(seats)} مكان متاح</div>`)}
   </div>
   <div class="card"><div class="row between"><h3>الحجوزات آخر ٣٠ يوم</h3><span class="muted small">إيراد الفترة: <strong class="total">${money(per.reduce((a, p) => a + p.r, 0))}</strong></span></div>${chart}<p class="muted small" style="margin:0">العمود الدهبي = النهارده. الإيراد = الحجوزات اللي علّمت عليها "العميل خلّص" (الدفع كاش في المكان).</p></div>
   <div class="card"><div class="row between"><h3>مواعيد النهارده</h3><button class="btn switch sm" data-act="btab" data-t="schedule">الجدول كله</button></div>
-  ${todays.length ? todays.map(b => `<div class="appt"><span class="dot" style="background:${dotc[b.status] || "#8A93A3"}"></span><span class="tm">${fmtT(b.time)}</span><span class="nm"><strong>${esc(b.customerName)}</strong><br><span class="muted small">${esc((b.services || []).map(x => x.name).join(" + "))}</span></span>${stBadge(b.status)}</div>`).join("") : `<div class="muted small">مفيش حجوزات النهارده لسه.</div>`}</div>
+  ${todays.length ? todays.map(b => `<div class="appt"><span class="dot" style="background:${dotc[b.status] || "#8A93A3"}"></span><span class="tm">${bkTime(b)}</span><span class="nm"><strong>${esc(b.customerName)}</strong><br><span class="muted small">${esc((b.services || []).map(x => x.name).join(" + "))}</span></span>${stBadge(b.status)}</div>`).join("") : `<div class="muted small">مفيش حجوزات النهارده لسه.</div>`}</div>
   </div>`;
 }
 function bookingCard(b, actions) {
   return `<div class="item"><div class="hd"><span class="ttl">${esc(b.customerName)}</span>${stBadge(b.status)}</div>
   <dl class="kv"><dt>الموبايل</dt><dd>${tel(b.customerPhone)} <button class="btn sm ghost" data-act="copy" data-t="${esc(b.customerPhone)}">نسخ</button> <a class="btn sm ghost" target="_blank" rel="noopener" href="${waLink(b.customerPhone)}">واتساب</a></dd>
-  <dt>المعاد</dt><dd>${fmtDate(b.date)} · ${fmtT(b.time)}</dd><dt>الخدمة</dt><dd>${esc((b.services || []).map(x => x.name).join(" + "))}</dd><dt>الإجمالي</dt><dd class="total">${money(b.total)} · في المكان</dd>${b.note ? `<dt>ملاحظة</dt><dd>${esc(b.note)}</dd>` : ""}</dl>
+  <dt>المعاد</dt><dd>${fmtDate(b.date)} · ${bkTime(b)}</dd><dt>الخدمة</dt><dd>${esc((b.services || []).map(x => x.name).join(" + "))}</dd><dt>الإجمالي</dt><dd class="total">${money(b.total)} · في المكان</dd>${b.note ? `<dt>ملاحظة</dt><dd>${esc(b.note)}</dd>` : ""}</dl>
   ${actions ? `<div class="row">${actions}</div>` : ""}</div>`;
 }
 function bRequests() {
   const today = dkey(new Date());
-  const pend = S.shopBookings.filter(b => b.status === "pending").sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
-  const acc = S.shopBookings.filter(b => b.status === "accepted" && b.date >= today).sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+  const pend = myBk().filter(b => b.status === "pending").sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+  const acc = myBk().filter(b => b.status === "accepted" && b.date >= today).sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
   $("#bpanel").innerHTML = `<div class="stack">
   <h3>طلبات جديدة</h3>${pend.length ? pend.map(b => bookingCard(b, `<button class="btn sm pri" data-act="bstatus" data-id="${esc(b.id)}" data-s="accepted">قبول</button><button class="btn sm bad" data-act="bstatus" data-id="${esc(b.id)}" data-s="rejected">رفض</button>`)).join("") : `<div class="empty">مفيش طلبات جديدة دلوقتي.</div>`}
   <h3>حجوزات متأكدة جاية</h3>${acc.length ? acc.map(b => bookingCard(b, `<button class="btn sm" data-act="bstatus" data-id="${esc(b.id)}" data-s="done">العميل خلّص</button><button class="btn sm bad" data-act="bstatus" data-id="${esc(b.id)}" data-s="cancelled">إلغاء</button>`)).join("") : `<div class="empty">مفيش حجوزات متأكدة جاية.</div>`}
@@ -900,14 +1382,16 @@ async function setBookingStatus(id, status) {
   const b = S.shopBookings.find(x => x.id === id); if (!b) return;
   try {
     await fb.runTransaction(db, async tx => {
-      const bref = fb.doc(db, "bookings", id), sref = fb.doc(db, "shops", b.shopId, "slots", slotId(b.date, b.time));
-      const cur = await tx.get(bref); const sd = await tx.get(sref);
+      const bref = fb.doc(db, "bookings", id), refs = bkSlots(b).map(x => fb.doc(db, "shops", b.shopId, "slots", x));
+      const cur = await tx.get(bref), snaps = [];
+      for (const r of refs) snaps.push(await tx.get(r));
       const st = cur.data().status;
       const ok = (st === "pending" && ["accepted", "rejected"].includes(status)) || (st === "accepted" && ["done", "cancelled"].includes(status));
       if (!ok) throw userErr("الحجز ده اتغيّرت حالته خلاص.");
       tx.update(bref, { status, updatedAt: fb.serverTimestamp() });
-      if ((status === "rejected" || status === "cancelled") && sd.exists()) tx.update(sref, { count: Math.max(0, (sd.data().count || 1) - 1) });
+      if (status === "rejected" || status === "cancelled") snaps.forEach((sd, i) => { if (sd.exists()) tx.update(refs[i], { count: Math.max(0, (sd.data().count || 1) - 1) }); });
     });
+    if (status === "done") setTimeout(() => ownerAsk(b), 600);
     toast({ accepted: "اتقبل الحجز.", rejected: "اترفض الحجز والمعاد اتفتح تاني.", done: "اتسجل إن العميل خلّص.", cancelled: "اتلغى الحجز والمعاد اتفتح تاني." }[status]);
   } catch (e) { toast(errText(e)); }
 }
@@ -930,7 +1414,7 @@ function bSchedule() {
       <button class="btn sm${closed ? " pri" : ""}" data-act="toggleslot" data-d="${day}" data-t="${t}">${closed ? "افتح" : "اقفل"}</button>
       <div class="row" style="justify-content:center;gap:2px;flex-wrap:nowrap"><button class="btn sm ghost" data-act="cap" data-d="${day}" data-t="${t}" data-x="-1" aria-label="أقل">−</button><span class="small">${n(cap)} ${unitOf(s)}</span><button class="btn sm ghost" data-act="cap" data-d="${day}" data-t="${t}" data-x="1" aria-label="زيادة">+</button></div></div>`;
     }).join("") : `<div class="empty" style="grid-column:1/-1">اليوم ده إجازة في مواعيد العمل. غيّرها من "المكان ومواعيد العمل".</div>`;
-    const list = S.shopBookings.filter(b => b.date === day && b.status !== "cancelled" && b.status !== "rejected").sort((a, b) => a.time.localeCompare(b.time));
+    const list = myBk().filter(b => (b.date === day || bkSlots(b).some(x => x.startsWith(day + "_"))) && b.status !== "cancelled" && b.status !== "rejected").sort((a, b) => a.time.localeCompare(b.time));
     $("#daybk").innerHTML = list.length ? list.map(b => bookingCard(b, b.status === "pending" ? `<button class="btn sm pri" data-act="bstatus" data-id="${esc(b.id)}" data-s="accepted">قبول</button><button class="btn sm bad" data-act="bstatus" data-id="${esc(b.id)}" data-s="rejected">رفض</button>` : b.status === "accepted" ? `<button class="btn sm" data-act="bstatus" data-id="${esc(b.id)}" data-s="done">العميل خلّص</button>` : "")).join("") : `<div class="empty">مفيش حجوزات في اليوم ده.</div>`;
   };
   S.schedDraw = draw; S.schedSlots = () => slots; S.schedDay = day;
@@ -966,23 +1450,40 @@ function bServices() {
 }
 function hoursEditor(h) {
   const opts = sel => ALL_TIMES.map(t => `<option value="${t}"${t === sel ? " selected" : ""}>${fmtT(t)}</option>`).join("");
-  return `<div class="hours">${WEEK_ORDER.map(k => `<label class="f"><input type="checkbox" id="h-o${k}" data-h="${k}" data-k="open"${h[k].open ? " checked" : ""}> ${ISO_DAYS[k]}</label><label class="f" style="flex-direction:column;align-items:stretch">من<select id="h-f${k}" data-h="${k}" data-k="from">${opts(h[k].from)}</select></label><label class="f" style="flex-direction:column;align-items:stretch">لحد<select id="h-t${k}" data-h="${k}" data-k="to">${opts(h[k].to)}</select></label>`).join("")}</div>
-  <p class="muted small" style="margin:0">لو "لحد" قبل "من" يبقى المكان فاتح بعد نص الليل.</p>`;
+  return `<div class="hrs">${WEEK_ORDER.map(k => { const d = h[k] || { open: false, from: "12:00", to: "23:00" }, all = d.open && d.from === d.to; return `<div class="hday">
+    <div class="row between"><label class="f inl"><input type="checkbox" id="h-o${k}" data-hk="open"${d.open ? " checked" : ""}> <strong>${ISO_DAYS[k]}</strong></label><label class="f inl allday"><input type="checkbox" id="h-a${k}" data-hk="all"${all ? " checked" : ""}> ٢٤ ساعة</label></div>
+    <div class="htimes"${all ? " hidden" : ""}><label class="f">من<select id="h-f${k}">${opts(all ? "00:00" : d.from)}</select></label><label class="f">لحد<select id="h-t${k}">${opts(all ? "00:00" : d.to)}</select></label></div></div>`; }).join("")}</div>
+  <p class="muted small" style="margin:0">شيل علامة اليوم لو إجازة. «٢٤ ساعة» = فاتح طول اليوم. لو «لحد» قبل «من» يبقى المكان فاتح بعد نص الليل (مثلاً من ٦ م لحد ٢ ص).</p>`;
 }
-function readHours() { const h = {}; ["1", "2", "3", "4", "5", "6", "7"].forEach(k => { h[k] = { open: $("#h-o" + k).checked, from: $("#h-f" + k).value, to: $("#h-t" + k).value }; }); return h; }
+function readHours() {
+  const h = {};
+  ["1", "2", "3", "4", "5", "6", "7"].forEach(k => {
+    const open = $("#h-o" + k).checked, all = $("#h-a" + k).checked, from = $("#h-f" + k).value, to = $("#h-t" + k).value;
+    if (open && !all && from === to) throw userErr(`مواعيد ${ISO_DAYS[k]}: «من» زي «لحد». غيّر واحد منهم أو اختار ٢٤ ساعة.`);
+    h[k] = all ? { open, from: "00:00", to: "00:00" } : { open, from, to };
+  });
+  return h;
+}
 function shopFields(s) {
+  const areas = [...new Set([...AREAS, ...((shopsCache || []).map(x => x.area).filter(Boolean))])];
   return `<div class="grid2"><label class="f">نوع المكان<select id="sh-cat">${CAT_ORDER.map(k => `<option value="${k}"${k === catOf(s) ? " selected" : ""}>${CATS[k].ar} · ${CATS[k].en}</option>`).join("")}</select></label>
   <label class="f">اسم المكان<input id="sh-name" maxlength="60" value="${esc(s.name)}"></label>
-  <label class="f">المنطقة<select id="sh-area">${AREAS.map(a => `<option${a === s.area ? " selected" : ""}>${esc(a)}</option>`).join("")}</select></label>
+  <label class="f">المنطقة / الحي<input id="sh-area" list="area-list" maxlength="60" value="${esc(s.area)}" placeholder="مثلاً: الحي التالت، المنطقة المركزية"><datalist id="area-list">${areas.map(a => `<option value="${esc(a)}">`).join("")}</datalist></label>
+  <label class="f">العنوان بالتفصيل (اختياري)<input id="sh-addr" maxlength="150" value="${esc(s.address || "")}" placeholder="الشارع، العمارة، علامة مميزة"></label>
   <label class="f">رقم التليفون (اختياري)<input id="sh-phone" inputmode="tel" dir="ltr" value="${esc(s.phone)}" placeholder="01xxxxxxxxx"></label>
   <label class="f">رقم الواتساب<input id="sh-wa" inputmode="tel" dir="ltr" value="${esc(s.whatsapp)}" placeholder="01xxxxxxxxx"></label>
   <label class="f">العدد في نفس المعاد (كراسي، ملاعب أو أجهزة)<input id="sh-cap" type="number" min="1" max="30" inputmode="numeric" value="${esc(s.capacity)}"></label>
   <label class="f">لينك جوجل ماب (اختياري)<input id="sh-map" dir="ltr" value="${esc(s.mapUrl)}" placeholder="https://maps.app.goo.gl/..."></label></div>
-  <label class="f">صورة المكان<input id="sh-photo" type="file" accept="image/*"></label><div id="sh-prev">${s.photo ? `<img class="hero-img" src="${esc(s.photo)}" alt=""><button class="btn sm" data-act="delphoto" style="margin-top:6px">شيل الصورة</button>` : ""}</div>`;
+  <div class="pics">
+    <div class="pbox">اللوجو<label class="pv logo" id="lg-prev">${s.logo ? `<img src="${esc(s.logo)}" alt="">` : "+ لوجو"}<input id="sh-logo" type="file" accept="image/*" aria-label="ارفع اللوجو"></label>${s.logo ? `<button class="btn sm ghost" data-act="dellogo">شيل</button>` : ""}</div>
+    <div class="pbox">البانر (صورة الغلاف)<label class="pv ban" id="sh-prev">${s.photo ? `<img src="${esc(s.photo)}" alt="">` : "+ صورة غلاف عريضة"}<input id="sh-photo" type="file" accept="image/*" aria-label="ارفع البانر"></label>${s.photo ? `<button class="btn sm ghost" data-act="delphoto">شيل</button>` : ""}</div>
+  </div>
+  <p class="muted small" style="margin:0">اللوجو بيظهر جنب اسم المكان، ولو عندك فروع بيتحفظ لكل الفروع. البانر بيظهر فوق صفحة المكان.</p>`;
 }
 function readShopFields(base) {
-  const d = { ...base, category: CATS[$("#sh-cat").value] ? $("#sh-cat").value : "barber", name: $("#sh-name").value.trim(), area: $("#sh-area").value, phone: normPhone($("#sh-phone").value), whatsapp: normPhone($("#sh-wa").value), capacity: Math.round(+$("#sh-cap").value || 1), mapUrl: $("#sh-map").value.trim(), photo: S.photoDraft !== undefined ? S.photoDraft : (base.photo || "") };
+  const d = { ...base, category: CATS[$("#sh-cat").value] ? $("#sh-cat").value : "barber", name: $("#sh-name").value.trim(), area: $("#sh-area").value.trim().slice(0, 60), address: ($("#sh-addr").value || "").trim().slice(0, 150), logo: S.logoDraft !== undefined ? S.logoDraft : (base.logo || ""), phone: normPhone($("#sh-phone").value), whatsapp: normPhone($("#sh-wa").value), capacity: Math.round(+$("#sh-cap").value || 1), mapUrl: $("#sh-map").value.trim(), photo: S.photoDraft !== undefined ? S.photoDraft : (base.photo || "") };
   if (d.name.length < 2) throw userErr("اكتب اسم المكان.");
+  if (d.area.length < 2) throw userErr("اكتب المنطقة أو الحي.");
   if (d.phone && !validPhone(d.phone)) throw userErr("رقم التليفون لازم يبقى ١١ رقم ويبدأ بـ 01.");
   if (!validPhone(d.whatsapp)) throw userErr("رقم الواتساب مطلوب، ولازم يبقى ١١ رقم ويبدأ بـ 01.");
   if (d.capacity < 1 || d.capacity > MAX_CAP) throw userErr("العدد من ١ لـ ٣٠.");
@@ -991,22 +1492,45 @@ function readShopFields(base) {
 }
 function bShopForm() {
   S.photoDraft = undefined;
-  $("#bpanel").innerHTML = `<div class="card"><h3>بيانات المكان</h3>${shopFields(S.shop)}</div>
+  $("#bpanel").innerHTML = `<div class="card"><h3>بيانات المكان والصور</h3>${shopFields(S.shop)}</div>
   <div class="card"><h3>مواعيد العمل</h3>${hoursEditor(S.shop.hours)}</div>
-  <div class="err" id="sh-err"></div><button class="btn pri" data-act="saveshop">حفظ</button>`;
+  <div class="err" id="sh-err"></div><button class="btn pri lg" data-act="saveshop">حفظ</button>
+  <div class="card"><div class="row between"><h3>صور المكان</h3><span class="muted small" id="gal-n"></span></div><p class="muted small" style="margin:0">لحد ${n(MAX_PHOTOS)} صور بتظهر للعملاء في صفحة المكان. الصورة بتتحفظ أول ما ترفعها.</p><div class="gal" id="gal"><div class="muted small">بيحمّل…</div></div></div>`;
   bindPhoto();
+  const shopId = S.shop.id;
+  const u = fb.onSnapshot(fb.collection(db, "shops", shopId, "photos"), snap => {
+    const el = $("#gal"); if (!el || !S.shop || S.shop.id !== shopId) return;
+    S.gallery = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => (a.createdAt?.seconds || 0) - (b.createdAt?.seconds || 0));
+    $("#gal-n").textContent = n(S.gallery.length) + " من " + n(MAX_PHOTOS);
+    el.innerHTML = S.gallery.map((p, i) => `<div class="g"><img src="${esc(p.img)}" alt="" data-act="viewpic" data-i="${i}"><button class="x" data-act="delpic" data-id="${esc(p.id)}" aria-label="امسح الصورة">×</button></div>`).join("")
+      + (S.gallery.length < MAX_PHOTOS ? `<label class="g add">+ ضيف صور<input id="gal-up" type="file" accept="image/*" multiple aria-label="ضيف صور"></label>` : "");
+    const up = $("#gal-up"); if (up) up.addEventListener("change", async () => {
+      const files = [...up.files].slice(0, MAX_PHOTOS - S.gallery.length); if (!files.length) return;
+      toast("بيترفع…");
+      try { for (const f of files) { const img = await fitImage(f, 1280, 380000); await fb.setDoc(fb.doc(fb.collection(db, "shops", shopId, "photos")), { img, createdAt: fb.serverTimestamp() }); } toast("اترفعت الصور ✔"); }
+      catch (e) { toast(errText(e)); }
+    });
+  }, e => { const el = $("#gal"); if (el) el.innerHTML = `<div class="muted small">${esc(errText(e))}</div>`; });
+  S.viewUnsubs.push(u);
 }
-function bindPhoto() { const f = $("#sh-photo"); if (!f) return; f.addEventListener("change", async () => { try { S.photoDraft = await compressImage(f.files[0]); $("#sh-prev").innerHTML = `<img class="hero-img" src="${S.photoDraft}" alt=""><button class="btn sm" data-act="delphoto" style="margin-top:6px">شيل الصورة</button>`; } catch (e) { $("#sh-err").textContent = errText(e); } }); }
-function barberOnboarding() {
+function bindPhoto() {
+  S.logoDraft = undefined;
+  const f = $("#sh-photo"), l = $("#sh-logo");
+  if (f) f.addEventListener("change", async () => { try { S.photoDraft = await fitImage(f.files[0], 1280, 380000); $("#sh-prev").querySelector("img") ? $("#sh-prev img").src = S.photoDraft : $("#sh-prev").insertAdjacentHTML("afterbegin", `<img src="${S.photoDraft}" alt="">`); [...$("#sh-prev").childNodes].forEach(nd => { if (nd.nodeType === 3) nd.remove(); }); toast("البانر جاهز. دوس حفظ."); } catch (e) { $("#sh-err").textContent = errText(e); } });
+  if (l) l.addEventListener("change", async () => { try { S.logoDraft = await fitImage(l.files[0], 320, 60000); $("#lg-prev").querySelector("img") ? $("#lg-prev img").src = S.logoDraft : $("#lg-prev").insertAdjacentHTML("afterbegin", `<img src="${S.logoDraft}" alt="">`); [...$("#lg-prev").childNodes].forEach(nd => { if (nd.nodeType === 3) nd.remove(); }); toast("اللوجو جاهز. دوس حفظ."); } catch (e) { $("#sh-err").textContent = errText(e); } });
+}
+function barberOnboarding(adding) {
   S.photoDraft = undefined;
-  const inv = getInvite() || {};
-  const draft = { category: inv.cat || "barber", name: inv.name || "", area: inv.area || AREAS[0], phone: S.profile.phone, whatsapp: inv.wa || S.profile.phone, mapUrl: "", capacity: 1, photo: "", hours: defaultHours() };
-  S.svcDraft = CATS[draft.category].svc.map(x => ({ ...x }));
-  main.innerHTML = `<div class="wrap"><div><h2 style="font-size:1.5rem">أهلاً ${esc(S.profile.name)}، سجّل مكانك</h2><p class="muted small" style="margin:0">املا البيانات دي مرة واحدة. بعد موافقة الإدارة مكانك هيظهر للعملاء.</p></div>
-  <div class="card"><h3>١. بيانات المكان</h3>${shopFields(draft)}</div>
+  const inv = adding ? {} : (getInvite() || {}), first = adding ? S.shops[0] : null;
+  const draft = { category: inv.cat || (first ? catOf(first) : "barber"), name: inv.name || "", area: inv.area || "", address: "", logo: first ? first.logo || "" : "", phone: first ? first.phone : S.profile.phone, whatsapp: inv.wa || (first ? first.whatsapp : S.profile.phone), mapUrl: "", capacity: first ? first.capacity : 1, photo: "", hours: first ? JSON.parse(JSON.stringify(first.hours)) : defaultHours() };
+  S.svcDraft = (first && catOf(first) === draft.category ? first.services : CATS[draft.category].svc).map(x => ({ ...x }));
+  main.innerHTML = `<div class="wrap">${adding ? `<button class="btn switch sm" data-act="branches" style="align-self:flex-start">› فروعي</button>` : ""}
+  <div><h2 style="font-size:1.5rem">${adding ? "ضيف فرع جديد" : `أهلاً ${esc(S.profile.name)}، سجّل مكانك`}</h2><p class="muted small" style="margin:0">${adding ? "بيانات الفرع الجديد. أخدنا الخدمات والمواعيد من فرعك الأول، غيّر اللي محتاجه." : "املا البيانات دي مرة واحدة. بعد موافقة الإدارة مكانك هيظهر للعملاء."}</p></div>
+  ${adding ? `<div class="card"><h3>اسم البيزنس</h3><label class="f">الاسم اللي بيجمع كل فروعك<input id="sh-brand" maxlength="60" value="${esc(brandOf(S.shops))}"></label></div>` : ""}
+  <div class="card"><h3>١. بيانات ${adding ? "الفرع" : "المكان"}</h3>${shopFields(draft)}</div>
   <div class="card"><h3>٢. الخدمات والأسعار</h3><div id="svc-wrap">${servicesEditor(S.svcDraft)}</div></div>
   <div class="card"><h3>٣. مواعيد العمل</h3>${hoursEditor(draft.hours)}</div>
-  <div class="err" id="sh-err"></div><button class="btn pri block lg" data-act="createshop">سجّل المكان</button></div>`;
+  <div class="err" id="sh-err"></div><button class="btn pri block lg" data-act="createshop" data-add="${adding ? 1 : ""}">${adding ? "ضيف الفرع" : "سجّل المكان"}</button></div>`;
   bindPhoto();
   $("#sh-cat").addEventListener("change", e => { S.svcDraft = CATS[e.target.value].svc.map(x => ({ ...x })); $("#svc-wrap").innerHTML = servicesEditor(S.svcDraft); });
 }
@@ -1051,8 +1575,8 @@ function aOverview() {
 function aShops() {
   const order = { pending: 0, active: 1, suspended: 2 };
   const l = [...A.data.shops].sort((a, b) => (order[a.status] ?? 3) - (order[b.status] ?? 3));
-  const owner = id => A.data.users.find(u => u.id === id);
-  $("#apanel").innerHTML = l.length ? `<div class="stack">${l.map(s => `<div class="item"><div class="hd"><span class="row" style="gap:10px">${avatar(s, "av")}<span><span class="ttl">${esc(s.name)}</span><br><span class="muted small">${esc(CATS[catOf(s)].ar)} · ${esc(s.area)} · صاحب المكان: ${esc((owner(s.id) || {}).name || "—")}</span><br>${tel(s.whatsapp)}</span></span>${stBadge(s.status, s.status === "pending" ? "في انتظار الموافقة" : null)}</div>
+  const owner = s => A.data.users.find(u => u.id === ownerOf(s));
+  $("#apanel").innerHTML = l.length ? `<div class="stack">${l.map(s => `<div class="item"><div class="hd"><span class="row" style="gap:10px">${avatar(s, "av")}<span><span class="ttl">${esc(s.name)}</span><br><span class="muted small">${esc(CATS[catOf(s)].ar)} · ${esc(s.area)} · صاحب المكان: ${esc((owner(s) || {}).name || "—")}${s.brand ? ` · البيزنس: ${esc(s.brand)}` : ""}</span><br>${tel(s.whatsapp)}</span></span>${stBadge(s.status, s.status === "pending" ? "في انتظار الموافقة" : null)}</div>
   <div class="small muted">${n((s.services || []).length)} خدمة · ${n(s.capacity)} ${unitOf(s)} · ${s.ratingCount ? n(ratingOf(s).toFixed(1)) + " ★ (" + n(s.ratingCount) + ")" : "مفيش تقييمات"}</div>
   <div class="row">${s.status !== "active" ? `<button class="btn sm pri" data-act="shopstatus" data-id="${esc(s.id)}" data-s="active">${s.status === "pending" ? "موافقة ونشر" : "تشغيل"}</button>` : ""}${s.status !== "suspended" ? `<button class="btn sm bad" data-act="shopstatus" data-id="${esc(s.id)}" data-s="suspended">إيقاف</button>` : ""}<button class="btn sm" data-act="adminedit" data-id="${esc(s.id)}">تعديل الخدمات والأسعار</button></div></div>`).join("")}</div>` : `<div class="empty">لسه مفيش أماكن مسجّلة.</div>`;
 }
@@ -1068,7 +1592,7 @@ function aBookings() {
   const l = A.data.bookings.filter(b => f === "all" || b.status === f).sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time));
   const opts = ["pending", "accepted", "done", "rejected", "cancelled"];
   $("#apanel").innerHTML = `<div class="tabs" style="margin-bottom:10px">${["all", ...opts].map(k => `<button class="chip" data-act="bfilter" data-f="${k}" aria-pressed="${f === k}">${k === "all" ? "الكل" : STATUS[k]}</button>`).join("")}</div>
-  ${l.length ? `<div class="scrollx"><table class="t"><thead><tr><th>المعاد</th><th>المكان</th><th>العميل</th><th>الإجمالي</th><th>الحالة</th></tr></thead><tbody>${l.map(b => `<tr><td>${fmtDate(b.date)}<br><span class="muted">${fmtT(b.time)}</span></td><td>${esc(b.shopName)}</td><td>${esc(b.customerName)}<br><span class="num muted">${esc(b.customerPhone)}</span></td><td class="num">${money(b.total)}</td><td><select data-act-change="adminbk" data-id="${esc(b.id)}" aria-label="حالة الحجز">${opts.map(o => `<option value="${o}"${o === b.status ? " selected" : ""}>${STATUS[o]}</option>`).join("")}</select></td></tr>`).join("")}</tbody></table></div>` : `<div class="empty">مفيش حجوزات.</div>`}`;
+  ${l.length ? `<div class="scrollx"><table class="t"><thead><tr><th>المعاد</th><th>المكان</th><th>العميل</th><th>الإجمالي</th><th>الحالة</th></tr></thead><tbody>${l.map(b => `<tr><td>${fmtDate(b.date)}<br><span class="muted">${bkTime(b)}</span></td><td>${esc(b.shopName)}</td><td>${esc(b.customerName)}<br><span class="num muted">${esc(b.customerPhone)}</span></td><td class="num">${money(b.total)}</td><td><select data-act-change="adminbk" data-id="${esc(b.id)}" aria-label="حالة الحجز">${opts.map(o => `<option value="${o}"${o === b.status ? " selected" : ""}>${STATUS[o]}</option>`).join("")}</select></td></tr>`).join("")}</tbody></table></div>` : `<div class="empty">مفيش حجوزات.</div>`}`;
 }
 function aReviews() {
   const shop = id => (A.data.shops.find(s => s.id === id) || {}).name || "—";
@@ -1077,7 +1601,7 @@ function aReviews() {
 }
 function aFeedback() {
   const l = [...A.data.feedback].sort((a, b) => (a.status === "new" ? 0 : 1) - (b.status === "new" ? 0 : 1) || (ts(b.createdAt) || 0) - (ts(a.createdAt) || 0));
-  $("#apanel").innerHTML = l.length ? `<div class="stack">${l.map(f => `<div class="item"><div class="hd"><span class="ttl">${f.type === "complaint" ? "شكوى" : "اقتراح"} · ${esc(f.name || "من غير اسم")}</span>${stBadge(f.status)}</div><div class="small muted">${fmtTs(f.createdAt)}${f.contact ? ` · <span class="num">${esc(f.contact)}</span>` : ""}</div><div>${esc(f.text)}</div><div class="row">${f.status === "new" ? `<button class="btn sm pri" data-act="fbstatus" data-id="${esc(f.id)}" data-s="resolved">اتحل</button>` : `<button class="btn sm" data-act="fbstatus" data-id="${esc(f.id)}" data-s="new">رجّعها جديدة</button>`}</div></div>`).join("")}</div>` : `<div class="empty">مفيش شكاوى أو مقترحات.</div>`;
+  $("#apanel").innerHTML = l.length ? `<div class="stack">${l.map(f => `<div class="item"><div class="hd"><span class="ttl">${f.type === "complaint" ? "شكوى" : f.type === "rating" ? "تقييم التطبيق" : "اقتراح"} · ${esc(f.name || "من غير اسم")}</span>${stBadge(f.status)}</div><div class="small muted">${fmtTs(f.createdAt)}${f.contact ? ` · <span class="num">${esc(f.contact)}</span>` : ""}</div><div>${esc(f.text)}</div><div class="row">${f.status === "new" ? `<button class="btn sm pri" data-act="fbstatus" data-id="${esc(f.id)}" data-s="resolved">اتحل</button>` : `<button class="btn sm" data-act="fbstatus" data-id="${esc(f.id)}" data-s="new">رجّعها جديدة</button>`}</div></div>`).join("")}</div>` : `<div class="empty">مفيش شكاوى أو مقترحات.</div>`;
 }
 function aSettings() {
   const s = S.settings;
@@ -1099,15 +1623,49 @@ function adminEditShop(id) {
 function vAccount() {
   const p = S.profile;
   main.innerHTML = `<div class="wrap"><h2 style="font-size:1.5rem">حسابي</h2>
-  <div class="card"><dl class="kv"><dt>الاسم</dt><dd>${esc(p.name)}</dd><dt>الموبايل</dt><dd class="num">${esc(p.phone)}</dd><dt>نوع الحساب</dt><dd>${p.role === "barber" ? "صاحب مكان · Business owner" : "عميل · Customer"}${S.isAdmin ? " · أدمن" : ""}</dd><dt>الحالة</dt><dd>${stBadge(p.status)}</dd></dl>
+  <div class="card"><dl class="kv"><dt>الاسم</dt><dd>${esc(p.name)}</dd><dt>الموبايل</dt><dd class="num">${esc(p.phone)}</dd>${p.email ? `<dt>الإيميل</dt><dd class="num">${esc(p.email)}</dd>` : ""}<dt>نوع الحساب</dt><dd>${p.role === "barber" ? "صاحب مكان · Business owner" : "عميل · Customer"}${S.isAdmin ? " · أدمن" : ""}</dd><dt>الحالة</dt><dd>${stBadge(p.status)}</dd></dl>
   <label class="f">غيّر الاسم<input id="ac-name" value="${esc(p.name)}" maxlength="60"></label><div class="err" id="ac-err"></div>
   <div class="row"><button class="btn pri sm" data-act="savename">حفظ الاسم</button><button class="btn sm bad" data-act="logout">خروج</button></div></div>
+  <div class="card"><h3>الإيميل <span class="muted small">(اختياري)</span></h3><p class="muted small" style="margin:0">لو نسيت كلمة السر تقدر تعرّف حسابك بالإيميل ده. مش بيظهر لأي حد غيرك وغير الإدارة.</p>
+  <label class="f">الإيميل<input id="ac-email" type="email" inputmode="email" autocomplete="email" dir="ltr" maxlength="100" placeholder="name@gmail.com" value="${esc(p.email || "")}"></label><div class="err" id="em-err" role="alert"></div>
+  <button class="btn navy sm" data-act="saveemail" style="align-self:flex-start">حفظ الإيميل</button></div>
   <div class="card"><h3>كلمة السر</h3>
   <label class="f">كلمة السر الحالية<input id="pw-cur" type="password" dir="ltr" autocomplete="current-password"></label>
   <div class="grid2"><label class="f">كلمة السر الجديدة<input id="pw-new" type="password" dir="ltr" autocomplete="new-password" minlength="6"></label><label class="f">اكتب الجديدة تاني<input id="pw-new2" type="password" dir="ltr" autocomplete="new-password" minlength="6"></label></div>
   <div class="err" id="pw-err" role="alert"></div><button class="btn navy sm" data-act="changepass" style="align-self:flex-start">غيّر كلمة السر</button></div>
   ${canShowInstall() ? `<div class="card"><h3>احجز دورك على موبايلك</h3><p class="muted small" style="margin:0">نزّله على الشاشة الرئيسية وافتحه بلمسة زي أي أبلكيشن.</p><button class="btn pri" data-act="install" style="align-self:flex-start">نزّل التطبيق</button></div>` : ""}
   <div class="card"><h3>رقم الحساب</h3><p class="muted small" style="margin:0">محتاجه بس لو الإدارة طلبت تضيفك كأدمن.</p><div class="row"><span class="num small" style="overflow-wrap:anywhere">${esc(S.user.uid)}</span><button class="btn sm" data-act="copy" data-t="${esc(S.user.uid)}">نسخ</button></div></div></div>`;
+}
+// forgot password (v4.0): the person identifies the account by mobile or by the email saved on it,
+// and a ready WhatsApp message goes to support. The admin runs reset.js with that mobile or email.
+function vForgot() {
+  const by = S.params.by === "email" ? "email" : "phone", s = S.settings;
+  main.innerHTML = `<div class="wrap"><div class="card">
+    <div class="row between"><h2>نسيت كلمة السر؟</h2><span class="ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.5"/></svg></span></div>
+    <p class="muted" style="margin:0">عرّفنا بحسابك برقم الموبايل أو بالإيميل اللي على الحساب، وهنفتحلك رسالة واتساب جاهزة للدعم. هيوصلك على واتساب كلمة سر مؤقتة، وأول ما تدخل بيها التطبيق هيطلب منك تختار كلمة سر جديدة.</p>
+    <div class="seg" role="group" aria-label="هتعرّف حسابك بإيه"><button data-act="fgby" data-by="phone" aria-pressed="${by === "phone"}">${OI.phone}رقم الموبايل</button><button data-act="fgby" data-by="email" aria-pressed="${by === "email"}">${OI.mail}الإيميل</button></div>
+    <form id="fgform" class="stack" novalidate>
+      ${by === "phone"
+        ? `<label class="f">رقم الموبايل اللي عامل بيه الحساب<input id="fg-val" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="01xxxxxxxxx" value="${esc(S.params.phone || "")}"></label>`
+        : `<label class="f">الإيميل اللي على حسابك<input id="fg-val" type="email" inputmode="email" autocomplete="email" dir="ltr" placeholder="name@gmail.com" value="${esc(S.params.email || "")}"></label><div class="note">الإيميل بينفع بس لو كنت ضفته لحسابك (وقت التسجيل أو من «حسابي»). لو مش متأكد، استخدم رقم الموبايل.</div>`}
+      <div class="err" id="fg-err" role="alert"></div>
+      <button class="btn wa block lg" type="submit">ابعت للدعم على واتساب</button>
+    </form>
+    ${S.params.sent ? `<div class="note ok">اتفتحت رسالة واتساب للدعم. ابعتها واستنى الرد بكلمة السر المؤقتة على واتساب على رقم حسابك.</div>` : ""}
+    ${!s.supportWhatsapp ? `<div class="note">رقم واتساب الدعم مش متحدد. ابعت شكوى من تحت الصفحة.</div>` : ""}
+  </div>
+  <button class="btn switch sm" data-act="login" style="align-self:flex-start">› رجوع لتسجيل الدخول</button></div>`;
+  $("#fgform").addEventListener("submit", e => { e.preventDefault(); sendForgot(); });
+}
+function sendForgot() {
+  const by = S.params.by === "email" ? "email" : "phone", err = $("#fg-err"), raw = ($("#fg-val").value || "").trim(), s = S.settings;
+  err.textContent = "";
+  let line;
+  if (by === "phone") { const p = normPhone(raw); if (!validPhone(p)) { err.textContent = "رقم الموبايل لازم يبقى ١١ رقم ويبدأ بـ 01."; return; } S.params.phone = p; line = "رقم حسابي: " + p; }
+  else { const em = raw.toLowerCase(); if (!validEmail(em)) { err.textContent = "الإيميل مش مكتوب صح."; return; } S.params.email = em; line = "إيميل حسابي: " + em; }
+  if (!s.supportWhatsapp) { err.textContent = "رقم واتساب الدعم مش متحدد. ابعت شكوى من تحت الصفحة."; return; }
+  window.open(waLink(s.supportWhatsapp, "السلام عليكم، نسيت كلمة السر بتاعة احجز دورك.\n" + line), "_blank", "noopener");
+  S.params.sent = true; vForgot();
 }
 // forced after logging in with a temporary password from support (users/{uid}.mustChangePassword, set by dorak-admin/reset.js)
 function vSetPass() {
@@ -1168,15 +1726,17 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") closeSheet()
 /* ---------------- events ---------------- */
 document.addEventListener("change", async e => {
   const t = e.target;
+  if (t.dataset.hk === "all") { const box = t.closest(".hday").querySelector(".htimes"); if (box) box.hidden = t.checked; }
   if (t.dataset.svc != null && bk) { const i = +t.dataset.svc; t.checked ? bk.svc.add(i) : bk.svc.delete(i); drawSummary(); }
   if (t.dataset.actChange === "adminbk") {
     const b = A.data.bookings.find(x => x.id === t.dataset.id); const prev = b.status, nx = t.value;
     try {
       await fb.runTransaction(db, async tx => {
-        const sref = fb.doc(db, "shops", b.shopId, "slots", slotId(b.date, b.time)); const sd = await tx.get(sref);
+        const refs = bkSlots(b).map(x => fb.doc(db, "shops", b.shopId, "slots", x)), snaps = [];
+        for (const r of refs) snaps.push(await tx.get(r));
         tx.update(fb.doc(db, "bookings", b.id), { status: nx, updatedAt: fb.serverTimestamp() });
         const wasHolding = ["pending", "accepted", "done"].includes(prev), holds = ["pending", "accepted", "done"].includes(nx);
-        if (sd.exists() && wasHolding !== holds) tx.update(sref, { count: Math.max(0, (sd.data().count || 0) + (holds ? 1 : -1)) });
+        if (wasHolding !== holds) snaps.forEach((sd, i) => { if (sd.exists()) tx.update(refs[i], { count: Math.max(0, (sd.data().count || 0) + (holds ? 1 : -1)) }); });
       });
       b.status = nx; toast("اتغيّرت حالة الحجز.");
     } catch (ex) { t.value = prev; toast(errText(ex)); }
@@ -1195,11 +1755,21 @@ document.addEventListener("click", async e => {
     case "install": doInstall(); break;
     case "cat": go("home", { cat: d.c }); break;
     case "cats": go("home", {}); break;
-    case "forgot": {
-      const ph = normPhone(($("#a-phone") || {}).value || ""), s = S.settings;
-      if (!s.supportWhatsapp) { toast("كلّم الدعم عشان يرجّعلك حسابك."); break; }
-      window.open(waLink(s.supportWhatsapp, "السلام عليكم، نسيت كلمة السر بتاعة احجز دورك." + (validPhone(ph) ? "\nرقم حسابي: " + ph : "\nرقم حسابي: ")), "_blank", "noopener");
-      toast("ابعت الرسالة على واتساب، وهيوصلك كلمة سر مؤقتة.");
+    case "forgot": { const ph = normPhone(($("#a-phone") || {}).value || ""); go("forgot", { role: S.params.role, phone: validPhone(ph) ? ph : "" }); break; }
+    case "fgby": S.params.by = d.by; S.params.sent = false; vForgot(); break;
+    case "fgsend": sendForgot(); break;
+    case "branch": go("barber", { sid: d.id }); break;
+    case "branches": go("barber", { list: 1 }); break;
+    case "addbranch": go("barber", { add: 1 }); break;
+    case "editbrand": brandSheet(); break;
+    case "brand": brandListSheet(d.o, d.c); break;
+    case "dur": bk.hrs = +d.h; drawDurs(); drawSlots(); break;
+    case "askreview": reviewSheet(d.id, true); break;
+    case "clearq": { const el = $("#gq"); if (el) { el.value = ""; S.runQ && S.runQ(); el.focus(); } break; }
+    case "saveemail": {
+      const em = ($("#ac-email").value || "").trim().toLowerCase(), er = $("#em-err"); er.textContent = "";
+      if (em && !validEmail(em)) { er.textContent = "الإيميل مش مكتوب صح."; break; }
+      try { await fb.updateDoc(fb.doc(db, "users", S.user.uid), { email: em }); S.profile.email = em; toast(em ? "اتحفظ الإيميل." : "اتشال الإيميل."); } catch (x) { er.textContent = errText(x); }
       break;
     }
     case "changepass": await changePassword(t, true); break;
@@ -1209,14 +1779,14 @@ document.addEventListener("click", async e => {
     case "closesheet": closeSheet(); break;
     case "logout": await fb.signOut(auth); store("dawrak.role", S.profile ? S.profile.role : load("dawrak.role")); go(homeView()); break;
     case "area": S.params.area = d.a; S.redrawHome && S.redrawHome(); break;
-    case "openshop": go("shop", { id: d.id }); break;
+    case "openshop": closeSheet(); go("shop", { id: d.id }); break;
     case "day": bk.day = d.d; bk.time = null; drawDays(); subscribeSlots(); drawSummary(); break;
     case "slot": bk.time = d.t; drawSlots(); break;
     case "confirm": confirmBooking(); break;
     case "cancelbk": t.disabled = true; await cancelBooking(d.id); break;
-    case "review": reviewSheet(d.id); break;
+    case "review": reviewSheet(d.id, false); break;
     case "notifyperm": try { await Notification.requestPermission(); } catch (x) {} vBarber(); break;
-    case "btab": S.params = { tab: d.t }; try { history.replaceState({ view: "barber", params: S.params }, "", "#barber"); } catch (x) {} S.viewUnsubs.forEach(u => u()); S.viewUnsubs = []; vBarber(); break;
+    case "btab": S.params = { sid: S.shop ? S.shop.id : S.params.sid, tab: d.t }; try { history.replaceState({ view: "barber", params: S.params }, "", "#barber"); } catch (x) {} S.viewUnsubs.forEach(u => u()); S.viewUnsubs = []; vBarber(); window.scrollTo(0, 0); break;
     case "bstatus": t.disabled = true; await setBookingStatus(d.id, d.s); break;
     case "bday": S.params.day = d.d; bSchedule(); break;
     case "toggleslot": t.disabled = true; await toggleSlot(d.d, d.t); break;
@@ -1226,16 +1796,23 @@ document.addEventListener("click", async e => {
     case "addsvc": S.svcDraft = readServices(); S.svcDraft.push({ name: "", price: 0, mins: 30 }); $("#svc-wrap").innerHTML = servicesEditor(S.svcDraft); break;
     case "delsvc": S.svcDraft = readServices(); S.svcDraft.splice(+d.i, 1); $("#svc-wrap").innerHTML = servicesEditor(S.svcDraft); break;
     case "savesvc": try { const l = cleanServices(readServices()); await fb.updateDoc(fb.doc(db, "shops", S.shop.id), { services: l }); toast("اتحفظت الخدمات."); } catch (x) { $("#sv-err").textContent = errText(x); } break;
-    case "delphoto": S.photoDraft = ""; $("#sh-prev").innerHTML = ""; if ($("#sh-photo")) $("#sh-photo").value = ""; break;
-    case "saveshop": try { const s = readShopFields(S.shop); const { id, ...rest } = { ...s, hours: readHours() }; delete rest.status; delete rest.ratingSum; delete rest.ratingCount; delete rest.lastReview; await fb.updateDoc(fb.doc(db, "shops", S.shop.id), { category: rest.category, name: rest.name, area: rest.area, phone: rest.phone, whatsapp: rest.whatsapp, capacity: rest.capacity, mapUrl: rest.mapUrl, photo: rest.photo, hours: rest.hours }); toast("اتحفظ."); } catch (x) { $("#sh-err").textContent = errText(x); } break;
+    case "delphoto": S.photoDraft = ""; { const im = $("#sh-prev img"); if (im) im.remove(); } t.remove(); toast("دوس حفظ عشان تتشال."); break;
+    case "dellogo": S.logoDraft = ""; { const im = $("#lg-prev img"); if (im) im.remove(); } t.remove(); toast("دوس حفظ عشان يتشال."); break;
+    case "viewpic": picViewer(+d.i); break;
+    case "delpic": t.disabled = true; try { await fb.deleteDoc(fb.doc(db, "shops", S.shop.id, "photos", d.id)); } catch (x) { toast(errText(x)); t.disabled = false; } break;
+    case "saveshop": try { const s = readShopFields(S.shop); const { id, ...rest } = { ...s, hours: readHours() }; delete rest.status; delete rest.ratingSum; delete rest.ratingCount; delete rest.lastReview; await fb.updateDoc(fb.doc(db, "shops", S.shop.id), { category: rest.category, name: rest.name, area: rest.area, address: rest.address, phone: rest.phone, whatsapp: rest.whatsapp, capacity: rest.capacity, mapUrl: rest.mapUrl, photo: rest.photo, logo: rest.logo, hours: rest.hours }); if (S.logoDraft !== undefined && S.shops.length > 1) { const b = fb.writeBatch(db); S.shops.filter(x => x.id !== S.shop.id).forEach(x => b.update(fb.doc(db, "shops", x.id), { logo: rest.logo })); await b.commit(); } S.logoDraft = undefined; S.photoDraft = undefined; toast("اتحفظ."); } catch (x) { $("#sh-err").textContent = errText(x); } break;
     case "createshop": {
       const btn = t; btn.disabled = true;
       try {
-        const base = readShopFields({ category: "barber", name: "", area: "", phone: "", whatsapp: "", mapUrl: "", capacity: 1, photo: "" });
+        const base = readShopFields({ category: "barber", name: "", area: "", address: "", phone: "", whatsapp: "", mapUrl: "", capacity: 1, photo: "", logo: "" });
         const services = cleanServices(readServices()), hours = readHours();
-        await fb.setDoc(fb.doc(db, "shops", S.user.uid), { category: base.category, name: base.name, area: base.area, phone: base.phone, whatsapp: base.whatsapp, mapUrl: base.mapUrl, capacity: base.capacity, photo: base.photo, services, hours, status: "pending", ratingSum: 0, ratingCount: 0, createdAt: fb.serverTimestamp() });
+        const brand = $("#sh-brand") ? $("#sh-brand").value.trim().slice(0, 60) : "";
+        const ref = fb.doc(fb.collection(db, "shops"));
+        await fb.setDoc(ref, { ownerId: S.user.uid, brand, category: base.category, name: base.name, area: base.area, address: base.address, logo: base.logo || (d.add && S.shops[0] ? S.shops[0].logo || "" : ""), phone: base.phone, whatsapp: base.whatsapp, mapUrl: base.mapUrl, capacity: base.capacity, photo: base.photo, services, hours, status: "pending", ratingSum: 0, ratingCount: 0, createdAt: fb.serverTimestamp() });
+        if (d.add && brand && S.shops.some(s => s.brand !== brand)) { try { await saveBrand(brand); } catch (e) {} }
         store("dawrak.invite", null);
-        toast("اتسجل المكان. مستنيين موافقة الإدارة.");
+        toast(d.add ? "اتضاف الفرع. مستنيين موافقة الإدارة." : "اتسجل المكان. مستنيين موافقة الإدارة.");
+        go("barber", { sid: ref.id });
       } catch (x) { $("#sh-err").textContent = errText(x); btn.disabled = false; }
       break;
     }
@@ -1264,7 +1841,7 @@ document.addEventListener("click", async e => {
 });
 
 /* ---------------- live listeners per role ---------------- */
-function stopRoleListeners() { S.roleUnsubs.forEach(u => { try { u(); } catch (e) {} }); S.roleUnsubs = []; S.myBookings = []; S.shopBookings = []; S.pendingCount = 0; S.knownPending = null; S.shop = undefined; S.myReviews = new Set(); }
+function stopRoleListeners() { S.roleUnsubs.forEach(u => { try { u(); } catch (e) {} }); S.roleUnsubs = []; S.myBookings = []; S.shopBookings = []; S.pendingCount = 0; S.knownPending = null; S.shop = undefined; S.shops = undefined; S.myReviews = new Set(); }
 function startRoleListeners() {
   stopRoleListeners();
   if (!S.profile) return;
@@ -1276,25 +1853,42 @@ function startRoleListeners() {
       S.myBookings.forEach(b => { if (!first && prev[b.id] && prev[b.id] !== b.status && (b.status === "accepted" || b.status === "rejected")) notify(b.status === "accepted" ? "المكان أكّد حجزك ✔" : "المكان رفض الحجز", b.shopName + " · " + fmtDate(b.date) + " " + fmtT(b.time)); prev[b.id] = b.status; });
       first = false;
       if (S.view === "mybookings") vMyBookings();
+      if (S.reviewsLoaded) maybeAskReview();
     }, () => {}));
-    fb.getDocs(fb.query(fb.collection(db, "reviews"), fb.where("customerId", "==", uid))).then(s => { s.forEach(d => S.myReviews.add(d.id)); if (S.view === "mybookings") vMyBookings(); }).catch(() => {});
+    S.reviewsLoaded = false;
+    fb.getDocs(fb.query(fb.collection(db, "reviews"), fb.where("customerId", "==", uid))).then(s => { s.forEach(d => S.myReviews.add(d.id)); S.reviewsLoaded = true; if (S.view === "mybookings") vMyBookings(); setTimeout(maybeAskReview, 800); }).catch(() => {});
   }
   if (S.profile.role === "barber") {
-    S.roleUnsubs.push(fb.onSnapshot(fb.doc(db, "shops", uid), d => {
-      S.shop = d.exists() ? { id: d.id, ...d.data() } : null;
-      if (S.view === "barber" && !(S.params.tab === "services" || S.params.tab === "shop") ) vBarber();
-      else if (S.view === "barber" && S.shop === null) vBarber();
-      else if (S.view === "barber" && S.shop && !$("#bpanel")) vBarber();
-    }, () => { S.shop = null; if (S.view === "barber") vBarber(); }));
-    S.roleUnsubs.push(fb.onSnapshot(fb.query(fb.collection(db, "bookings"), fb.where("shopId", "==", uid)), snap => {
-      S.shopBookings = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    // branches: the place from before v4.0 (document id = uid) + every place with ownerId = uid
+    let legacy, owned;
+    const mergeShops = () => {
+      if (legacy === undefined || owned === undefined) return;
+      const map = {}; [...(legacy ? [legacy] : []), ...owned].forEach(s => { map[s.id] = s; });
+      const firstLoad = S.shops === undefined;
+      S.shops = Object.values(map).sort((a, b) => (a.createdAt?.seconds || 0) - (b.createdAt?.seconds || 0));
+      S.shop = S.shop ? S.shops.find(s => s.id === S.shop.id) || null : S.shop;
+      if (S.view !== "barber" || S.params.add) return;
+      const tab = S.params.tab || "dash";
+      if (firstLoad || !$("#bpanel") || !(tab === "services" || tab === "shop")) vBarber();
+    };
+    S.roleUnsubs.push(fb.onSnapshot(fb.doc(db, "shops", uid), d => { legacy = d.exists() && ownerOf({ id: d.id, ...d.data() }) === uid ? { id: d.id, ...d.data() } : null; mergeShops(); }, () => { legacy = null; mergeShops(); }));
+    S.roleUnsubs.push(fb.onSnapshot(fb.query(fb.collection(db, "shops"), fb.where("ownerId", "==", uid)), snap => { owned = snap.docs.map(d => ({ id: d.id, ...d.data() })); mergeShops(); }, () => { owned = []; mergeShops(); }));
+    // bookings of every branch: new ones carry ownerId, older ones have shopId = uid
+    const bkParts = { a: [], b: [] };
+    const onBk = (key, snap) => {
+      bkParts[key] = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      const map = {}; [...bkParts.a, ...bkParts.b].forEach(b => { map[b.id] = b; });
+      S.shopBookings = Object.values(map);
       const pend = S.shopBookings.filter(b => b.status === "pending");
-      if (S.knownPending) pend.filter(b => !S.knownPending.has(b.id)).forEach(b => notify("طلب حجز جديد", b.customerName + " · " + fmtDate(b.date) + " " + fmtT(b.time)));
+      if (S.knownPending) pend.filter(b => !S.knownPending.has(b.id)).forEach(b => notify("طلب حجز جديد", b.customerName + " · " + b.shopName + " · " + fmtDate(b.date) + " " + fmtT(b.time)));
       S.knownPending = new Set(pend.map(b => b.id));
       S.pendingCount = pend.length; renderTop();
       try { document.title = (pend.length ? "(" + pend.length + ") " : "") + "احجز دورك · Dorak"; } catch (e) {}
-      if (S.view === "barber") { const tab = S.params.tab || "dash"; if (tab === "requests" || tab === "dash") vBarber(); else if (tab === "schedule" && S.schedDraw) S.schedDraw(); }
-    }, () => {}));
+      if (S.view === "barber" && !S.params.add && S.shops !== undefined) { const tab = S.params.tab || "dash"; if (!S.shop || tab === "requests" || tab === "dash") vBarber(); else if (tab === "schedule" && S.schedDraw) S.schedDraw(); }
+      setTimeout(ownerAskOnOpen, 1500);
+    };
+    S.roleUnsubs.push(fb.onSnapshot(fb.query(fb.collection(db, "bookings"), fb.where("ownerId", "==", uid)), snap => onBk("a", snap), () => {}));
+    S.roleUnsubs.push(fb.onSnapshot(fb.query(fb.collection(db, "bookings"), fb.where("shopId", "==", uid)), snap => onBk("b", snap), () => {}));
   }
 }
 
