@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="احجز دورك (Dorak): احجز ملعب بادل أو كورة، حلاق، كوافير، بلايستيشن أو سيبر في دمياط الجديدة">
-<meta name="theme-color" content="#0B2D5B">
+<meta name="theme-color" content="#0B1E48">
 <title>احجز دورك · Dorak</title>
 <link rel="icon" href="icon-192.png" type="image/png">
 <!-- Home-screen app (since v2.2): these files sit next to index.html on GitHub -->
@@ -20,12 +20,13 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap">
 <style>
 :root{
-  --navy:#0B2D5B; --navy-deep:#071F42; --navy-soft:#E8EEF7; --gold:#D4AF37; --gold-deep:#B8922A; --gold-soft:#FBF6E4;
+  --navy:#0B1E48; --navy-deep:#060F2A; --royal:#12306A; --navy-soft:#E9EEF8; --gold:#D9AE4A; --gold-deep:#B07F28; --gold-light:#FBE7A1; --gold-soft:#FBF5E4;
+  --gold-grad:linear-gradient(135deg,#FBE7A1,#E2B857 45%,#B07F28);
   --bg:#F8F9FA; --ink:#14213A; --muted:#5F6B7D; --card:#FFFFFF; --line:#E2E7EF; --mist:#C9D3E1;
   --ok:#2F7A4D; --bad:#B03A35; --wait:#9A7417; --off:#8A93A3;
   --font-display:"Cairo",system-ui,"Segoe UI",Tahoma,sans-serif;
   --font-body:"Cairo",system-ui,"Segoe UI",Tahoma,sans-serif;
-  --r:18px; --shadow:0 4px 18px rgb(11 45 91 / .07); color-scheme:light;
+  --r:18px; --shadow:0 6px 22px rgb(11 30 72 / .08); color-scheme:light;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
 *{box-sizing:border-box}
@@ -38,20 +39,21 @@ button,input,select,textarea{font:inherit;color:inherit}
 h1,h2,h3{font-family:var(--font-display);margin:0;line-height:1.3;text-wrap:balance;color:var(--navy);font-weight:800}
 .wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:16px 32px;display:flex;flex-direction:column;gap:16px}
 /* header */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--navy);border-bottom:2px solid var(--gold)}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:linear-gradient(120deg,var(--navy-deep),var(--navy) 55%,var(--royal));border-bottom:0;box-shadow:0 2px 0 0 #B07F28,0 6px 18px rgb(6 15 42 / .25)}
+.top::after{content:"";position:absolute;inset-inline:0;bottom:-2px;height:2px;background:var(--gold-grad)}
 .top .in{max-width:1080px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:start}
 .brand .word{font-family:var(--font-display);font-weight:800;font-size:1.35rem;color:#fff;line-height:1.1;display:block}
-.brand .sub{font-size:.78rem;color:var(--gold);display:block;line-height:1.2;font-weight:700;letter-spacing:.5px}
+.brand .sub{font-size:.72rem;color:var(--gold-light);display:block;line-height:1.3;font-weight:700;letter-spacing:1px;white-space:nowrap}
 .navbtns{display:flex;gap:6px;align-items:center}
 .top .btn{background:transparent;border-color:rgb(255 255 255 / .28);color:#fff}
 .top .btn:hover{border-color:var(--gold)}
-.top .btn.pri{background:var(--gold);border-color:var(--gold);color:var(--navy-deep)}
+.top .btn.pri{background:var(--gold-grad);border-color:var(--gold);color:var(--navy-deep)}
 .top .btn.ghost{border-color:transparent}
 /* buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:12px;padding:10px 16px;border:1px solid var(--line);background:var(--card);cursor:pointer;text-decoration:none;color:var(--navy);font-weight:700;min-height:42px}
 .btn:hover{border-color:var(--mist)}
-.btn.pri{background:linear-gradient(135deg,#E3C55E,var(--gold) 55%,var(--gold-deep));border-color:var(--gold-deep);color:var(--navy-deep)}
+.btn.pri{background:var(--gold-grad);border-color:var(--gold-deep);color:var(--navy-deep);box-shadow:0 3px 10px rgb(176 127 40 / .25)}
 .btn.pri:hover{filter:brightness(1.04)}
 .btn.navy{background:var(--navy);border-color:var(--navy);color:#fff}
 .btn.acc{background:var(--navy);border-color:var(--navy);color:var(--gold)}
@@ -120,7 +122,7 @@ label.f textarea{min-height:90px;resize:vertical}
 .tab{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 14px;white-space:nowrap;cursor:pointer;font-weight:700;color:var(--navy);display:inline-flex;gap:6px;align-items:center}
 .tab[aria-selected="true"]{background:var(--navy);color:#fff;border-color:var(--navy);box-shadow:inset 0 -2px 0 var(--gold)}
 .chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;white-space:nowrap;cursor:pointer;font-size:.9rem;font-weight:600;color:var(--navy)}
-.chip[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.chip[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy);box-shadow:inset 0 -2px 0 var(--gold)}
 .chip:disabled{opacity:.4;cursor:not-allowed}
 .status{display:inline-block;font-size:.78rem;font-weight:700;padding:2px 10px;border-radius:999px;border:1px solid}
 .st-pending{color:var(--wait);border-color:#E7D18A;background:var(--gold-soft)}
@@ -559,6 +561,29 @@ dl.dash dt{color:#AFC0D8}dl.dash dd{margin:0}dl.dash .rng{color:#fff}
 .dots button{width:8px;height:8px;border-radius:50%;border:0;background:rgb(255 255 255 / .5);padding:0;cursor:pointer}
 .dots button[aria-pressed="true"]{background:var(--gold);width:20px;border-radius:6px}
 .offthumb{width:84px;height:40px;object-fit:cover;border-radius:8px}
+/* v7.0 */
+.daychip{display:inline-flex;flex-direction:column;align-items:center;gap:0;padding:6px 12px;border-radius:14px;min-width:74px;line-height:1.3}
+.daychip b{font-size:.92rem}.daychip small{font-size:.72rem;opacity:.75;font-weight:600}
+.daychip.today{border-color:var(--gold)}.daychip.today small{color:var(--gold-deep);opacity:1;font-weight:800}
+.daychip[aria-pressed="true"] small{color:var(--gold-light)}
+.seg.where{margin-bottom:2px}
+.staffs{display:flex;flex-wrap:wrap;gap:8px}.staffs .chip{padding:8px 14px}
+.note.dlv::before{content:"🛵";background:transparent}
+.propbox{display:flex;flex-direction:column;gap:6px;border:1.5px dashed var(--gold);background:var(--gold-soft);border-radius:14px;padding:10px 12px;margin-top:8px}
+.propbox strong{color:var(--navy)}.propbox.ok{border-style:solid;border-color:#A9D3B8;background:#EDF7F0}
+.pinbox{display:flex;flex-direction:column;gap:8px;border:1px solid var(--line);border-radius:14px;padding:10px 12px;background:#FBFCFE}
+.pins{display:flex;flex-wrap:wrap;gap:8px}
+.pin{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--gold);background:var(--gold-soft);border-radius:999px;padding:4px 6px 4px 12px;font-weight:700;color:var(--navy);font-size:.88rem}
+.pin button{border:0;background:var(--navy);color:#fff;width:24px;height:24px;border-radius:50%;cursor:pointer;font-size:.75rem}
+.stx{display:grid;grid-template-columns:1fr auto auto auto;gap:8px;align-items:end;border-bottom:1px dashed var(--line);padding-bottom:8px}
+.stx .strate{align-self:center;white-space:nowrap}
+@media (max-width:440px){.stx{grid-template-columns:1fr auto}.stx .strate{grid-column:1}}
+.heard{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}.heard .chip{padding:9px 14px}
+.stfrate{display:flex;flex-direction:column;align-items:center;gap:4px;border-top:1px dashed var(--line);padding-top:10px}
+.hbars{display:flex;flex-direction:column;gap:6px}
+.hb{display:grid;grid-template-columns:8.5em 1fr 2.5em;gap:8px;align-items:center;font-size:.88rem}
+.hb i{display:block;height:12px;border-radius:999px;background:var(--gold-grad)}.hb b{color:var(--navy)}
+.seg.wk{max-width:340px}
 </style>
 </head>
 <body>
@@ -582,7 +607,7 @@ dl.dash dt{color:#AFC0D8}dl.dash dd{margin:0}dl.dash .rng{color:#fff}
          times; open-time ("مفتوح") bookings; times grouped by period incl. after midnight; 10-minute lateness rule with
          "العميل وصل" + auto-cancel; offers billboard managed by the admin; backup download; complaints WhatsApp 01507796698.
    ============================================================ */
-const APP_VERSION = "6.0";
+const APP_VERSION = "7.0";
 
 // ---- 1) Firebase project settings: paste the values from Firebase console → Project settings → Your apps ----
 const firebaseConfig = {
@@ -644,6 +669,21 @@ const DEV_CATS = ["gaming", "cyber"];
 const OPEN_MAX = 12;      // an open ("مفتوح") booking holds the devices for up to 12 hours, until closing or the next booking
 const MAX_GROUPS = 8;
 function unitMode(s) { return UNIT_CATS.includes(catOf(s)); }
+// v7.0: stylists (barber / coiffeur): the owner lists them like chairs; the customer may pick one
+const STAFF_CATS = ["barber", "salon"];
+function staffCat(s) { return STAFF_CATS.includes(catOf(s)); }
+function staffOn(s) { return staffCat(s) && Array.isArray(s.staff) ? s.staff.filter(x => x && x.on !== false && x.name) : []; }
+function staffMode(s) { return staffOn(s).length > 0; }
+function staffPick(s) { return staffMode(s) && s.staffPick !== false; }
+function staffName(s, no) { const x = (s.staff || []).find(y => +y.no === +no); return x ? x.name : "مصفف " + n(no); }
+// v7.0: delivery (home service) with its own menu, for barbers and coiffeurs
+function hasDelivery(s) { return staffCat(s) && s.delivery && s.delivery.on && Array.isArray(s.delivery.services) && s.delivery.services.length > 0; }
+// v7.0: weekly pins: the owner closes a time on a weekday for every week (key = ISO weekday + "_" + HHMM)
+function pinKey(k, t) { return isoDow(parseKey(k)) + "_" + String(t).replace(":", ""); }
+function pinned(s, k, t) { return !!(s && s.weekly && s.weekly[pinKey(k, t)]); }
+// v7.0: the days bar is fixed Saturday → Friday; each day is its next date (today or within 6 days)
+function weekDays(plus = 0) { return nextDays(7).map(k => { const d = parseKey(k); d.setDate(d.getDate() + plus); return dkey(d); }).sort((a, b) => WEEK_ORDER.indexOf(isoDow(parseKey(a))) - WEEK_ORDER.indexOf(isoDow(parseKey(b)))); }
+function dayChip(k, act, on, off) { const d = parseKey(k), today = k === dkey(new Date()); return `<button class="chip daychip${today ? " today" : ""}" data-act="${act}" data-d="${k}" aria-pressed="${on}"${off ? ' disabled title="إجازة"' : ""}><b>${DAYS[d.getDay()]}</b><small>${today ? "النهارده" : n(d.getDate()) + " " + MONTHS[d.getMonth()]}</small></button>`; }
 function devMode(s) { return DEV_CATS.includes(catOf(s)); }
 function defGroups(cat) {
   return ({ cyber: [{ name: "القاعة العادية", desc: "", count: 10, price: 20, multi: 0 }, { name: "VIP", desc: "شاشات أكبر وكراسي جيمنج", count: 4, price: 30, multi: 0 }],
@@ -676,6 +716,7 @@ function devWord(c) { return c === 1 ? "جهاز" : c === 2 ? "جهازين" : n
 function devChips(b, cls = "") { const l = bkDevs(b); return l.length ? `<span class="dchips ${cls}">${l.map(i => `<span class="dchip">${n(i)}</span>`).join("")}</span>` : ""; }
 const ICO_PC = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>`;
 const ICO_HOME = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 3l9 8"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></svg>`;
+const ICO_WA = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2A9.7 9.7 0 0 0 3.7 16.9L2.4 21.6l4.8-1.3A9.7 9.7 0 1 0 12 2.2zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.2.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>`;
 const ICO_BELL = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>`;
 // v5.0: Instagram / TikTok / Facebook pages of a place (a full https link or just the user name)
 const SOCIAL = { ig: { ar: "إنستجرام", en: "Instagram", base: "https://www.instagram.com/" }, tt: { ar: "تيك توك", en: "TikTok", base: "https://www.tiktok.com/@" }, fb: { ar: "فيسبوك", en: "Facebook", base: "https://www.facebook.com/" } };
@@ -948,11 +989,13 @@ const OI = {
 function validEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e) && e.length <= 100; }
 
 /* ---------------- logo ---------------- */
-function logo(size = 40) {
-  const g = "lg" + size;
-  return `<svg width="${size}" height="${size}" viewBox="0 0 64 64" role="img" aria-label="شعار احجز دورك"><defs><linearGradient id="${g}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F3DC86"/><stop offset=".55" stop-color="#D4AF37"/><stop offset="1" stop-color="#A9831F"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="#0B2D5B"/><rect x="2" y="2" width="60" height="60" rx="14" fill="none" stroke="#D4AF37" stroke-opacity=".35"/><path d="M19 14h12a18 18 0 0 1 0 36H19z" fill="none" stroke="url(#${g})" stroke-width="6.5" stroke-linejoin="round"/><path d="M30.5 32v-8.5M30.5 32l6.5 4" stroke="url(#${g})" stroke-width="3.6" stroke-linecap="round"/><circle cx="30.5" cy="32" r="2.6" fill="#F3DC86"/></svg>`;
+function logo(size = 40, bare) {
+  // v7.0: the new mark — speed lines + white/gold D + check (Ehgez Dorak logo)
+  const g = "lg" + (++logoSeq);
+  return `<svg width="${size}" height="${size}" viewBox="0 0 64 64" role="img" aria-label="شعار احجز دورك"><defs><linearGradient id="${g}b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#12306A"/><stop offset=".45" stop-color="#0B1E48"/><stop offset="1" stop-color="#060F2A"/></linearGradient><linearGradient id="${g}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FBE7A1"/><stop offset=".45" stop-color="#E2B857"/><stop offset="1" stop-color="#B07F28"/></linearGradient><linearGradient id="${g}s" gradientUnits="userSpaceOnUse" x1="4" y1="0" x2="25" y2="0"><stop offset="0" stop-color="#E2B857" stop-opacity="0"/><stop offset=".5" stop-color="#E5BD5E"/><stop offset="1" stop-color="#F6DD92"/></linearGradient><linearGradient id="${g}w" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#E3E8F1"/></linearGradient></defs>${bare ? "" : `<rect width="64" height="64" rx="15" fill="url(#${g}b)"/><rect x="1.2" y="1.2" width="61.6" height="61.6" rx="13.8" fill="none" stroke="url(#${g}g)" stroke-width="1.1" stroke-opacity=".8"/>`}<g stroke-linecap="round" stroke="url(#${g}s)" stroke-width="3.3"><path d="M10 26H23.5"/><path d="M6 32.2H22"/><path d="M11.5 38.4H21"/></g><path d="M33 15H40.5A17 17 0 0 1 40.5 49H22C24.6 46.4 27.5 44.6 30.8 43.4H40.5A11.2 11.2 0 0 0 40.5 20.6H33Z" fill="url(#${g}g)"/><path d="M24.5 15H35L34.1 18.2L26.5 44.2C25.6 47 23.9 48.7 20.6 50.3L28.2 22.6C27 20.7 25.6 18.4 24.5 15Z" fill="url(#${g}w)"/><path d="M33 31.6 36.8 35.4 44.4 27.6" fill="none" stroke="url(#${g}g)" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 }
-function brand() { return `<button class="brand" data-act="home" aria-label="الرئيسية">${logo(40)}<span><span class="word">احجز دورك</span><span class="sub en">Dorak</span></span></button>`; }
+let logoSeq = 0;
+function brand() { return `<button class="brand" data-act="home" aria-label="الرئيسية">${logo(42)}<span><span class="word">احجز دورك</span><span class="sub en">D O R A K</span></span></button>`; }
 
 /* ---------------- navigation ---------------- */
 function go(view, params = {}, push = true) {
@@ -1243,9 +1286,10 @@ async function vShop() {
   try { const d = await fb.getDoc(fb.doc(db, "shops", id)); if (!d.exists()) throw userErr("المكان ده مش موجود."); s = { id: d.id, ...d.data() }; }
   catch (e) { main.innerHTML = `<div class="wrap"><div class="empty">${esc(errText(e))}</div><button class="btn" data-act="home">رجوع</button></div>`; return; }
   if (S.view !== "shop" || S.params.id !== id) return;
-  const days = nextDays(BOOK_DAYS), P = S.params, um = unitMode(s), dm = devMode(s), gl = um ? groupsOf(s) : [];
+  const days = weekDays(), P = S.params, um = unitMode(s), dm = devMode(s), gl = um ? groupsOf(s) : [];
   const hrs0 = P.hrs === "open" && dm ? "open" : multiHour(s) ? Math.min(MAX_HRS, Math.max(1, +P.hrs || 1)) : 1;
-  bk = { s, days, day: P.day || null, sel: P.k && P.time ? { k: P.k, t: P.time } : null, hrs: hrs0, svc: new Set(P.svc || []), devs: new Set(P.devs || []), g: P.g && groupById(s, P.g) ? P.g : null, mode: P.mode === "multi" ? "multi" : "single", slots: {}, note: P.note || (P.offer ? "عرض: " + P.offer : ""), offer: P.offer || "" };
+  bk = { s, days, day: P.day || null, sel: P.k && P.time ? { k: P.k, t: P.time } : null, hrs: hrs0, svc: new Set(P.svc || []), devs: new Set(P.devs || []), g: P.g && groupById(s, P.g) ? P.g : null, mode: P.mode === "multi" ? "multi" : "single", slots: {}, note: P.note || (P.offer ? "عرض: " + P.offer : ""), offer: P.offer || "",
+    where: P.where === "home" && hasDelivery(s) ? "home" : "shop", st: staffPick(s) && staffOn(s).some(x => +x.no === +P.st) ? +P.st : 0, addr: P.addr || "", staffStats: {} };
   const canBook = !S.profile || S.profile.role === "customer";
   const soc = socialLinks(s);
   let step = 0; const st = () => ["١", "٢", "٣", "٤", "٥"][step++];
@@ -1264,7 +1308,8 @@ async function vShop() {
       ${soc.length ? `<div class="socials" aria-label="صفحات المكان">${soc.map(k => `<a class="soc soc-${k}" target="_blank" rel="noopener" href="${esc(s.social[k])}"><span class="sd" aria-hidden="true"></span>${SOCIAL[k].ar}<span class="en">${SOCIAL[k].en}</span></a>`).join("")}</div>` : ""}
       <details class="small"><summary class="muted" style="cursor:pointer">مواعيد العمل</summary><dl class="kv" style="margin-top:6px">${WEEK_ORDER.map(k => `<dt>${ISO_DAYS[k]}</dt><dd>${hoursText(s.hours[k])}</dd>`).join("")}</dl></details>
     </div>
-    ${um ? "" : `<div class="card"><h3>${st()}. اختار الخدمة</h3><div id="svcs" class="stack">${(s.services || []).map((x, i) => `<label class="svc"><input type="checkbox" id="svc-${i}" data-svc="${i}"${bk.svc.has(i) ? " checked" : ""}><span class="n">${esc(x.name)}<div class="muted small">${fmtDur(x.mins)}</div></span><span class="price">${money(x.price)}</span></label>`).join("")}</div></div>`}
+    ${um ? "" : `<div class="card"><h3>${st()}. اختار الخدمة</h3>${hasDelivery(s) ? `<div class="seg where" role="group" aria-label="في المحل أو دليفري"><button data-act="where" data-w="shop" aria-pressed="${bk.where !== "home"}">📍 في المحل</button><button data-act="where" data-w="home" aria-pressed="${bk.where === "home"}">🛵 دليفري · في البيت</button></div>` : ""}<div id="svcs" class="stack"></div><div id="delbox"></div></div>`}
+    ${staffPick(s) ? `<div class="card"><h3>${st()}. اختار المصفف</h3><div id="staffpick" class="staffs" role="group" aria-label="المصفف"></div><p class="muted small" style="margin:0">«أي حد متاح» بيوريك مواعيد أكتر.</p></div>` : ""}
     <div class="card"><h3>${st()}. اختار اليوم</h3><div class="tabs" id="days"></div></div>
     ${multiHour(s) ? `<div class="card"><h3>${st()}. اختار المدة</h3><div class="durs" id="durs" role="group" aria-label="مدة الحجز"></div><div id="opennote"></div></div>` : ""}
     <div class="card"><h3>${st()}. ${um ? `اختار ${dm ? "القاعة" : "الملعب"} والساعة` : "اختار الساعة"}</h3>
@@ -1282,8 +1327,8 @@ async function vShop() {
     <div id="sibs"></div>
     <div class="card"><h3>التقييمات</h3><div id="reviews"><div class="muted small">بيحمّل…</div></div></div>
   </div>`;
-  if (!bk.day) bk.day = days.find(k => (s.hours[isoDow(parseKey(k))] || {}).open) || days[0];
-  drawDays(); drawDurs(); subscribeSlots(); drawSummary();
+  if (!bk.day) bk.day = nextDays(BOOK_DAYS).find(k => (s.hours[isoDow(parseKey(k))] || {}).open) || days[0];
+  drawSvcs(); drawStaff(); drawDays(); drawDurs(); subscribeSlots(); drawSummary();
   drawSiblings(s);
   fb.getDocs(fb.collection(db, "shops", s.id, "photos")).then(snap => {
     const el = $("#gallery"); if (!el || !bk || bk.s.id !== s.id || snap.empty) return;
@@ -1292,6 +1337,22 @@ async function vShop() {
   }).catch(() => {});
   $("#bk-note") && $("#bk-note").addEventListener("input", e => { bk.note = e.target.value; });
   loadReviews(s.id);
+}
+// v7.0: the services the customer picks from: the shop menu, or the delivery menu when "دليفري" is chosen
+function svcList() { return bk.where === "home" && hasDelivery(bk.s) ? bk.s.delivery.services : (bk.s.services || []); }
+function drawSvcs() {
+  const el = $("#svcs"); if (!el) return;
+  el.innerHTML = svcList().map((x, i) => `<label class="svc"><input type="checkbox" id="svc-${i}" data-svc="${i}"${bk.svc.has(i) ? " checked" : ""}><span class="n">${esc(x.name)}<div class="muted small">${fmtDur(x.mins)}</div></span><span class="price">${money(x.price)}</span></label>`).join("");
+  const db_ = $("#delbox"); if (!db_) return;
+  const dl = bk.s.delivery || {};
+  db_.innerHTML = bk.where === "home" ? `<div class="note dlv"><strong>🛵 منيو الدليفري:</strong> المصفف بيجيلك البيت.${+dl.fee ? ` رسوم التوصيل ${money(dl.fee)} بتتضاف على الحساب.` : ""}${dl.note ? `<br>${esc(dl.note)}` : ""}</div>
+    <label class="f">عنوانك بالتفصيل (مطلوب للدليفري)<input id="bk-addr" maxlength="200" value="${esc(bk.addr)}" placeholder="الحي، الشارع، العمارة، الدور"></label>` : "";
+  const a = $("#bk-addr"); if (a) a.addEventListener("input", e => { bk.addr = e.target.value; });
+}
+function drawStaff() {
+  const el = $("#staffpick"); if (!el) return;
+  const st = no => { const x = bk.staffStats[no]; return x && x.c ? ` <span class="stars">★</span>${n((x.sum / x.c).toFixed(1))}` : ""; };
+  el.innerHTML = `<button class="chip" data-act="staff" data-no="0" aria-pressed="${!bk.st}">👥 أي حد متاح</button>` + staffOn(bk.s).map(x => `<button class="chip" data-act="staff" data-no="${+x.no}" aria-pressed="${bk.st === +x.no}">✂ ${esc(x.name)}${st(+x.no)}</button>`).join("");
 }
 function nextKey(day) { const d = parseKey(day); d.setDate(d.getDate() + 1); return dkey(d); }
 // every bookable slot of a day in order; a day that runs until midnight continues into the next day if it opens at 00:00
@@ -1307,8 +1368,8 @@ function timeline(day, s) {
 }
 // v6.0: the times shown under a day = that day from 6 am, then after midnight until 6 am (the next date), like a night out
 const EARLY = 6;
-function dayEntries(day) {
-  const s = bk.s, st = stepOf(s), out = [], seen = new Set(), today = dkey(new Date());
+function dayEntries(day, s = bk.s) {
+  const st = stepOf(s), out = [], seen = new Set(), today = dkey(new Date());
   const add = (k, t, at) => { const key = at.getTime(); if (seen.has(key)) return; seen.add(key); out.push({ k, t, at }); };
   const h = s.hours[isoDow(parseKey(day))];
   slotTimes(h, st).forEach(t => { const at = slotDateTime(day, t, h); if (dkey(at) !== day || at.getHours() >= EARLY || day === today) add(day, t, at); });
@@ -1330,15 +1391,21 @@ function periodsHtml(entries, day, chip) {
   return order.filter(p => by[p]).map(p => `<div class="per"><div class="perh">${periodName(p, day)}</div><div class="slots">${by[p].map(chip).join("")}</div></div>`).join("");
 }
 function slotFree(k, t) {
-  const sd = bk.slots[slotId(k, t)], cap = sd && typeof sd.cap === "number" ? sd.cap : bk.s.capacity;
-  return !(sd && (sd.closed || sd.count >= cap));
+  const s = bk.s, sd = bk.slots[slotId(k, t)], cap = sd && typeof sd.cap === "number" ? sd.cap : s.capacity;
+  if (pinned(s, k, t) || (sd && sd.closed)) return false;
+  const cnt = sd ? sd.count || 0 : 0;
+  if (!staffMode(s)) return cnt < cap;
+  // v7.0: stylists: a stylist closed for this time takes a chair away; a chosen stylist must be free
+  const taken = ((sd && sd.taken) || []).map(Number), off = ((sd && sd.off) || []).map(Number);
+  if (cnt + off.filter(i => !taken.includes(i)).length >= cap) return false;
+  return !bk.st || (staffOn(s).some(x => +x.no === bk.st) && !taken.includes(bk.st) && !off.includes(bk.st));
 }
 // units of one type that are free in every hour of a booking, and how many more the slots can still take
 function devState(seq, gid) {
   const s = bk.s, g = groupById(s, gid) || groupsOf(s)[0], all = devList(s).filter(i => i >= g.from && i <= g.to), taken = new Set(), off = new Set(); let room = Infinity, closed = false;
   seq.forEach(x => {
     const sd = bk.slots[slotId(x.k, x.t)] || {}, cap = typeof sd.cap === "number" ? sd.cap : s.capacity;
-    if (sd.closed) closed = true;
+    if (sd.closed || pinned(s, x.k, x.t)) closed = true;
     (sd.taken || []).forEach(i => taken.add(+i)); (sd.off || []).forEach(i => off.add(+i));
     room = Math.min(room, cap - (sd.count || 0));
   });
@@ -1359,7 +1426,7 @@ function drawDurs() {
   const on = $("#opennote"); if (on) on.innerHTML = bk.hrs === "open" ? `<div class="note">الوقت مفتوح: الأجهزة بتتحجزلك من المعاد اللي تختاره، وتلعب براحتك لحد ما تخلّص (أقصى حاجة لحد ما المكان يقفل أو لحد الحجز اللي بعدك). بتدفع على قد الوقت اللي لعبته، بالنص ساعة.</div>` : "";
 }
 function drawDays() {
-  $("#days").innerHTML = bk.days.map(k => { const h = bk.s.hours[isoDow(parseKey(k))]; const off = !h || !h.open; return `<button class="chip" data-act="day" data-d="${k}" aria-pressed="${bk.day === k}"${off ? " disabled title=\"إجازة\"" : ""}>${dayLabel(k)} ${n(parseKey(k).getDate())}</button>`; }).join("");
+  $("#days").innerHTML = bk.days.map(k => { const h = bk.s.hours[isoDow(parseKey(k))]; return dayChip(k, "day", bk.day === k, !h || !h.open); }).join("");
 }
 function subscribeSlots() {
   S.viewUnsubs.forEach(u => u()); S.viewUnsubs = [];
@@ -1426,7 +1493,9 @@ function chosenServices() {
     const c = devMode(s) ? bk.devs.size : 1; if (!c) return [];
     return [{ name: `${unitWord(s, c)} · ${g.name}${g.multi ? (bk.mode === "multi" ? " · مالتي" : " · سينجل") : ""}`, price: rateOf(g, bk.mode, c), mins: 60 }];
   }
-  return (s.services || []).filter((_, i) => bk.svc.has(i));
+  const l = svcList().filter((_, i) => bk.svc.has(i));
+  if (l.length && bk.where === "home" && +(s.delivery || {}).fee > 0) l.push({ name: "رسوم الدليفري", price: +s.delivery.fee, mins: 0 });
+  return l;
 }
 function bookMins(sv) { return multiHour(bk.s) ? 60 * hrsN() : Math.max(stepOf(bk.s), sv.reduce((a, x) => a + (+x.mins || 0), 0)); }
 function drawSummary() {
@@ -1434,7 +1503,7 @@ function drawSummary() {
   const g = um ? groupById(s, bk.g) : null, t = bk.sel ? bk.sel.t : null;
   const durTxt = open ? "مفتوح · بتدفع على قد ما تلعب" : (multiHour(s) ? hrsLabel(hrs) : (sv.length ? fmtDur(bookMins(sv)) : "—")) + (t && sv.length ? ` · ${bkRange({ time: t, mins: bookMins(sv) })}` : "");
   $("#summary").innerHTML = `<div class="ticket" aria-label="ملخص الحجز"><div class="tp"><div><div class="small" style="opacity:.8">دورك عند</div><div style="font-weight:600">${esc(s.name)}</div></div><div style="text-align:end"><div class="when">${t ? fmtT(t) : "—"}</div><div class="small">${bk.sel ? fmtDate(bk.sel.k) : bk.day ? fmtDate(bk.day) : ""}</div></div></div><div class="perf"></div>
-  <dl>${um ? `<dt>${dm ? "القاعة" : "الملعب"}</dt><dd>${g ? esc(g.name) + (g.multi ? (bk.mode === "multi" ? " · مالتي" : " · سينجل") : "") : "—"}</dd>${dm ? `<dt>الأجهزة</dt><dd>${dl.length ? devChips({ devices: dl }) : "—"}</dd>` : ""}` : `<dt>الخدمة</dt><dd>${sv.length ? esc(sv.map(x => x.name).join(" + ")) : "—"}</dd>`}<dt>المدة</dt><dd>${durTxt}</dd><dt>الدفع</dt><dd>في المكان</dd>
+  <dl>${um ? `<dt>${dm ? "القاعة" : "الملعب"}</dt><dd>${g ? esc(g.name) + (g.multi ? (bk.mode === "multi" ? " · مالتي" : " · سينجل") : "") : "—"}</dd>${dm ? `<dt>الأجهزة</dt><dd>${dl.length ? devChips({ devices: dl }) : "—"}</dd>` : ""}` : `<dt>الخدمة</dt><dd>${sv.length ? esc(sv.map(x => x.name).join(" + ")) : "—"}</dd>${staffPick(s) ? `<dt>المصفف</dt><dd>${bk.st ? esc(staffName(s, bk.st)) : "أي حد متاح"}</dd>` : ""}${bk.where === "home" ? `<dt>المكان</dt><dd>🛵 دليفري · في البيت</dd>` : ""}`}<dt>المدة</dt><dd>${durTxt}</dd><dt>الدفع</dt><dd>في المكان</dd>
   <dt>${open ? "السعر" : "الإجمالي"}</dt><dd class="total">${open ? (sv.length ? `${money(rate)} / ساعة` : "—") : money(tot)}${!open && hrs > 1 && sv.length ? ` <span class="muted small">(${money(rate)} × ${hrsLabel(hrs)})</span>` : ""}</dd></dl></div>`;
   const b = $("#bk-go"); if (b) { b.disabled = !(sv.length && bk.sel); if (S.user && dm) b.textContent = dl.length ? `أكّد حجز ${devWord(dl.length)}` : "أكّد الحجز"; }
 }
@@ -1443,9 +1512,11 @@ async function confirmBooking() {
   const s = bk.s, um = unitMode(s), dm = devMode(s), sv = chosenServices(), devs = [...bk.devs].sort((a, b) => a - b), open = bk.hrs === "open";
   if (!bk.sel) { err.textContent = "اختار الساعة."; return; }
   if (!sv.length) { err.textContent = dm ? "اختار جهاز واحد على الأقل." : "اختار خدمة واحدة على الأقل."; return; }
-  if (!S.user) { go("auth", { role: "customer", next: "shop", nextParams: { id: s.id, day: bk.day, k: bk.sel.k, time: bk.sel.t, hrs: bk.hrs, svc: [...bk.svc], devs, g: bk.g, mode: bk.mode, note: bk.note, offer: bk.offer } }); return; }
+  if (!S.user) { go("auth", { role: "customer", next: "shop", nextParams: { id: s.id, day: bk.day, k: bk.sel.k, time: bk.sel.t, hrs: bk.hrs, svc: [...bk.svc], devs, g: bk.g, mode: bk.mode, note: bk.note, offer: bk.offer, where: bk.where, st: bk.st, addr: bk.addr } }); return; }
   if (!S.profile || S.profile.role !== "customer") { err.textContent = "الحجز من حساب عميل بس."; return; }
   if (S.profile.status !== "active") { err.textContent = "حسابك موقوف. كلّم الدعم."; return; }
+  const home = bk.where === "home" && hasDelivery(s), addr = home ? (bk.addr || "").trim().slice(0, 200) : "";
+  if (home && addr.length < 5) { err.textContent = "اكتب عنوانك بالتفصيل عشان الدليفري."; const a = $("#bk-addr"); if (a) a.focus(); return; }
   btn.disabled = true; const label = btn.textContent; btn.textContent = "بيتحجز…";
   const day = bk.sel.k, time = bk.sel.t, rate = sv.reduce((a, x) => a + (+x.price || 0), 0);
   let out = null;
@@ -1467,6 +1538,11 @@ async function confirmBooking() {
       const data = snaps.map(sd => sd.exists() ? sd.data() : null), capOf = d => d && typeof d.cap === "number" ? d.cap : shop.capacity;
       const freeIn = (d, i) => !d || (!d.closed && !(d.taken || []).includes(i) && !(d.off || []).includes(i));
       let units = devs;
+      const sm = !um && staffMode(sh);
+      if (sm && bk.st) {   // v7.0: a chosen stylist holds his number in the slot, like a device
+        if (!staffOn(sh).some(x => +x.no === bk.st)) throw userErr("المصفف ده مش متاح دلوقتي. اختار تاني.");
+        units = [bk.st];
+      } else if (!um) units = [];
       if (um && !dm) {   // pitches: the first free pitch of this type for the whole time
         const need = open ? 1 : seq.length;
         units = [devList(sh).filter(i => i >= g.from && i <= g.to).find(i => data.slice(0, need).every(d => freeIn(d, i)))].filter(Boolean);
@@ -1474,19 +1550,21 @@ async function confirmBooking() {
       }
       if (um && units.some(i => i < g.from || i > g.to)) throw userErr("عدد الأجهزة في المكان اتغيّر. اختار تاني.");
       const k = um ? units.length : 1;
-      const okAt = j => { const d = data[j]; if (d && d.closed) return false; if (d && (d.count || 0) + k > capOf(d)) return false; return !um || units.every(i => freeIn(d, i)); };
+      const offFree = d => sm && d ? (d.off || []).filter(i => !(d.taken || []).map(Number).includes(+i)).length : 0;
+      const okAt = j => { const d = data[j]; if ((d && d.closed) || pinned(sh, seq[j].k, seq[j].t)) return false; if (d && (d.count || 0) + offFree(d) + k > capOf(d)) return false; return units.every(i => freeIn(d, i)); };
       let len = seq.length;
       if (open) { len = 0; while (len < seq.length && okAt(len)) len++; if (!len) throw userErr(`الأجهزة دي مش فاضية الساعة ${fmtT(time)}. اختار تاني.`); }
       else for (let j = 0; j < seq.length; j++) if (!okAt(j)) {
         const d = data[j];
-        if (d && d.closed) throw userErr(`المكان قفل معاد ${fmtT(seq[j].t)}. اختار معاد تاني.`);
+        if ((d && d.closed) || pinned(sh, seq[j].k, seq[j].t)) throw userErr(`المكان قفل معاد ${fmtT(seq[j].t)}. اختار معاد تاني.`);
+        if (sm && bk.st) throw userErr(`${staffName(sh, bk.st)} مش فاضي الساعة ${fmtT(seq[j].t)}. اختار معاد تاني أو «أي حد متاح».`);
         throw userErr(dm ? `جهاز من اللي اخترتهم اتحجز أو اتقفل الساعة ${fmtT(seq[j].t)}. اختار تاني.` : `معاد ${fmtT(seq[j].t)} اتحجز خلاص. اختار معاد تاني.`);
       }
       seq = seq.slice(0, len);
       seq.forEach((x, j) => {
         const d = data[j];
-        if (d) { const up = { count: (d.count || 0) + k, lastBooking: bref.id }; if (um) up.taken = (d.taken || []).concat(units); tx.update(refs[j], up); }
-        else { const nw = { date: x.k, time: x.t, count: k, closed: false, lastBooking: bref.id }; if (um) nw.taken = units; tx.set(refs[j], nw); }
+        if (d) { const up = { count: (d.count || 0) + k, lastBooking: bref.id }; if (units.length) up.taken = (d.taken || []).concat(units); tx.update(refs[j], up); }
+        else { const nw = { date: x.k, time: x.t, count: k, closed: false, lastBooking: bref.id }; if (units.length) nw.taken = units; tx.set(refs[j], nw); }
       });
       const startAt = slotDateTime(day, time, shop.hours[isoDow(parseKey(day))]).getTime(), dur = open ? 60 * len : bookMins(sv);
       const svc = um ? [{ name: `${unitWord(sh, k)} · ${g.name}${g.multi ? (bk.mode === "multi" ? " · مالتي" : " · سينجل") : ""}`, price: rateOf(g, bk.mode, k), mins: 60 }] : sv.map(x => ({ name: x.name, price: +x.price || 0, mins: +x.mins || 0 }));
@@ -1497,12 +1575,18 @@ async function confirmBooking() {
         date: day, time, startAt, status: "pending", payment: "cash", note: (bk.note || "").slice(0, 140), createdAt: fb.serverTimestamp()
       };
       if (um) { doc.devices = units; doc.group = g.id; if (g.multi) doc.mode = bk.mode; }
+      if (sm && units.length) { doc.devices = units; doc.staff = { no: units[0], name: staffName(sh, units[0]).slice(0, 30) }; }
+      if (home) { doc.home = true; doc.addr = addr; }
       if (open) doc.open = true;
       tx.set(bref, doc);
       out = { id: bref.id, startAt, shopId: s.id, shopName: s.name, wa: s.whatsapp || "", day, time, hrs: seq.length, mins: dur, total, open, rate: svc.reduce((a, x) => a + x.price, 0),
-        devs: um ? units : [], hall: g ? g.name : "", unit: um ? unitWord(sh, k) : "", pitch: um && !dm ? unitLabel(sh, units[0]) : "", svc: svc.map(x => x.name).join(" + "), deposit: +shop.deposit || 0 };
+        devs: um ? units : [], hall: g ? g.name : "", unit: um ? unitWord(sh, k) : "", pitch: um && !dm ? unitLabel(sh, units[0]) : "", svc: svc.map(x => x.name).join(" + "), deposit: +shop.deposit || 0,
+        staff: doc.staff ? doc.staff.name : "", home: home ? 1 : 0, addr };
     });
     go("booked", out);
+    // v7.0: the booking is sent to the place as usual (the owner still accepts it), and WhatsApp opens straight away
+    // with the ready booking message to the place. If the phone blocks it, the big WhatsApp button on the next screen does it.
+    if (out.wa) { let w = null; try { w = window.open(waLink(out.wa, bookedMsg(out)), "_blank"); } catch (x) {} if (!w) toast("دوس «ابعت الحجز على واتساب» عشان توصل رسالة الحجز للمكان."); }
   } catch (e) { err.textContent = errText(e); btn.disabled = false; btn.textContent = label; }
 }
 // v5.0: a clear note for every customer that some places ask for a deposit to confirm
@@ -1511,23 +1595,31 @@ function depositNote(s) {
   return d ? `<div class="note dep"><strong>المكان ده بيطلب عربون ${money(d)} لتأكيد الحجز.</strong> المكان هيتواصل معاك على واتساب قبل ما يأكّد، والعربون بيتخصم من الحساب.</div>`
     : `<div class="note dep">بعض الأماكن بتطلب <strong>عربون</strong> لتأكيد الحجز. لو المكان طلب عربون هيتواصل معاك على واتساب قبل ما يأكّد.</div>`;
 }
-// v6.0: be on time — 10 minutes late at most, then the booking is cancelled automatically
+// v6.0: be on time — 10 minutes late at most. v7.0: nothing is cancelled automatically any more; the place cancels by hand if needed
 const LATE_MIN = 10;
 function lateNote(start) {
-  return `<div class="note late"><strong>تنويه هام: الالتزام بالمعاد.</strong> أقصى تأخير ${n(LATE_MIN)} دقايق${start ? ` (لحد ${fmtT(hhmm(new Date(start + LATE_MIN * 60000).getHours() * 60 + new Date(start + LATE_MIN * 60000).getMinutes()))})` : ""}، بعدها الحجز بيتلغي تلقائياً.</div>`;
+  return `<div class="note late"><strong>تنويه هام: الالتزام بالمعاد.</strong> أقصى تأخير ${n(LATE_MIN)} دقايق${start ? ` (لحد ${fmtT(hhmm(new Date(start + LATE_MIN * 60000).getHours() * 60 + new Date(start + LATE_MIN * 60000).getMinutes()))})` : ""}، بعدها من حق المكان يلغي الحجز.</div>`;
 }
 async function loadReviews(shopId) {
   try {
-    const snap = await fb.getDocs(fb.query(fb.collection(db, "reviews"), fb.where("shopId", "==", shopId), fb.limit(50)));
+    const snap = await fb.getDocs(fb.query(fb.collection(db, "reviews"), fb.where("shopId", "==", shopId), fb.limit(200)));
     const list = snap.docs.map(d => d.data()).sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+    if (bk && bk.s.id === shopId) { bk.staffStats = {}; list.forEach(r => { if (r.staffNo && r.staffRating) { const x = bk.staffStats[r.staffNo] = bk.staffStats[r.staffNo] || { sum: 0, c: 0 }; x.sum += r.staffRating; x.c++; } }); drawStaff(); }
     const el = $("#reviews"); if (!el) return;
-    el.innerHTML = list.length ? list.map(r => `<div class="item"><div class="hd"><span class="ttl">${esc(r.customerName || "عميل")}</span><span class="stars">${stars(r.rating)}</span></div>${r.text ? `<div>${esc(r.text)}</div>` : ""}</div>`).join("") : `<div class="muted small">لسه مفيش تقييمات. بعد ما تخلّص حجزك تقدر تقيّم.</div>`;
+    el.innerHTML = list.length ? list.slice(0, 50).map(r => `<div class="item"><div class="hd"><span class="ttl">${esc(r.customerName || "عميل")}</span><span class="stars">${stars(r.rating)}</span></div>${r.text ? `<div>${esc(r.text)}</div>` : ""}${r.staffName && r.staffRating ? `<div class="muted small">✂ المصفف ${esc(r.staffName)}: <span class="stars">${stars(r.staffRating)}</span></div>` : ""}</div>`).join("") : `<div class="muted small">لسه مفيش تقييمات. بعد ما تخلّص حجزك تقدر تقيّم.</div>`;
   } catch (e) { const el = $("#reviews"); if (el) el.innerHTML = `<div class="muted small">${esc(errText(e))}</div>`; }
+}
+// v7.0: the ready WhatsApp message to the place, sent automatically after "أكّد الحجز"
+function bookedMsg(p) {
+  const devs = (p.devs || []).map(Number), dm = devs.length > 0 && !p.pitch, open = !!p.open;
+  const rng = open ? `من ${fmtT(p.time)} · وقت مفتوح` : bkRange({ time: p.time, mins: +p.mins || 60 * (+p.hrs || 1) });
+  return [`السلام عليكم، عملت حجز عن طريق احجز دورك ✔`, `الاسم: ${S.profile ? S.profile.name : ""}`, dm ? `الأجهزة: ${devs.join("، ")} (${p.hall})` : p.pitch ? `الملعب: ${p.pitch}` : `الخدمة: ${p.svc}`,
+    p.staff ? `المصفف: ${p.staff}` : "", p.home ? `🛵 دليفري · العنوان: ${p.addr}` : "", `المعاد: ${fmtDate(p.day)} ${rng}`, open ? `السعر: ${money(p.rate)} / ساعة` : `الإجمالي: ${money(p.total)}`, `رقم الحجز: ${String(p.id || "").slice(0, 6).toUpperCase()}`, `مستني تأكيدكم على التطبيق.`].filter(Boolean).join("\n");
 }
 function vBooked() {
   const p = S.params, devs = (p.devs || []).map(Number), dm = devs.length > 0 && !p.pitch, open = !!p.open;
   const fake = { time: p.time, mins: +p.mins || 60 * (+p.hrs || 1) }, rng = open ? `من ${fmtT(p.time)} · وقت مفتوح` : bkRange(fake);
-  const msg = `السلام عليكم، عملت حجز عن طريق احجز دورك\nالاسم: ${S.profile ? S.profile.name : ""}\n${dm ? `الأجهزة: ${devs.join("، ")} (${p.hall})` : p.pitch ? `الملعب: ${p.pitch}` : `الخدمة: ${p.svc}`}\nالمعاد: ${fmtDate(p.day)} ${rng}\n${open ? `السعر: ${money(p.rate)} / ساعة` : `الإجمالي: ${money(p.total)}`}`;
+  const msg = bookedMsg(p);
   const live = S.myBookings.find(b => b.id === p.id), st = live ? live.status : "pending";
   main.innerHTML = `<div class="wrap"><div class="donecard">
   <div class="okring" aria-hidden="true">✓</div>
@@ -1538,6 +1630,7 @@ function vBooked() {
     <dt>باسم</dt><dd>${esc(S.profile ? S.profile.name : "")}</dd>
     <dt>المعاد</dt><dd>${fmtDate(p.day)}<br><strong class="rng">${rng}</strong></dd>
     ${p.hall ? `<dt>${dm ? "القاعة" : "الملعب"}</dt><dd>${esc(p.hall)}</dd>` : `<dt>الخدمة</dt><dd>${esc(p.svc)}</dd>`}
+    ${p.staff ? `<dt>المصفف</dt><dd>${esc(p.staff)}</dd>` : ""}${p.home ? `<dt>دليفري</dt><dd>🛵 ${esc(p.addr)}</dd>` : ""}
     <dt>${open ? "السعر" : "الإجمالي"}</dt><dd class="gold">${open ? `${money(p.rate)} / ساعة · بتدفع على قد ما تلعب` : money(p.total)} · الدفع في المكان</dd>
     <dt>الحالة</dt><dd>${stBadge(st)}</dd>
   </dl>
@@ -1546,10 +1639,26 @@ function vBooked() {
   </div>
   ${lateNote(+p.startAt)}
   ${depositNote({ deposit: p.deposit })}
-  <button class="btn pri block lg" data-act="remind" data-id="${esc(p.id)}">${ICO_BELL} ذكّرني قبل الحجز بنص ساعة</button>
-  ${p.wa ? `<a class="btn wa block" target="_blank" rel="noopener" href="${waLink(p.wa, msg)}">نبّه المكان على واتساب (اختياري)</a>` : ""}
+  ${p.wa ? `<a class="btn wa block lg" target="_blank" rel="noopener" href="${waLink(p.wa, msg)}">${ICO_WA} ابعت الحجز للمكان على واتساب</a><p class="muted small" style="margin:-6px 0 0;text-align:center">رسالة الحجز جاهزة، دوس «إرسال» في واتساب. والمكان بيأكّد من التطبيق زي العادي.</p>` : ""}
+  <button class="btn pri block" data-act="remind" data-id="${esc(p.id)}">${ICO_BELL} ذكّرني قبل الحجز بنص ساعة</button>
   <div class="grid2"><button class="btn navy" data-act="go" data-v="mybookings">تابع حجوزاتي</button>${["pending", "accepted"].includes(st) ? `<button class="btn bad" data-act="cancelbk" data-id="${esc(p.id)}" data-back="1">إلغاء الحجز</button>` : `<button class="btn" data-act="home">الرئيسية</button>`}</div>
   ${bigAsk()}</div>`;
+  setTimeout(() => askHeard(p.id, p.shopId, p.shopName), 1400);
+}
+// v7.0: "عرفت المكان ده إزاي؟" after a booking — once per account for each place (saved on the booking, the owner sees it)
+const HEARD = ["فيسبوك", "إنستجرام", "تيك توك", "جوجل ماب", "صاحب أو قريب رشّحه", "عدّيت عليه", "من احجز دورك", "حاجة تانية"];
+function askHeard(id, shopId, shopName) {
+  if (!S.user || !S.profile || S.profile.role !== "customer" || S.view !== "booked" || S.params.id !== id || $("#scrim")) return;
+  const key = "dawrak.heard." + S.user.uid + "." + shopId;
+  if (load(key) || S.myBookings.some(b => b.shopId === shopId && b.heard)) return;
+  if (!S.myBookings.some(b => b.id === id)) { setTimeout(() => askHeard(id, shopId, shopName), 1500); return; }
+  store(key, "1");
+  openSheet("سؤال سريع", `<div class="askhead"><span class="ai">${FI.star.replace(/22/g, "30")}</span><h3>عرفت ${esc(shopName)} إزاي؟</h3><span class="muted small">بنسأل مرة واحدة بس. إجابتك بتساعد المكان.</span></div>
+  <div class="heard">${HEARD.map(h => `<button class="chip" data-h="${esc(h)}">${esc(h)}</button>`).join("")}</div><button class="btn ghost block" data-h="-">تخطّي</button>`, { center: true });
+  document.querySelectorAll("#scrim [data-h]").forEach(btn => btn.addEventListener("click", async () => {
+    const v = btn.dataset.h; closeSheet();
+    try { await fb.updateDoc(fb.doc(db, "bookings", id), { heard: v }); if (v !== "-") toast("شكراً! ✔"); } catch (e) {}
+  }));
 }
 
 /* ---------------- v5.0: reminders 30 minutes before a booking (customer + owner) ---------------- */
@@ -1566,8 +1675,8 @@ function findBk(id) {
   if (S.view === "booked" && p.id === id) return { id, shopName: p.shopName, date: p.day, time: p.time, mins: +p.mins || 60 * (+p.hrs || 1), startAt: p.startAt, devices: p.devs || [], services: [{ name: p.svc }], total: p.total, customerName: S.profile ? S.profile.name : "" };
   return null;
 }
-function bkTitle(b) { const owner = S.profile && S.profile.role === "barber"; return owner ? `حجز ${b.customerName}${bkDevs(b).length ? ` · ${devWord(bkDevs(b).length)}` : ""}` : `حجز في ${b.shopName}`; }
-function bkDetails(b) { return [bkDevs(b).length ? "الأجهزة: " + bkDevs(b).join("، ") : "الخدمة: " + (b.services || []).map(x => x.name).join(" + "), fmtDate(b.date) + " " + bkRange(b), "الإجمالي: " + money(b.total) + " · الدفع في المكان", "احجز دورك · Dorak"].join("\n"); }
+function bkTitle(b) { const owner = S.profile && S.profile.role === "barber"; return owner ? `حجز ${b.customerName}${bkDevs(b).length && !b.staff ? ` · ${devWord(bkDevs(b).length)}` : ""}` : `حجز في ${b.shopName}`; }
+function bkDetails(b) { return [bkDevs(b).length && !b.staff ? "الأجهزة: " + bkDevs(b).join("، ") : "الخدمة: " + (b.services || []).map(x => x.name).join(" + "), b.staff ? "المصفف: " + b.staff.name : "", b.home ? "دليفري: " + b.addr : "", fmtDate(b.date) + " " + bkRange(b), "الإجمالي: " + money(b.total) + " · الدفع في المكان", "احجز دورك · Dorak"].filter(Boolean).join("\n"); }
 function utcStamp(ms) { return new Date(ms).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); }
 function gcalLink(b) {
   const st = bkStartMs(b), en = st + bkMins(b) * 60000;
@@ -1604,7 +1713,7 @@ function checkReminders() {
     const lft = bkStartMs(b) - now; if (lft > REMIND_MIN * 60000 || lft < -5 * 60000) return;
     const key = "dawrak.rem." + b.id; if (load(key)) return; store(key, String(now));
     const m = Math.max(1, Math.round(lft / 60000));
-    notify(owner ? `بعد ${n(m)} دقيقة: حجز ${b.customerName}` : `فاضل ${n(m)} دقيقة على حجزك`, (owner ? (bkDevs(b).length ? "الأجهزة " + bkDevs(b).join("، ") + " · " : "") : b.shopName + " · ") + bkRange(b));
+    notify(owner ? `بعد ${n(m)} دقيقة: حجز ${b.customerName}` : `فاضل ${n(m)} دقيقة على حجزك`, (owner ? (b.staff ? "مع " + b.staff.name + " · " : bkDevs(b).length ? "الأجهزة " + bkDevs(b).join("، ") + " · " : "") : b.shopName + " · ") + bkRange(b));
   });
 }
 setInterval(checkReminders, 30000);
@@ -1618,8 +1727,9 @@ function vMyBookings() {
   const card = b => {
     const canCancel = ["pending", "accepted"].includes(b.status) && b.date >= today;
     const canReview = (b.status === "done" || (b.status === "accepted" && b.date < today)) && !S.myReviews.has(b.id);
-    return `<div class="item"><div class="hd"><span class="ttl">${esc(b.shopName)}</span>${stBadge(b.status)}</div>
-    <dl class="kv"><dt>المعاد</dt><dd>${fmtDate(b.date)}<br>${bkTime(b)}</dd>${bkDevs(b).length && /جهاز|أجهزة/.test((b.services || [{}])[0].name || "") ? `<dt>الأجهزة</dt><dd>${devChips(b)}</dd>` : ""}<dt>${bkDevs(b).length ? "التفاصيل" : "الخدمة"}</dt><dd>${esc((b.services || []).map(x => x.name).join(" + "))}</dd><dt>${b.open && b.status !== "done" ? "السعر" : "الإجمالي"}</dt><dd class="total">${b.open && b.status !== "done" ? money((b.services || []).reduce((a, x) => a + (+x.price || 0), 0)) + " / ساعة" : money(b.total)}</dd></dl>
+    return `<div class="item"><div class="hd"><span class="ttl">${esc(b.shopName)}</span>${bkBadge(b)}</div>
+    <dl class="kv"><dt>المعاد</dt><dd>${fmtDate(b.date)}<br>${bkTime(b)}</dd>${bkDevs(b).length && !b.staff && /جهاز|أجهزة/.test((b.services || [{}])[0].name || "") ? `<dt>الأجهزة</dt><dd>${devChips(b)}</dd>` : ""}${b.staff ? `<dt>المصفف</dt><dd>✂ ${esc(b.staff.name)}</dd>` : ""}${b.home ? `<dt>دليفري</dt><dd>🛵 ${esc(b.addr)}</dd>` : ""}<dt>${bkDevs(b).length && !b.staff ? "التفاصيل" : "الخدمة"}</dt><dd>${esc((b.services || []).map(x => x.name).join(" + "))}</dd><dt>${b.open && b.status !== "done" ? "السعر" : "الإجمالي"}</dt><dd class="total">${b.open && b.status !== "done" ? money((b.services || []).reduce((a, x) => a + (+x.price || 0), 0)) + " / ساعة" : money(b.total)}</dd></dl>
+    ${custProp(b)}
     <div class="row">${canCancel ? `<button class="btn sm" data-act="remind" data-id="${esc(b.id)}">${ICO_BELL} ذكّرني</button><button class="btn sm bad" data-act="cancelbk" data-id="${esc(b.id)}">إلغاء الحجز</button>` : ""}${canReview ? `<button class="btn sm acc" data-act="review" data-id="${esc(b.id)}">قيّم المكان</button>` : ""}${S.myReviews.has(b.id) ? `<span class="muted small">اتقيّم، شكراً</span>` : ""}<button class="btn sm ghost" data-act="openshop" data-id="${esc(b.shopId)}">احجز تاني</button></div></div>`;
   };
   main.innerHTML = `<div class="wrap"><h2 style="font-size:1.5rem">حجوزاتي</h2>${reviewBar()}${remindPermNote()}${lateNote()}
@@ -1649,16 +1759,7 @@ async function cancelBooking(id, auto) {
     if (S.view === "booked") go("mybookings");
   } catch (e) { if (!auto) toast(errText(e)); }
 }
-// v6.0: 10 minutes after the start, a booking nobody marked "العميل وصل" is cancelled by whichever app sees it first
-// (the owner's or the customer's). There is no server on the free plan, so it happens when one of them has the app open.
-const autoTried = new Set();
-function autoCancel() {
-  if (!S.profile || S.profile.status !== "active") return;
-  const now = Date.now(), late = b => ["pending", "accepted"].includes(b.status) && now > bkStartMs(b) + LATE_MIN * 60000 && !autoTried.has(b.id);
-  if (S.profile.role === "barber") (S.shopBookings || []).filter(late).forEach(b => { autoTried.add(b.id); setBookingStatus(b.id, b.status === "pending" ? "rejected" : "cancelled", true); });
-  if (S.profile.role === "customer") (S.myBookings || []).filter(late).forEach(b => { autoTried.add(b.id); cancelBooking(b.id, true); });
-}
-setInterval(autoCancel, 30000);
+// v7.0: the 10-minute automatic cancel (v6.0) is removed: a booking stays until the place or the customer cancels it.
 // v4.0: bookings the customer finished but hasn't rated. Asked in a pop-up as soon as the place marks "العميل خلّص",
 // and again every time the app opens until they rate (\"بعدين\" only hides it until the next visit).
 function toReview() {
@@ -1690,10 +1791,13 @@ function reviewSheet(id, ask) {
   let rating = 0;
   openSheet(ask ? "رأيك يهمّنا" : `قيّم ${esc(b.shopName)}`, `<div class="askhead"><span class="ai">${FI.star.replace(/22/g, "32")}</span><h3>إزاي كانت تجربتك في ${esc(b.shopName)}؟</h3><span class="muted small">${fmtDate(b.date)} · ${bkTime(b)} · ${esc((b.services || []).map(x => x.name).join(" + "))}</span></div>
   ${starsPicker("rv-stars")}<div id="rv-word" class="muted small" style="text-align:center;min-height:1.4em">دوس على النجوم</div>
+  ${b.staff ? `<div class="stfrate"><strong>✂ قيّم المصفف ${esc(b.staff.name)}</strong>${starsPicker("rv-staff")}<div id="rv-sword" class="muted small" style="text-align:center;min-height:1.4em">اختياري</div></div>` : ""}
   <label class="f">اكتب رأيك (اختياري)<textarea id="rv-text" maxlength="500" placeholder="إيه اللي عجبك؟ إيه اللي ممكن يتحسّن؟"></textarea></label><div class="err" id="rv-err"></div>
   <button class="btn pri block lg" id="rv-go" disabled>ابعت التقييم</button>
   ${ask ? `<button class="btn ghost block" id="rv-later">بعدين</button>` : ""}`, { center: true });
+  let srate = 0;
   bindStars("rv-stars", r => { rating = r; $("#rv-word").textContent = RATE_WORDS[r]; $("#rv-go").disabled = false; });
+  if (b.staff) bindStars("rv-staff", r => { srate = r; $("#rv-sword").textContent = RATE_WORDS[r]; });
   if (ask) $("#rv-later").addEventListener("click", () => { (S.reviewSnooze = S.reviewSnooze || new Set()).add(id); closeSheet(); toast("هنفكّرك المرة الجاية. تقدر تقيّم من «حجوزاتي» في أي وقت."); });
   $("#rv-go").addEventListener("click", async () => {
     if (!rating) { $("#rv-err").textContent = "اختار عدد النجوم."; return; }
@@ -1701,7 +1805,9 @@ function reviewSheet(id, ask) {
     try {
       await fb.runTransaction(db, async tx => {
         const shRef = fb.doc(db, "shops", b.shopId), sh = await tx.get(shRef), d = sh.data();
-        tx.set(fb.doc(db, "reviews", id), { shopId: b.shopId, customerId: S.user.uid, customerName: S.profile.name.split(" ")[0].slice(0, 30), rating, text: $("#rv-text").value.trim().slice(0, 500), createdAt: fb.serverTimestamp() });
+        const rv = { shopId: b.shopId, customerId: S.user.uid, customerName: S.profile.name.split(" ")[0].slice(0, 30), rating, text: $("#rv-text").value.trim().slice(0, 500), createdAt: fb.serverTimestamp() };
+        if (b.staff && srate) { rv.staffNo = +b.staff.no; rv.staffName = String(b.staff.name).slice(0, 30); rv.staffRating = srate; }
+        tx.set(fb.doc(db, "reviews", id), rv);
         tx.update(shRef, { ratingSum: (d.ratingSum || 0) + rating, ratingCount: (d.ratingCount || 0) + 1, lastReview: id });
       });
       S.myReviews.add(id); closeSheet(); toast("شكراً على تقييمك! ⭐");
@@ -1828,9 +1934,9 @@ function bDash() {
   const yTicks = [0, Math.ceil(mx / 2), mx];
   const chart = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="الحجوزات آخر ٣٠ يوم">
     ${yTicks.map(t => { const y = pt + (H - pt - pb) * (1 - t / mx); return `<line x1="${pl}" x2="${W - pr}" y1="${y}" y2="${y}" stroke="#E2E7EF"/><text x="${pl - 6}" y="${y + 4}" font-size="11" fill="#5F6B7D" text-anchor="end" font-family="Cairo,system-ui">${n(t)}</text>`; }).join("")}
-    ${per.map((p, i) => { const h = (H - pt - pb) * p.c / mx, x = W - pr - (i + 1) * bw + bw * .18, y = H - pb - h; return `<rect x="${x}" y="${y}" width="${bw * .64}" height="${Math.max(h, p.c ? 2 : 0)}" rx="3" fill="${p.k === today ? "#D4AF37" : "#0B2D5B"}"><title>${fmtDate(p.k)}: ${n(p.c)} حجز · ${money(p.r)}</title></rect>${i % 5 === 0 || p.k === today ? `<text x="${x + bw * .32}" y="${H - 8}" font-size="11" fill="#5F6B7D" text-anchor="middle" font-family="Cairo,system-ui">${n(parseKey(p.k).getDate())}</text>` : ""}`; }).join("")}
+    ${per.map((p, i) => { const h = (H - pt - pb) * p.c / mx, x = W - pr - (i + 1) * bw + bw * .18, y = H - pb - h; return `<rect x="${x}" y="${y}" width="${bw * .64}" height="${Math.max(h, p.c ? 2 : 0)}" rx="3" fill="${p.k === today ? "#D9AE4A" : "#0B1E48"}"><title>${fmtDate(p.k)}: ${n(p.c)} حجز · ${money(p.r)}</title></rect>${i % 5 === 0 || p.k === today ? `<text x="${x + bw * .32}" y="${H - 8}" font-size="11" fill="#5F6B7D" text-anchor="middle" font-family="Cairo,system-ui">${n(parseKey(p.k).getDate())}</text>` : ""}`; }).join("")}
   </svg>`;
-  const dotc = { pending: "#D4AF37", accepted: "#2F7A4D", done: "#0B2D5B" };
+  const dotc = { pending: "#D9AE4A", accepted: "#2F7A4D", done: "#0B1E48" };
   $("#bpanel").innerHTML = `<div class="stack">
   <div class="stats">
     ${stat(SI.cal, n(todays.length), "حجوزات النهارده")}
@@ -1841,14 +1947,21 @@ function bDash() {
     ${stat(SI.gauge, occ === null ? "—" : n(occ) + "٪", "نسبة الإشغال النهارده", `<div class="d muted">${n(used)} من ${n(seats)} مكان متاح</div>`)}
   </div>
   <div class="card"><div class="row between"><h3>الحجوزات آخر ٣٠ يوم</h3><span class="muted small">إيراد الفترة: <strong class="total">${money(per.reduce((a, p) => a + p.r, 0))}</strong></span></div>${chart}<p class="muted small" style="margin:0">العمود الدهبي = النهارده. الإيراد = الحجوزات اللي علّمت عليها "العميل خلّص" (الدفع كاش في المكان).</p></div>
+  ${heardCard(all)}
   <div class="card"><div class="row between"><h3>مواعيد النهارده</h3><button class="btn switch sm" data-act="btab" data-t="schedule">الجدول كله</button></div>
   ${todays.length ? todays.map(b => `<div class="appt"><span class="dot" style="background:${dotc[b.status] || "#8A93A3"}"></span><span class="tm">${bkTime(b)}</span><span class="nm"><strong>${esc(b.customerName)}</strong><br><span class="muted small">${esc((b.services || []).map(x => x.name).join(" + "))}</span></span>${stBadge(b.status)}</div>`).join("") : `<div class="muted small">مفيش حجوزات النهارده لسه.</div>`}</div>
   </div>`;
 }
+function heardCard(all) {
+  const c = {}; all.forEach(b => { if (b.heard && b.heard !== "-") c[b.heard] = (c[b.heard] || 0) + 1; });
+  const l = Object.entries(c).sort((a, b) => b[1] - a[1]), mx = l.length ? l[0][1] : 1;
+  return l.length ? `<div class="card"><h3>العملاء عرفوك منين؟</h3><div class="hbars">${l.map(([k, v]) => `<div class="hb"><span>${esc(k)}</span><i style="width:${Math.max(6, Math.round(v / mx * 100))}%"></i><b>${n(v)}</b></div>`).join("")}</div></div>` : "";
+}
 function bookingCard(b, actions) {
-  return `<div class="item"><div class="hd"><span class="ttl">${esc(b.customerName)}</span>${stBadge(b.status)}</div>
+  return `<div class="item"><div class="hd"><span class="ttl">${esc(b.customerName)}</span>${bkBadge(b)}</div>
   <dl class="kv"><dt>الموبايل</dt><dd>${tel(b.customerPhone)} <button class="btn sm ghost" data-act="copy" data-t="${esc(b.customerPhone)}">نسخ</button> <a class="btn sm ghost" target="_blank" rel="noopener" href="${waLink(b.customerPhone)}">واتساب</a></dd>
-  <dt>المعاد</dt><dd>${fmtDate(b.date)}<br>${bkTime(b)}</dd>${bkDevs(b).length ? (devMode(S.shop || {}) ? `<dt>الأجهزة</dt><dd>${devChips(b)}</dd>` : `<dt>الملعب</dt><dd>${esc(bkDevs(b).map(i => unitLabel(S.shop, i)).join("، "))}</dd>`) : ""}<dt>${bkDevs(b).length ? "التفاصيل" : "الخدمة"}</dt><dd>${esc((b.services || []).map(x => x.name).join(" + "))}</dd><dt>الإجمالي</dt><dd class="total">${money(b.total)} · في المكان</dd>${b.note ? `<dt>ملاحظة</dt><dd>${esc(b.note)}</dd>` : ""}</dl>
+  <dt>المعاد</dt><dd>${fmtDate(b.date)}<br>${bkTime(b)}</dd>${b.staff ? `<dt>المصفف</dt><dd>✂ ${esc(b.staff.name)}</dd>` : ""}${b.home ? `<dt>دليفري</dt><dd>🛵 ${esc(b.addr)}</dd>` : ""}${bkDevs(b).length && !b.staff ? (devMode(S.shop || {}) ? `<dt>الأجهزة</dt><dd>${devChips(b)}</dd>` : `<dt>الملعب</dt><dd>${esc(bkDevs(b).map(i => unitLabel(S.shop, i)).join("، "))}</dd>`) : ""}<dt>${bkDevs(b).length && !b.staff ? "التفاصيل" : "الخدمة"}</dt><dd>${esc((b.services || []).map(x => x.name).join(" + "))}</dd><dt>الإجمالي</dt><dd class="total">${money(b.total)} · في المكان</dd>${b.note ? `<dt>ملاحظة</dt><dd>${esc(b.note)}</dd>` : ""}${b.heard && b.heard !== "-" ? `<dt>عرف المكان من</dt><dd>${esc(b.heard)}</dd>` : ""}</dl>
+  ${ownerPropNote(b)}
   ${actions || ["pending", "accepted"].includes(b.status) ? `<div class="row">${actions || ""}${["pending", "accepted"].includes(b.status) ? `<button class="btn sm ghost" data-act="remind" data-id="${esc(b.id)}">${ICO_BELL} تذكير</button>` : ""}</div>` : ""}</div>`;
 }
 function bRequests() {
@@ -1861,11 +1974,18 @@ function bRequests() {
   </div>`;
 }
 // v6.0: owner buttons for a booking: accept / reject, "the customer arrived", finished (open bookings: finish and charge), cancel
+// v7.0: once the owner accepts, the booking stands (no "العميل وصل" needed). On a request the owner can also propose another time.
 function ownerBtns(b) {
   const B = (st, txt, cls = "") => `<button class="btn sm ${cls}" data-act="bstatus" data-id="${esc(b.id)}" data-s="${st}">${txt}</button>`;
-  const near = bkStartMs(b) - Date.now() < 90 * 60000;
-  if (b.status === "pending") return B("accepted", "قبول", "pri") + B("rejected", "رفض", "bad") + (near ? B("arrived", "✓ العميل وصل") : "");
-  if (b.status === "accepted") return (near ? B("arrived", "✓ العميل وصل", "pri") : "") + B("done", b.open ? "⏱ خلّص وحاسب" : "العميل خلّص") + B("cancelled", "إلغاء", "bad");
+  const P = (act, txt, cls = "") => `<button class="btn sm ${cls}" data-act="${act}" data-id="${esc(b.id)}">${txt}</button>`;
+  if (b.status === "pending") {
+    const pr = b.prop;
+    if (pr && pr.by === "customer") return P("propapply", "✓ موافق على معاده", "pri") + B("rejected", "رفض", "bad") + P("propowner", "↺ اقترح معاد تاني");
+    if (pr && pr.ok) return P("propapply", "✓ أكّد المعاد الجديد", "pri") + B("rejected", "رفض", "bad");
+    if (pr) return B("accepted", "قبول المعاد الأصلي") + B("rejected", "رفض", "bad") + P("propowner", "↺ غيّر اقتراحك");
+    return B("accepted", "قبول", "pri") + B("rejected", "رفض", "bad") + P("propowner", "↺ اقترح معاد تاني");
+  }
+  if (b.status === "accepted") return B("done", b.open ? "⏱ خلّص وحاسب" : "العميل خلّص", "pri") + B("cancelled", "إلغاء", "bad");
   if (b.status === "arrived") return B("done", b.open ? "⏱ خلّص وحاسب" : "العميل خلّص", "pri") + B("cancelled", "إلغاء", "bad");
   return "";
 }
@@ -1886,6 +2006,7 @@ async function setBookingStatus(id, status, auto) {
       if (!ok) throw userErr("الحجز ده اتغيّرت حالته خلاص.");
       const up = { status, updatedAt: fb.serverTimestamp() };
       if (auto) up.auto = true;
+      if (cur.data().prop) up.prop = fb.deleteField();   // v7.0: an answer closes any open proposal
       if (status === "done" && b.open) { const bill = openBill(b); up.mins = bill.mins; up.total = bill.total; up.endAt = Date.now(); }
       tx.update(bref, up);
       if (status === "rejected" || status === "cancelled") snaps.forEach((sd, i) => { if (sd.exists()) tx.update(refs[i], giveBack(sd.data(), b)); });
@@ -1897,12 +2018,130 @@ async function setBookingStatus(id, status, auto) {
     else toast(auto ? `اتلغى حجز ${b.customerName} تلقائياً (عدّى ${n(LATE_MIN)} دقايق ومجاش).` : { accepted: "اتقبل الحجز.", rejected: "اترفض الحجز والمعاد اتفتح تاني.", done: "اتسجل إن العميل خلّص.", cancelled: "اتلغى الحجز والمعاد اتفتح تاني.", arrived: "اتسجل إن العميل وصل." }[status]);
   } catch (e) { if (!auto) toast(errText(e)); }
 }
+/* ---------------- v7.0: another time — the owner objects and proposes a time; the customer agrees, refuses or proposes another, and so on ---------------- */
+function bkBadge(b) { return b.status === "pending" && b.prop ? stBadge("pending", b.prop.ok ? "اتفقتوا على معاد جديد" : b.prop.by === "owner" ? "المكان اقترح معاد" : "العميل اقترح معاد") : stBadge(b.status); }
+function propWhen(b) { const pr = b.prop; return `${fmtDate(pr.date)} · <span class="rng">${bkRange({ time: pr.time, mins: bkMins(b) })}</span>`; }
+function custProp(b) {
+  const pr = b.prop; if (!pr || b.status !== "pending") return "";
+  const P = (act, txt, cls = "") => `<button class="btn sm ${cls}" data-act="${act}" data-id="${esc(b.id)}">${txt}</button>`;
+  if (pr.by === "owner" && !pr.ok) return `<div class="propbox"><strong>⏰ المكان مش فاضي في معادك، واقترح معاد تاني:</strong><span>${propWhen(b)}</span><div class="row">${P("propok", "✓ موافق", "pri")}${P("propno", "✕ رفض", "bad")}${P("propcust", "↺ اقترح معاد تاني")}</div></div>`;
+  if (pr.ok) return `<div class="propbox ok"><strong>✓ وافقت على المعاد الجديد</strong><span>${propWhen(b)}</span><span class="muted small">بيتأكد أول ما المكان يفتح التطبيق.</span></div>`;
+  return `<div class="propbox"><strong>↺ اقترحت معاد تاني</strong><span>${propWhen(b)}</span><span class="muted small">مستني رد المكان.</span><div class="row">${P("propcust", "غيّر اقتراحك")}</div></div>`;
+}
+function ownerPropNote(b) {
+  const pr = b.prop; if (!pr || b.status !== "pending") return "";
+  if (pr.by === "customer") return `<div class="propbox"><strong>↺ العميل اقترح معاد تاني:</strong><span>${propWhen(b)}</span></div>`;
+  if (pr.ok) return `<div class="propbox ok"><strong>✓ العميل وافق على المعاد اللي اقترحته</strong><span>${propWhen(b)}</span></div>`;
+  return `<div class="propbox"><strong>اقترحت على العميل:</strong><span>${propWhen(b)}</span><span class="muted small">مستني رده (موافق، رفض، أو معاد تاني).</span></div>`;
+}
+// the units (devices, pitch, chosen stylist) a booking can take in these slots; slot data must already be without the booking itself
+function moveUnits(shop, b, datas, seq) {
+  const dv = bkDevs(b).map(Number), capOf = d => d && typeof d.cap === "number" ? d.cap : shop.capacity;
+  for (let j = 0; j < seq.length; j++) { const d = datas[j]; if ((d && d.closed) || pinned(shop, seq[j].k, seq[j].t)) return null; }
+  const freeIn = (d, i) => !d || (!(d.taken || []).map(Number).includes(i) && !(d.off || []).map(Number).includes(i));
+  const room = k => datas.every(d => { if (!d) return k <= shop.capacity; const tk = (d.taken || []).map(Number), offF = staffMode(shop) && !unitMode(shop) ? (d.off || []).filter(i => !tk.includes(+i)).length : 0; return (d.count || 0) + offF + k <= capOf(d); });
+  if (!dv.length) return room(1) ? [] : null;
+  if (!room(dv.length)) return null;
+  if (dv.every(i => datas.every(d => freeIn(d, i)))) return dv;
+  if (!unitMode(shop)) return null;   // a chosen stylist: only that stylist
+  const g = groupById(shop, b.group) || groupOf(shop, dv[0]);
+  const free = devList(shop).filter(i => i >= g.from && i <= g.to && datas.every(d => freeIn(d, i)));
+  return free.length >= dv.length ? free.slice(0, dv.length) : null;
+}
+function withoutBk(d, id, b) { return d && bkSlots(b).includes(id) ? { ...d, ...giveBack(d, b) } : d; }
+// the picker: fixed Saturday → Friday days, then the free times for the same length as the booking
+async function propSheet(id, by) {
+  const b = (by === "owner" ? S.shopBookings : S.myBookings).find(x => x.id === id); if (!b) return;
+  let shop = by === "owner" ? (S.shops || []).find(x => x.id === b.shopId) : null;
+  try { if (!shop) { const d = await fb.getDoc(fb.doc(db, "shops", b.shopId)); shop = { id: d.id, ...d.data() }; } } catch (e) { toast(errText(e)); return; }
+  const first = nextDays(BOOK_DAYS).find(k => (shop.hours[isoDow(parseKey(k))] || {}).open) || dkey(new Date());
+  S.prop = { b, by, shop, day: b.prop && b.prop.date >= dkey(new Date()) ? b.prop.date : (b.date >= dkey(new Date()) ? b.date : first), sel: null, slots: {} };
+  openSheet(by === "owner" ? "اقترح على العميل معاد تاني" : "اقترح على المكان معاد تاني", `<div id="ppbox" class="stack"></div>`);
+  loadPropDay();
+}
+async function loadPropDay() {
+  const P = S.prop; if (!P) return; const day = P.day, nk = nextKey(day);
+  P.slots = null; drawProp();
+  try { const snap = await fb.getDocs(fb.query(fb.collection(db, "shops", P.shop.id, "slots"), fb.where("date", "in", [day, nk, nextKey(nk)]))); if (S.prop !== P || P.day !== day) return; P.slots = {}; snap.forEach(d => { P.slots[d.id] = d.data(); }); }
+  catch (e) { P.slots = {}; toast(errText(e)); }
+  drawProp();
+}
+function propFree(P, e) {
+  const b = P.b, sh = P.shop;
+  if (e.at.getTime() <= Date.now() + 15 * 60000 || (e.k === b.date && e.t === b.time)) return false;
+  const seq = seqFor(e.k, e.t, +b.hours || 1, sh); if (!seq) return false;
+  return !!moveUnits(sh, b, seq.map(x => { const id = slotId(x.k, x.t); return withoutBk(P.slots[id], id, b); }), seq);
+}
+function drawProp() {
+  const P = S.prop, el = $("#ppbox"); if (!P || !el) return;
+  const b = P.b, sh = P.shop;
+  const ents = P.slots ? dayEntries(P.day, sh).filter(e => propFree(P, e)) : null;
+  if (P.sel && ents && !ents.some(e => e.k === P.sel.k && e.t === P.sel.t)) P.sel = null;
+  const chip = e => `<button class="chip" data-act="pptime" data-k="${e.k}" data-t="${e.t}" aria-pressed="${!!(P.sel && P.sel.k === e.k && P.sel.t === e.t)}">${fmtT(e.t)}</button>`;
+  el.innerHTML = `<div class="muted small" style="text-align:center">${P.by === "owner" ? esc(b.customerName) : esc(b.shopName)} · المعاد الحالي: ${fmtDate(b.date)} ${bkRange(b)}</div>
+  <div class="tabs">${weekDays().map(k => { const h = sh.hours[isoDow(parseKey(k))]; return dayChip(k, "ppday", P.day === k, !h || !h.open); }).join("")}</div>
+  <div class="periods">${ents === null ? `<div class="muted small">بيحمّل المواعيد…</div>` : ents.length ? periodsHtml(ents, P.day, chip) : `<div class="empty">مفيش مواعيد فاضية في اليوم ده. اختار يوم تاني.</div>`}</div>
+  ${P.sel ? `<div class="propbox"><strong>المعاد اللي هتقترحه:</strong><span>${fmtDate(P.sel.k)} · <span class="rng">${bkRange({ time: P.sel.t, mins: bkMins(b) })}</span></span></div>` : ""}
+  <button class="btn pri block lg" data-act="ppsend" ${P.sel ? "" : "disabled"}>ابعت الاقتراح</button>`;
+}
+async function sendProp() {
+  const P = S.prop; if (!P || !P.sel) return;
+  const prop = { date: P.sel.k, time: P.sel.t, by: P.by, at: Date.now() };
+  try {
+    await fb.updateDoc(fb.doc(db, "bookings", P.b.id), { prop, updatedAt: fb.serverTimestamp() });
+    closeSheet(); S.prop = null;
+    toast(P.by === "owner" ? "اتبعت الاقتراح للعميل. هيوصلك رده هنا." : "اتبعت اقتراحك للمكان. هيوصلك الرد هنا.");
+  } catch (e) { toast(errText(e)); }
+}
+// the owner's app moves the booking to the agreed time (frees the old slots, takes the new ones) and accepts it
+const propTried = new Set();
+async function applyProp(id, auto) {
+  const b = S.shopBookings.find(x => x.id === id); if (!b || !b.prop) return;
+  const pr = b.prop;
+  try {
+    await fb.runTransaction(db, async tx => {
+      const bref = fb.doc(db, "bookings", id), cur = await tx.get(bref), c = { ...cur.data(), id };
+      if (c.status !== "pending" || !c.prop || c.prop.date !== pr.date || c.prop.time !== pr.time) throw userErr("الحجز ده اتغيّر خلاص.");
+      const ss = await tx.get(fb.doc(db, "shops", c.shopId)), sh = { ...ss.data(), id: c.shopId };
+      const seq = seqFor(pr.date, pr.time, +c.hours || 1, sh); if (!seq) throw userErr("المعاد ده مش ضمن مواعيد المكان.");
+      const oldIds = bkSlots(c), newIds = seq.map(x => slotId(x.k, x.t)), all = [...new Set([...oldIds, ...newIds])], refs = {}, data = {};
+      for (const x of all) { refs[x] = fb.doc(db, "shops", c.shopId, "slots", x); const sn = await tx.get(refs[x]); data[x] = sn.exists() ? sn.data() : null; }
+      const minus = {}; all.forEach(x => { minus[x] = withoutBk(data[x], x, c); });
+      const units = moveUnits(sh, c, newIds.map(x => minus[x]), seq);
+      if (!units) throw userErr("CLASH");
+      const k = units.length || 1;
+      all.forEach(x => {
+        const isNew = newIds.includes(x), base = minus[x];
+        if (!isNew) { if (data[x]) tx.update(refs[x], giveBack(data[x], c)); return; }
+        const q = seq[newIds.indexOf(x)];
+        if (data[x]) { const up = { count: (base.count || 0) + k }; if (units.length || base.taken) up.taken = (base.taken || []).concat(units); tx.update(refs[x], up); }
+        else { const nw = { date: q.k, time: q.t, count: k, closed: false, lastBooking: id }; if (units.length) nw.taken = units; tx.set(refs[x], nw); }
+      });
+      const up = { date: pr.date, time: pr.time, slots: newIds, startAt: slotDateTime(pr.date, pr.time, sh.hours[isoDow(parseKey(pr.date))]).getTime(), status: "accepted", prop: fb.deleteField(), updatedAt: fb.serverTimestamp() };
+      if (bkDevs(c).length) up.devices = units;
+      tx.update(bref, up);
+    });
+    toast(`اتأكد حجز ${b.customerName} على المعاد الجديد ✔`);
+  } catch (e) {
+    if (e.userMsg === "CLASH") {
+      try { await fb.updateDoc(fb.doc(db, "bookings", id), { prop: fb.deleteField(), updatedAt: fb.serverTimestamp() }); } catch (x) {}
+      notify("المعاد الجديد اتحجز", `${b.customerName}: المعاد اللي اتفقتوا عليه اتحجز قبلها. اقترح معاد تاني.`);
+    } else if (!auto) toast(errText(e));
+  }
+}
+// the customer agreed while the owner's app was closed: the owner's app finishes it as soon as it sees it
+function autoProps() {
+  if (!S.profile || S.profile.role !== "barber") return;
+  (S.shopBookings || []).filter(b => b.status === "pending" && b.prop && b.prop.by === "owner" && b.prop.ok && !propTried.has(b.id + b.prop.date + b.prop.time))
+    .forEach(b => { propTried.add(b.id + b.prop.date + b.prop.time); applyProp(b.id, true); });
+}
 function bSchedule() {
-  const days = nextDays(14), s = S.shop, dm = unitMode(s);
-  const day = S.params.day && days.includes(S.params.day) ? S.params.day : days[0];
+  const wk = S.params.wk ? 1 : 0, days = weekDays(wk * 7), s = S.shop, dm = unitMode(s), sm = !dm && staffMode(s);
+  const day = S.params.day && days.includes(S.params.day) ? S.params.day : (wk ? days[0] : dkey(new Date()));
   $("#bpanel").innerHTML = `<div class="stack">
-  <p class="muted small" style="margin:0">دوس على أي معاد عشان تفتح الاختصار: تخليه متاح أو مش متاح${dm ? `، وتحدد ${devMode(s) ? "الأجهزة" : "الملاعب"} الشغالة وتقفل اللي مش شغال` : "، وتغيّر العدد"}. المواعيد كل ${stepLabel(s)}، حسب مواعيد العمل اللي في "المكان". ${dm ? groupsOf(s).map(g => `${esc(g.name)}: ${unitWord(s, g.count)}`).join(" · ") + "." : `العدد العادي: ${n(s.capacity)} ${unitsOf(s)}.`}</p>
-  <div class="tabs">${days.map(k => `<button class="chip" data-act="bday" data-d="${k}" aria-pressed="${k === day}">${dayLabel(k)} ${n(parseKey(k).getDate())}</button>`).join("")}</div>
+  <p class="muted small" style="margin:0">دوس على أي معاد عشان تفتح الاختصار: تخليه متاح أو مش متاح${dm ? `، وتحدد ${devMode(s) ? "الأجهزة" : "الملاعب"} الشغالة وتقفل اللي مش شغال` : "، وتغيّر العدد"}. المواعيد كل ${stepLabel(s)}، حسب مواعيد العمل اللي في "المكان". ${dm ? groupsOf(s).map(g => `${esc(g.name)}: ${unitWord(s, g.count)}`).join(" · ") + "." : sm ? `المصففين: ${staffOn(s).map(x => esc(x.name)).join("، ")}.` : `العدد العادي: ${n(s.capacity)} ${unitsOf(s)}.`} 📌 = مقفول كل أسبوع.</p>
+  <div class="seg wk"><button data-act="bweek" data-w="0" aria-pressed="${!wk}">الأسبوع ده</button><button data-act="bweek" data-w="1" aria-pressed="${!!wk}">الأسبوع الجاي</button></div>
+  <div class="tabs">${days.map(k => { const h = s.hours[isoDow(parseKey(k))]; return dayChip(k, "bday", k === day, !h || !h.open); }).join("")}</div>
   <div class="row"><button class="btn sm" data-act="closeday" data-d="${day}">اقفل اليوم كله</button><button class="btn sm" data-act="openday" data-d="${day}">افتح اليوم كله</button></div>
   <div id="slotgrid" class="slotgrid"><div class="muted small">بيحمّل…</div></div>
   <h3>حجوزات ${fmtDate(day)}</h3><div id="daybk"></div></div>`;
@@ -1911,17 +2150,18 @@ function bSchedule() {
   const draw = () => {
     const h = s.hours[isoDow(parseKey(day))], times = slotTimes(h, stepOf(s));
     $("#slotgrid").innerHTML = times.length ? times.map(t => {
-      const d = slots[slotId(day, t)] || {}, cap = typeof d.cap === "number" ? d.cap : s.capacity, cnt = d.count || 0, closed = !!d.closed, off = (d.off || []).length;
-      const info = closed ? "مش متاح" : dm ? `${n(cnt)} محجوز${off ? ` · ${n(off)} مقفول` : ""}<br><span class="muted">${n(Math.max(0, devTotal(s) - cnt - off))} فاضي</span>` : `${n(cnt)} من ${n(cap)} محجوز`;
+      const d = slots[slotId(day, t)] || {}, cap = typeof d.cap === "number" ? d.cap : s.capacity, cnt = d.count || 0, pin = pinned(s, day, t), closed = !!d.closed || pin, off = (d.off || []).length;
+      const info = pin ? "📌 مقفول كل أسبوع" : closed ? "مش متاح" : sm ? `${n(cnt)} من ${n(cap)} محجوز${off ? ` · ${n(off)} مش موجود` : ""}` : dm ? `${n(cnt)} محجوز${off ? ` · ${n(off)} مقفول` : ""}<br><span class="muted">${n(Math.max(0, devTotal(s) - cnt - off))} فاضي</span>` : `${n(cnt)} من ${n(cap)} محجوز`;
       return `<div class="sl tap${closed ? " closed" : (dm ? cnt + off >= devTotal(s) : cnt >= cap) ? " full" : ""}" data-act="slotsheet" data-d="${day}" data-t="${t}" role="button" tabindex="0" aria-label="اختصار معاد ${fmtT(t)}"><span class="t">${fmtT(t)}</span><span class="small">${info}</span>
-      <button class="btn sm${closed ? " pri" : ""}" data-act="toggleslot" data-d="${day}" data-t="${t}">${closed ? "خليه متاح" : "مش متاح"}</button>
-      ${dm ? `<span class="small gold">⚙ ${devMode(s) ? "الأجهزة" : "الملاعب"}</span>` : `<div class="row" style="justify-content:center;gap:2px;flex-wrap:nowrap"><button class="btn sm ghost" data-act="cap" data-d="${day}" data-t="${t}" data-x="-1" aria-label="أقل">−</button><span class="small">${n(cap)} ${unitOf(s)}</span><button class="btn sm ghost" data-act="cap" data-d="${day}" data-t="${t}" data-x="1" aria-label="زيادة">+</button></div>`}</div>`;
+      ${pin ? `<button class="btn sm" data-act="slotsheet" data-d="${day}" data-t="${t}">📌 تعديل</button>` : `<button class="btn sm${closed ? " pri" : ""}" data-act="toggleslot" data-d="${day}" data-t="${t}">${closed ? "خليه متاح" : "مش متاح"}</button>`}
+      ${dm || sm ? `<span class="small gold">⚙ ${devMode(s) ? "الأجهزة" : sm ? "المصففين" : "الملاعب"}</span>` : `<div class="row" style="justify-content:center;gap:2px;flex-wrap:nowrap"><button class="btn sm ghost" data-act="cap" data-d="${day}" data-t="${t}" data-x="-1" aria-label="أقل">−</button><span class="small">${n(cap)} ${unitOf(s)}</span><button class="btn sm ghost" data-act="cap" data-d="${day}" data-t="${t}" data-x="1" aria-label="زيادة">+</button></div>`}</div>`;
     }).join("") : `<div class="empty" style="grid-column:1/-1">اليوم ده إجازة في مواعيد العمل. غيّرها من "المكان".</div>`;
     const list = myBk().filter(b => (b.date === day || bkSlots(b).some(x => x.startsWith(day + "_"))) && b.status !== "cancelled" && b.status !== "rejected").sort((a, b) => a.time.localeCompare(b.time));
     $("#daybk").innerHTML = list.length ? list.map(b => bookingCard(b, ownerBtns(b))).join("") : `<div class="empty">مفيش حجوزات في اليوم ده.</div>`;
     drawSlotSheet(false);
   };
   S.schedDraw = draw; S.schedSlots = () => slots; S.schedDay = day;
+  S.schedRedraw = () => { if (S.view === "barber" && (S.params.tab || "dash") === "schedule") draw(); };
   const u = fb.onSnapshot(fb.query(fb.collection(db, "shops", s.id, "slots"), fb.where("date", "==", day)), snap => { slots = {}; snap.forEach(d => slots[d.id] = d.data()); draw(); }, e => { $("#slotgrid").innerHTML = `<div class="empty">${esc(errText(e))}</div>`; });
   S.viewUnsubs.push(u);
 }
@@ -1931,20 +2171,27 @@ function slotSheet(day, t) { S.slotSheetAt = { day, t }; drawSlotSheet(true); }
 function drawSlotSheet(open) {
   const at = S.slotSheetAt; if (!at || !S.shop) return;
   if (!open && !$("#slotsheet")) { S.slotSheetAt = null; return; }
-  const s = S.shop, dm = unitMode(s), d = (S.schedSlots ? S.schedSlots() : {})[slotId(at.day, at.t)] || {}, closed = !!d.closed;
+  const s = S.shop, dm = unitMode(s), sm = !dm && staffMode(s), d = (S.schedSlots ? S.schedSlots() : {})[slotId(at.day, at.t)] || {}, closed = !!d.closed;
+  const pin = pinned(s, at.day, at.t), wd = ISO_DAYS[isoDow(parseKey(at.day))], allPin = ["1", "2", "3", "4", "5", "6", "7"].every(k => s.weekly && s.weekly[k + "_" + at.t.replace(":", "")]);
   const cap = typeof d.cap === "number" ? d.cap : s.capacity, here = myBk().filter(b => holdsHere(b, at.day, at.t));
   const who = {}; here.forEach(b => bkDevs(b).forEach(i => who[i] = b));
   const taken = new Set((d.taken || []).map(Number)), off = new Set((d.off || []).map(Number));
   const tile = i => { const b = who[i], st = taken.has(i) || b ? "busy" : off.has(i) ? "off" : "free";
-    return `<button class="dev own ${st}" data-act="slotdev" data-i="${i}" ${st === "busy" ? "disabled" : ""} aria-label="${esc(unitLabel(s, i))}">${devMode(s) ? ICO_PC : ""}<b>${devMode(s) ? n(i) : esc(unitLabel(s, i))}</b><small>${st === "busy" ? esc(b ? b.customerName.split(" ")[0] : "محجوز") : st === "off" ? "مقفول" : "شغال"}</small></button>`; };
+    return `<button class="dev own ${st}" data-act="slotdev" data-i="${i}" ${st === "busy" ? "disabled" : ""} aria-label="${esc(sm ? staffName(s, i) : unitLabel(s, i))}">${devMode(s) ? ICO_PC : ""}<b>${devMode(s) ? n(i) : esc(sm ? staffName(s, i) : unitLabel(s, i))}</b><small>${st === "busy" ? esc(b ? b.customerName.split(" ")[0] : "محجوز") : st === "off" ? (sm ? "مش موجود" : "مقفول") : sm ? "متاح" : "شغال"}</small></button>`; };
   const body = `<div class="muted small" style="text-align:center">${fmtDate(at.day)} · ${bkRange({ time: at.t, mins: stepOf(s) })}</div>
   <div class="seg"><button data-act="slotset" data-c="0" aria-pressed="${!closed}">✓ متاح</button><button data-act="slotset" data-c="1" aria-pressed="${closed}">✕ مش متاح</button></div>
+  <div class="pinbox"><div class="row between"><strong>📌 ثبّت كل أسبوع</strong><span class="muted small">كل ${wd} الساعة ${fmtT(at.t)}</span></div>
+    <div class="seg"><button data-act="pinset" data-v="0" aria-pressed="${!pin}">✓ مفتوح كل أسبوع</button><button data-act="pinset" data-v="1" aria-pressed="${pin}">✕ مقفول كل أسبوع</button></div>
+    <button class="btn sm" data-act="pinall" data-v="${allPin ? 0 : 1}">${allPin ? `افتح الساعة ${fmtT(at.t)} كل أيام الأسبوع` : `اقفل الساعة ${fmtT(at.t)} كل أيام الأسبوع`}</button></div>
   ${dm ? `<div class="devmap own">
     <div class="legend"><span><i class="lg-free"></i>شغال ومتاح</span><span><i class="lg-off"></i>مقفول</span><span><i class="lg-busy"></i>محجوز</span></div>
     ${groupsOf(s).map((g, gi) => `<div class="hallh"><span>${esc(g.name)}</span>${gi ? "" : `<span class="muted small">دوس على ${devMode(s) ? "الجهاز" : "الملعب"} عشان تقفله أو تفتحه</span>`}</div><div class="devgrid${devMode(s) ? "" : " wide"}">${Array.from({ length: g.count }, (_, k) => tile(g.from + k)).join("")}</div>`).join("")}
   </div>
   <div class="grid2"><button class="btn sm" data-act="slotdevall" data-o="1">اقفل كل الفاضي</button><button class="btn sm" data-act="slotdevall" data-o="0">افتح الكل</button></div>
   <p class="muted small" style="margin:0">المتاح للحجز في المعاد ده: <strong>${n(closed ? 0 : devList(s).filter(i => !taken.has(i) && !off.has(i)).length)}</strong> من ${n(devTotal(s))}. اللي عليه حجز مش بيتقفل؛ ارفض الحجز أو ألغيه الأول.</p>`
+  : sm ? `<div class="devmap own"><div class="legend"><span><i class="lg-free"></i>متاح</span><span><i class="lg-off"></i>مش موجود</span><span><i class="lg-busy"></i>محجوز</span></div>
+    <div class="hallh"><span>المصففين</span><span class="muted small">دوس على المصفف لو مش موجود الساعة دي</span></div><div class="devgrid wide">${staffOn(s).map(x => tile(+x.no)).join("")}</div></div>
+  <p class="muted small" style="margin:0">${n(d.count || 0)} محجوز من ${n(cap)}.</p>`
   : `<div class="row between"><span>العدد في المعاد ده</span><div class="cnt"><button class="cb" data-act="cap" data-d="${at.day}" data-t="${at.t}" data-x="-1" aria-label="أقل">−</button><output>${n(cap)}</output><button class="cb" data-act="cap" data-d="${at.day}" data-t="${at.t}" data-x="1" aria-label="زيادة">+</button></div></div><p class="muted small" style="margin:0">${n(d.count || 0)} محجوز من ${n(cap)} ${unitsOf(s)}.</p>`}
   <h3 style="font-size:1rem">الحجوزات في المعاد ده</h3>${here.length ? here.map(b => `<div class="appt"><span class="nm"><strong>${esc(b.customerName)}</strong> ${devChips(b)}<br><span class="muted small">${bkRange(b)}</span></span>${stBadge(b.status)}</div>`).join("") : `<div class="muted small">مفيش حجوزات.</div>`}`;
   if (open) openSheet(`اختصار معاد ${fmtT(at.t)}`, `<div id="slotsheet" class="stack">${body}</div>`);
@@ -1955,7 +2202,7 @@ async function slotDev(i, all) {
   const d = (S.schedSlots ? S.schedSlots() : {})[slotId(at.day, at.t)] || {}, taken = new Set((d.taken || []).map(Number)), held = new Set();
   myBk().filter(b => holdsHere(b, at.day, at.t)).forEach(b => bkDevs(b).forEach(x => held.add(x)));
   let off = new Set((d.off || []).map(Number));
-  if (all === "1") devList(S.shop).forEach(x => { if (!taken.has(x) && !held.has(x)) off.add(x); });
+  if (all === "1") (unitMode(S.shop) ? devList(S.shop) : staffOn(S.shop).map(y => +y.no)).forEach(x => { if (!taken.has(x) && !held.has(x)) off.add(x); });
   else if (all === "0") off = new Set();
   else { if (taken.has(i) || held.has(i)) { toast("الجهاز ده عليه حجز."); return; } off.has(i) ? off.delete(i) : off.add(i); }
   try { await writeSlot(at.day, at.t, { off: [...off].sort((a, b) => a - b) }); } catch (e) { toast(errText(e)); }
@@ -1988,7 +2235,7 @@ function bHall() {
       const next = mine.filter(b => b.status !== "done" && span(b)[0] > now && span(b)[0] - now < 18 * 3600000).sort((a, b) => span(a)[0] - span(b)[0])[0];
       let cls = "free", l1 = "متاح", l2 = next ? `بعدين ${fmtT(next.time)}` : "";
       if (nowB) { busyN++; cls = "busy"; l1 = "شغال · " + esc(nowB.customerName.split(" ")[0]); l2 = left(span(nowB)[1] - now) + " باقي"; }
-      else if (offNow.has(i) || sd.closed) { cls = "off"; l1 = sd.closed ? "المعاد مقفول" : "صيانة"; l2 = "لا يعمل"; }
+      else if (offNow.has(i) || sd.closed || (cur && pinned(s, cur.day, cur.t))) { cls = "off"; l1 = offNow.has(i) ? "صيانة" : "المعاد مقفول"; l2 = "لا يعمل"; }
       else if (next) { cls = next.status === "pending" ? "res pend" : "res"; l1 = (next.status === "pending" ? "طلب · " : "محجوز · ") + esc(next.customerName.split(" ")[0]); l2 = fmtT(next.time); }
       const g = groupOf(s, i), gl = groupsOf(s);
       return `<button class="htile ${cls}${gl.length > 1 && g !== gl[0] ? " vip" : ""}" data-act="hdev" data-i="${i}"><b>${devMode(s) ? n(i) : esc(unitLabel(s, i))}</b>${gl.length > 1 && devMode(s) ? `<em>${esc(g.name)}</em>` : ""}<span>${l1}</span><small>${l2}</small></button>`;
@@ -2039,6 +2286,22 @@ async function hallDevOff(which) {
     toast(close ? `جهاز ${n(i)} اتقفل${which === "day" ? " باقي اليوم" : " الساعة دي"}.${skipped ? ` (${n(skipped)} ساعة عليها حجز ما اتقفلتش)` : ""}` : `جهاز ${n(i)} رجع يشتغل.`);
   } catch (e) { toast(errText(e)); }
 }
+// v7.0: weekly pins live on the place: shops.weekly["<ISO weekday>_<HHMM>"] = true (closed every week)
+async function setPins(keys, closed) {
+  const up = {}; keys.forEach(k => { up["weekly." + k] = closed ? true : fb.deleteField(); });
+  try {
+    await fb.updateDoc(fb.doc(db, "shops", S.shop.id), up);
+    const w = { ...(S.shop.weekly || {}) }; keys.forEach(k => { if (closed) w[k] = true; else delete w[k]; }); S.shop.weekly = w;
+    toast(closed ? "📌 اتقفل كل أسبوع." : "اتفتح كل أسبوع.");
+    S.schedRedraw && S.schedRedraw(); drawSlotSheet(false); drawPins();
+  } catch (e) { toast(errText(e)); }
+}
+function drawPins() {
+  const el = $("#pinlist"); if (!el || !S.shop) return;
+  const keys = Object.keys(S.shop.weekly || {}).filter(k => S.shop.weekly[k]).sort((a, b) => WEEK_ORDER.indexOf(a.split("_")[0]) - WEEK_ORDER.indexOf(b.split("_")[0]) || a.localeCompare(b));
+  el.innerHTML = keys.length ? `<div class="pins">${keys.map(k => { const [d, t] = k.split("_"); return `<span class="pin">📌 ${ISO_DAYS[d]} ${fmtT(t.slice(0, 2) + ":" + t.slice(2))}<button data-act="unpin" data-k="${esc(k)}" aria-label="افتحه">✕</button></span>`; }).join("")}</div>`
+    : `<div class="muted small">مفيش. من «الجدول» دوس على أي معاد ← «مقفول كل أسبوع».</div>`;
+}
 async function writeSlot(day, t, patch) {
   const ref = fb.doc(db, "shops", S.shop.id, "slots", slotId(day, t)), cur = (S.schedSlots ? S.schedSlots() : {})[slotId(day, t)];
   const base = cur ? { ...cur } : { date: day, time: t, count: 0, closed: false };
@@ -2059,16 +2322,25 @@ async function setDayClosed(day, closed) {
 }
 // v5.0: service length with + / − in 30-minute steps only (30 min … 8 hours, no odd minutes)
 function roundDur(m) { return Math.min(480, Math.max(30, Math.round((+m || 30) / 30) * 30)); }
-function servicesEditor(list) {
-  return `<div id="svc-rows">${list.map((x, i) => { const m = roundDur(x.mins); return `<div class="svc-edit" data-row style="margin-bottom:8px"><label class="f">الخدمة<input id="sv-n${i}" data-k="name" value="${esc(x.name)}" maxlength="40"></label><label class="f">السعر (جنيه)<input id="sv-p${i}" data-k="price" type="number" min="0" inputmode="numeric" value="${esc(x.price)}"></label>
+function servicesEditor(list, key = "svc") {
+  return `<div id="${key}-rows">${list.map((x, i) => { const m = roundDur(x.mins); return `<div class="svc-edit" data-row style="margin-bottom:8px"><label class="f">الخدمة<input id="sv-n${i}" data-k="name" value="${esc(x.name)}" maxlength="40"></label><label class="f">السعر (جنيه)<input id="sv-p${i}" data-k="price" type="number" min="0" inputmode="numeric" value="${esc(x.price)}"></label>
   <div class="fx">المدة<div class="cnt wide"><button type="button" class="cb" data-act="svcmin" data-x="-30" aria-label="أقل نص ساعة">−</button><output data-k="mins" data-v="${m}">${fmtDur(m)}</output><button type="button" class="cb" data-act="svcmin" data-x="30" aria-label="زيادة نص ساعة">+</button></div></div>
-  <button class="btn sm bad" data-act="delsvc" data-i="${i}" aria-label="مسح الخدمة">مسح</button></div>`; }).join("")}</div>
-  <button class="btn sm" data-act="addsvc">إضافة خدمة</button>`;
+  <button class="btn sm bad" data-act="delsvc" data-k="${key}" data-i="${i}" aria-label="مسح الخدمة">مسح</button></div>`; }).join("")}</div>
+  <button class="btn sm" data-act="addsvc" data-k="${key}">إضافة خدمة</button>`;
 }
-function readServices() { return [...document.querySelectorAll("#svc-rows [data-row]")].map(r => ({ name: r.querySelector("[data-k=name]").value.trim(), price: Math.max(0, Math.round(+r.querySelector("[data-k=price]").value || 0)), mins: roundDur(r.querySelector("[data-k=mins]").dataset.v) })); }
+function readServices(key = "svc") { return [...document.querySelectorAll(`#${key}-rows [data-row]`)].map(r => ({ name: r.querySelector("[data-k=name]").value.trim(), price: Math.max(0, Math.round(+r.querySelector("[data-k=price]").value || 0)), mins: roundDur(r.querySelector("[data-k=mins]").dataset.v) })); }
 function bServices() {
   S.svcDraft = (S.shop.services || []).map(x => ({ ...x }));
-  $("#bpanel").innerHTML = `<div class="card"><h3>الخدمات والأسعار</h3><p class="muted small" style="margin:0">دي اللي العميل بيختار منها. السعر بالجنيه، والمدة بتزيد وتقل نص ساعة بـ + و −.</p><div id="svc-wrap">${servicesEditor(S.svcDraft)}</div><div class="err" id="sv-err"></div><button class="btn pri" data-act="savesvc">حفظ الخدمات</button></div>`;
+  const dl = S.shop.delivery || {};
+  S.dsvcDraft = (Array.isArray(dl.services) && dl.services.length ? dl.services : S.shop.services || []).map(x => ({ ...x }));
+  $("#bpanel").innerHTML = `<div class="card"><h3>الخدمات والأسعار${staffCat(S.shop) ? " · في المحل" : ""}</h3><p class="muted small" style="margin:0">دي اللي العميل بيختار منها. السعر بالجنيه، والمدة بتزيد وتقل نص ساعة بـ + و −.</p><div id="svc-wrap">${servicesEditor(S.svcDraft)}</div><div class="err" id="sv-err"></div><button class="btn pri" data-act="savesvc">حفظ الخدمات</button></div>
+  ${staffCat(S.shop) ? `<div class="card dlcard"><h3>🛵 الدليفري · خدمة في البيت</h3>
+    <p class="muted small" style="margin:0">لو فعّلته، العميل هيلاقي اختيار «دليفري · في البيت» ويظهرله منيو الدليفري ده بأسعاره، ويكتب عنوانه.</p>
+    <label class="f inl"><input type="checkbox" id="dl-on"${dl.on ? " checked" : ""}> <strong>فعّل الدليفري</strong></label>
+    <div class="grid2"><label class="f">رسوم التوصيل (جنيه، اختياري)<input id="dl-fee" type="number" min="0" inputmode="numeric" value="${esc(+dl.fee || "")}" placeholder="سيبها فاضية لو من غير رسوم"></label>
+    <label class="f">ملاحظة للعميل (اختياري)<input id="dl-note" maxlength="120" value="${esc(dl.note || "")}" placeholder="مثلاً: جوه دمياط الجديدة بس"></label></div>
+    <h4 style="margin:4px 0 0">منيو الدليفري</h4><div id="dsvc-wrap">${servicesEditor(S.dsvcDraft, "dsvc")}</div>
+    <div class="err" id="dl-err"></div><button class="btn pri" data-act="savedel">حفظ الدليفري</button></div>` : ""}`;
 }
 function hoursEditor(h) {
   const opts = sel => ALL_TIMES.map(t => `<option value="${t}"${t === sel ? " selected" : ""}>${fmtT(t)}</option>`).join("");
@@ -2135,6 +2407,13 @@ function shopFields(s, opts = {}) {
     <button type="button" class="btn sm" data-act="addgroup">+ ضيف نوع</button>
     <p class="muted small" style="margin:0">أقصى حاجة ${n(MAX_CAP)} في المكان كله، و${n(MAX_GROUPS)} أنواع.</p>
   </div>
+  <div class="devbox" id="staff-box"${staffCat(s) ? "" : " hidden"}>
+    <h4>✂ المصففين</h4>
+    <p class="muted small" style="margin:0">ضيف كل مصفف باسمه. عدد المصففين الشغالين = عدد العملاء في نفس المعاد (زي الكراسي). لو مفيش مصففين، بيتحسب «العدد في نفس المعاد».</p>
+    <label class="f inl"><input type="checkbox" id="st-pick"${s.staffPick !== false ? " checked" : ""}> العميل يقدر يختار المصفف</label>
+    <div id="st-rows">${(Array.isArray(s.staff) ? s.staff : []).map(staffRow).join("")}</div>
+    <button type="button" class="btn sm" data-act="addstaff">+ ضيف مصفف</button>
+  </div>
   <div class="socbox"><h4>صفحات المكان على السوشيال (اختياري)</h4>
     <div class="grid3">${Object.keys(SOCIAL).map(k => `<label class="f"><span><span class="sd soc-${k}" aria-hidden="true"></span> ${SOCIAL[k].ar} <span class="en">${SOCIAL[k].en}</span></span><input id="so-${k}" dir="ltr" maxlength="200" value="${esc(so[k] || "")}" placeholder="${k === "tt" ? "@username" : "لينك الصفحة أو اسمها"}"></label>`).join("")}</div>
     <p class="muted small" style="margin:0">الصق لينك الصفحة كله، أو اكتب اسم الصفحة بس وإحنا نكمّل اللينك.</p></div>
@@ -2144,7 +2423,14 @@ function shopFields(s, opts = {}) {
   </div>
   <p class="muted small" style="margin:0">اللوجو بيظهر جنب اسم المكان، والغلاف فوق صفحة المكان. بعد التسجيل تقدر تضيف لحد ${n(MAX_PHOTOS)} صور للمكان من «المكان».</p>` : ""}`;
 }
+function staffRow(x) { return `<div class="stx" data-no="${+x.no}"><label class="f">اسم المصفف<input data-k="name" maxlength="30" value="${esc(x.name || "")}" placeholder="مثلاً: أحمد"></label><label class="f inl"><input type="checkbox" data-k="on"${x.on !== false ? " checked" : ""}> موجود</label><span class="muted small strate" data-strate="${+x.no}"></span><button type="button" class="btn sm bad" data-act="delstaff" aria-label="مسح المصفف">مسح</button></div>`; }
+function readStaff() {
+  const l = [...document.querySelectorAll("#st-rows .stx")].map(r => ({ no: +r.dataset.no, name: r.querySelector("[data-k=name]").value.trim().slice(0, 30), on: r.querySelector("[data-k=on]").checked })).filter(x => x.name);
+  if (l.length > MAX_CAP) throw userErr(`أقصى حاجة ${n(MAX_CAP)} مصفف.`);
+  return l;
+}
 function toggleCatBoxes(cat, fresh) {
+  const stb = $("#staff-box"); if (stb) stb.hidden = !STAFF_CATS.includes(cat);
   const um = UNIT_CATS.includes(cat);
   const c = $("#cap-box"), d = $("#dev-box"), sv = $("#svc-card"); if (c) c.hidden = um; if (d) d.hidden = !um; if (sv) sv.hidden = um;
   if (um && fresh && $("#gx-rows")) { $("#gx-rows").innerHTML = groupsEditor(defGroups(cat), cat); $("#gx-help").textContent = groupsHelp(cat); $("#gx-title").textContent = DEV_CATS.includes(cat) ? "القاعات والأجهزة والأسعار" : "الملاعب والأسعار"; }
@@ -2160,6 +2446,10 @@ function readShopFields(base) {
   if (!validPhone(d.whatsapp)) throw userErr("رقم الواتساب مطلوب، ولازم يبقى ١١ رقم ويبدأ بـ 01.");
   if (dm) { d.groups = readGroups(); d.capacity = d.groups.reduce((a, g) => a + g.count, 0); delete d.devices; }
   else { delete d.groups; delete d.devices; }
+  if (STAFF_CATS.includes(cat) && $("#st-rows")) {
+    d.staff = readStaff(); d.staffPick = !!($("#st-pick") || {}).checked;
+    const on = d.staff.filter(x => x.on).length; if (on) d.capacity = on;
+  } else { d.staff = []; d.staffPick = false; }
   if (d.capacity < 1 || d.capacity > MAX_CAP) throw userErr("العدد من ١ لـ ٣٠.");
   if (d.mapUrl && !/^https:\/\//.test(d.mapUrl)) throw userErr("لينك الخريطة لازم يبدأ بـ https://");
   return d;
@@ -2173,8 +2463,13 @@ function bShopForm() {
     <div class="gal" id="gal"><div class="muted small">بيحمّل…</div></div></div>
   <div class="card"><h3>بيانات المكان</h3>${shopFields(S.shop)}</div>
   <div class="card"><h3>مواعيد العمل</h3>${hoursEditor(S.shop.hours)}</div>
+  <div class="card"><h3>📌 مواعيد مقفولة كل أسبوع</h3><div id="pinlist"></div></div>
   <div class="err" id="sh-err"></div><button class="btn pri lg" data-act="saveshop">حفظ البيانات</button>`;
-  drawIdentity();
+  drawIdentity(); drawPins();
+  if (staffCat(S.shop)) fb.getDocs(fb.query(fb.collection(db, "reviews"), fb.where("shopId", "==", S.shop.id), fb.limit(200))).then(snap => {
+    const st = {}; snap.forEach(d => { const r = d.data(); if (r.staffNo && r.staffRating) { const x = st[r.staffNo] = st[r.staffNo] || { sum: 0, c: 0 }; x.sum += r.staffRating; x.c++; } });
+    document.querySelectorAll("[data-strate]").forEach(el => { const x = st[el.dataset.strate]; el.innerHTML = x ? `<span class="stars">★</span> ${n((x.sum / x.c).toFixed(1))} (${n(x.c)})` : "لسه مفيش تقييم"; });
+  }).catch(() => {});
   $("#sh-cat").addEventListener("change", e => toggleCatBoxes(e.target.value, true));
   const shopId = S.shop.id;
   const u = fb.onSnapshot(fb.collection(db, "shops", shopId, "photos"), snap => {
@@ -2226,7 +2521,7 @@ function bindPhoto() {
 function barberOnboarding(adding) {
   S.photoDraft = undefined;
   const inv = adding ? {} : (getInvite() || {}), first = adding ? S.shops[0] : null;
-  const draft = { category: inv.cat || (first ? catOf(first) : "barber"), name: inv.name || "", area: inv.area || "", address: "", logo: first ? first.logo || "" : "", phone: first ? first.phone : S.profile.phone, whatsapp: inv.wa || (first ? first.whatsapp : S.profile.phone), mapUrl: "", capacity: first ? first.capacity : 1, photo: "", social: first ? { ...(first.social || {}) } : {}, deposit: first ? first.deposit || 0 : 0, groups: first && unitMode(first) ? groupsOf(first).map(({ from, to, ...g }) => g) : undefined, hours: first ? JSON.parse(JSON.stringify(first.hours)) : defaultHours() };
+  const draft = { category: inv.cat || (first ? catOf(first) : "barber"), name: inv.name || "", area: inv.area || "", address: "", logo: first ? first.logo || "" : "", phone: first ? first.phone : S.profile.phone, whatsapp: inv.wa || (first ? first.whatsapp : S.profile.phone), mapUrl: "", capacity: first ? first.capacity : 1, photo: "", social: first ? { ...(first.social || {}) } : {}, deposit: first ? first.deposit || 0 : 0, groups: first && unitMode(first) ? groupsOf(first).map(({ from, to, ...g }) => g) : undefined, staffPick: true, hours: first ? JSON.parse(JSON.stringify(first.hours)) : defaultHours() };
   S.svcDraft = (first && catOf(first) === draft.category ? first.services : CATS[draft.category].svc).map(x => ({ ...x }));
   const dm = unitMode(draft);
   main.innerHTML = `<div class="wrap">${adding ? `<button class="btn switch sm" data-act="branches" style="align-self:flex-start">› فروعي</button>` : ""}
@@ -2537,6 +2832,35 @@ document.addEventListener("click", async e => {
     case "day": bk.day = d.d; bk.sel = null; drawDays(); subscribeSlots(); drawSummary(); break;
     case "slot": { const ng = d.g || null; if (ng !== bk.g) { bk.devs.clear(); bk.mode = "single"; } bk.g = ng; bk.sel = { k: d.k, t: d.t }; drawSlots(); if (devMode(bk.s) && $("#devcard")) setTimeout(() => $("#devcard").scrollIntoView({ behavior: "smooth", block: "nearest" }), 50); break; }
     case "confirm": confirmBooking(); break;
+    case "where": bk.where = d.w === "home" ? "home" : "shop"; bk.svc.clear(); document.querySelectorAll('[data-act="where"]').forEach(x => x.setAttribute("aria-pressed", String(x.dataset.w === bk.where))); drawSvcs(); drawSummary(); break;
+    case "staff": bk.st = +d.no || 0; drawStaff(); drawSlots(); break;
+    case "propok": { const b = S.myBookings.find(x => x.id === d.id); if (!b || !b.prop) break; t.disabled = true; try { await fb.updateDoc(fb.doc(db, "bookings", b.id), { prop: { ...b.prop, ok: true }, updatedAt: fb.serverTimestamp() }); toast("تمام! المكان هيأكّد على المعاد الجديد."); } catch (x) { toast(errText(x)); t.disabled = false; } break; }
+    case "propno": { const id = d.id; confirmSheet("رفض المعاد المقترح", "لو رفضت المعاد اللي المكان اقترحه، الحجز هيتلغي. تقدر بدل كده تقترح معاد تاني.", "رفض وإلغاء الحجز", () => cancelBooking(id)); break; }
+    case "propcust": propSheet(d.id, "customer"); break;
+    case "propowner": propSheet(d.id, "owner"); break;
+    case "propapply": t.disabled = true; await applyProp(d.id, false); break;
+    case "ppday": if (S.prop) { S.prop.day = d.d; S.prop.sel = null; loadPropDay(); } break;
+    case "pptime": if (S.prop) { S.prop.sel = { k: d.k, t: d.t }; drawProp(); } break;
+    case "ppsend": t.disabled = true; await sendProp(); break;
+    case "bweek": S.params.wk = +d.w || 0; S.params.day = null; bSchedule(); break;
+    case "pinset": { const at = S.slotSheetAt; if (at) await setPins([pinKey(at.day, at.t)], d.v === "1"); break; }
+    case "pinall": { const at = S.slotSheetAt; if (at) await setPins(["1", "2", "3", "4", "5", "6", "7"].map(k => k + "_" + at.t.replace(":", "")), d.v === "1"); break; }
+    case "unpin": await setPins([d.k], false); break;
+    case "addstaff": { const rows = $("#st-rows"); if (!rows) break; const nos = [...rows.querySelectorAll(".stx")].map(r => +r.dataset.no).concat(((S.shop || {}).staff || []).map(x => +x.no)); if (rows.querySelectorAll(".stx").length >= MAX_CAP) { toast(`أقصى حاجة ${n(MAX_CAP)}.`); break; }
+      rows.insertAdjacentHTML("beforeend", staffRow({ no: Math.max(0, ...nos) + 1, name: "", on: true })); rows.lastElementChild.querySelector("input").focus(); break; }
+    case "delstaff": t.closest(".stx").remove(); break;
+    case "savedel": {
+      const er = $("#dl-err"); er.textContent = "";
+      try {
+        const on = $("#dl-on").checked, services = readServices("dsvc").filter(x => x.name);
+        if (on && !services.length) throw userErr("ضيف خدمة واحدة على الأقل في منيو الدليفري.");
+        if (services.length > 30) throw userErr("أقصى حاجة ٣٠ خدمة.");
+        const delivery = { on, fee: Math.min(10000, Math.max(0, Math.round(+$("#dl-fee").value || 0))), note: ($("#dl-note").value || "").trim().slice(0, 120), services };
+        await fb.updateDoc(fb.doc(db, "shops", S.shop.id), { delivery }); S.shop.delivery = delivery;
+        toast(on ? "اتحفظ الدليفري ✔ العملاء هيشوفوا «دليفري · في البيت»." : "اتحفظ. الدليفري مقفول.");
+      } catch (x) { er.textContent = errText(x); }
+      break;
+    }
     case "cancelbk": t.disabled = true; await cancelBooking(d.id); break;
     case "review": reviewSheet(d.id, false); break;
     case "notifyperm": try { await Notification.requestPermission(); } catch (x) {} if (d.id && $("#scrim")) remindSheet(d.id); else render(); checkReminders(); break;
@@ -2547,8 +2871,8 @@ document.addEventListener("click", async e => {
     case "cap": await changeCap(d.d, d.t, +d.x); break;
     case "closeday": await setDayClosed(d.d, true); break;
     case "openday": await setDayClosed(d.d, false); break;
-    case "addsvc": S.svcDraft = readServices(); S.svcDraft.push({ name: "", price: 0, mins: 30 }); $("#svc-wrap").innerHTML = servicesEditor(S.svcDraft); break;
-    case "delsvc": S.svcDraft = readServices(); S.svcDraft.splice(+d.i, 1); $("#svc-wrap").innerHTML = servicesEditor(S.svcDraft); break;
+    case "addsvc": { const k = d.k === "dsvc" ? "dsvc" : "svc"; S[k + "Draft"] = readServices(k); S[k + "Draft"].push({ name: "", price: 0, mins: 30 }); $("#" + k + "-wrap").innerHTML = servicesEditor(S[k + "Draft"], k); break; }
+    case "delsvc": { const k = d.k === "dsvc" ? "dsvc" : "svc"; S[k + "Draft"] = readServices(k); S[k + "Draft"].splice(+d.i, 1); $("#" + k + "-wrap").innerHTML = servicesEditor(S[k + "Draft"], k); break; }
     case "savesvc": try { const l = cleanServices(readServices()); await fb.updateDoc(fb.doc(db, "shops", S.shop.id), { services: l }); toast("اتحفظت الخدمات."); } catch (x) { $("#sv-err").textContent = errText(x); } break;
     case "delphoto": S.photoDraft = ""; { const im = $("#sh-prev img"); if (im) im.remove(); } t.remove(); toast("دوس حفظ عشان تتشال."); break;
     case "dellogo": S.logoDraft = ""; { const im = $("#lg-prev img"); if (im) im.remove(); } t.remove(); toast("دوس حفظ عشان يتشال."); break;
@@ -2579,7 +2903,7 @@ document.addEventListener("click", async e => {
     case "ics": downloadIcs(d.id); break;
     case "saveshop": try {
       const v = readShopFields(S.shop), hours = readHours();
-      const up = { category: v.category, name: v.name, area: v.area, address: v.address, phone: v.phone, whatsapp: v.whatsapp, capacity: v.capacity, mapUrl: v.mapUrl, deposit: v.deposit, social: v.social, hours };
+      const up = { category: v.category, name: v.name, area: v.area, address: v.address, phone: v.phone, whatsapp: v.whatsapp, capacity: v.capacity, mapUrl: v.mapUrl, deposit: v.deposit, social: v.social, hours, staff: v.staff, staffPick: v.staffPick };
       if (v.groups) up.groups = v.groups;
       await fb.updateDoc(fb.doc(db, "shops", S.shop.id), up); Object.assign(S.shop, up); toast("اتحفظ."); $("#sh-err").textContent = "";
     } catch (x) { $("#sh-err").textContent = errText(x); } break;
@@ -2590,7 +2914,7 @@ document.addEventListener("click", async e => {
         const services = cleanServices(readServices()), hours = readHours();
         const brand = $("#sh-brand") ? $("#sh-brand").value.trim().slice(0, 60) : "";
         const ref = fb.doc(fb.collection(db, "shops"));
-        const doc = { ownerId: S.user.uid, brand, category: base.category, name: base.name, area: base.area, address: base.address, logo: base.logo || (d.add && S.shops[0] ? S.shops[0].logo || "" : ""), phone: base.phone, whatsapp: base.whatsapp, mapUrl: base.mapUrl, capacity: base.capacity, photo: base.photo, deposit: base.deposit, social: base.social, services, hours, status: "pending", ratingSum: 0, ratingCount: 0, createdAt: fb.serverTimestamp() };
+        const doc = { ownerId: S.user.uid, brand, category: base.category, name: base.name, area: base.area, address: base.address, logo: base.logo || (d.add && S.shops[0] ? S.shops[0].logo || "" : ""), phone: base.phone, whatsapp: base.whatsapp, mapUrl: base.mapUrl, capacity: base.capacity, photo: base.photo, deposit: base.deposit, social: base.social, staff: base.staff, staffPick: base.staffPick, services, hours, status: "pending", ratingSum: 0, ratingCount: 0, createdAt: fb.serverTimestamp() };
         if (base.groups) doc.groups = base.groups;
         await fb.setDoc(ref, doc);
         if (d.add && brand && S.shops.some(s => s.brand !== brand)) { try { await saveBrand(brand); } catch (e) {} }
@@ -2631,14 +2955,15 @@ function startRoleListeners() {
   if (!S.profile) return;
   const uid = S.user.uid;
   if (S.profile.role === "customer") {
-    let first = true; const prev = {};
+    let first = true; const prev = {}, prevProp = {};
     S.roleUnsubs.push(fb.onSnapshot(fb.query(fb.collection(db, "bookings"), fb.where("customerId", "==", uid)), snap => {
       S.myBookings = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      S.myBookings.forEach(b => { const pk = b.prop ? b.prop.by + b.prop.date + b.prop.time + (b.prop.ok ? 1 : 0) : ""; if (!first && b.prop && b.prop.by === "owner" && !b.prop.ok && prevProp[b.id] !== pk) notify("المكان اقترح معاد تاني", b.shopName + " · " + fmtDate(b.prop.date) + " " + fmtT(b.prop.time)); prevProp[b.id] = pk; });
       S.myBookings.forEach(b => { if (!first && prev[b.id] && prev[b.id] !== b.status && (b.status === "accepted" || b.status === "rejected" || (b.auto && b.status === "cancelled"))) notify(b.auto ? "اتلغى حجزك تلقائياً (عدّى ${LATE_MIN} دقايق)".replace("${LATE_MIN}", n(LATE_MIN)) : b.status === "accepted" ? "المكان أكّد حجزك ✔" : "المكان رفض الحجز", b.shopName + " · " + fmtDate(b.date) + " " + bkRange(b)); prev[b.id] = b.status; });
       first = false;
       if (S.view === "mybookings") vMyBookings();
       if (S.view === "booked") vBooked();
-      checkReminders(); autoCancel();
+      checkReminders();
       if (S.reviewsLoaded) maybeAskReview();
     }, () => {}));
     S.reviewsLoaded = false;
@@ -2668,10 +2993,11 @@ function startRoleListeners() {
       const pend = S.shopBookings.filter(b => b.status === "pending");
       if (S.knownPending) pend.filter(b => !S.knownPending.has(b.id)).forEach(b => notify("طلب حجز جديد", b.customerName + " · " + b.shopName + " · " + fmtDate(b.date) + " " + bkRange(b)));
       S.knownPending = new Set(pend.map(b => b.id));
+      pend.forEach(b => { const pk = b.prop ? b.prop.by + b.prop.date + b.prop.time + (b.prop.ok ? 1 : 0) : ""; if (S.knownProps && b.prop && (b.prop.by === "customer" || b.prop.ok) && S.knownProps[b.id] !== pk) notify(b.prop.ok ? "العميل وافق على المعاد الجديد" : "العميل اقترح معاد تاني", b.customerName + " · " + fmtDate(b.prop.date) + " " + fmtT(b.prop.time)); (S.knownProps = S.knownProps || {})[b.id] = pk; });
       S.pendingCount = pend.length; renderTop();
       try { document.title = (pend.length ? "(" + pend.length + ") " : "") + "احجز دورك · Dorak"; } catch (e) {}
       if (S.view === "barber" && !S.params.add && S.shops !== undefined) { const tab = S.params.tab || "dash"; if (!S.shop || tab === "requests" || tab === "dash") vBarber(); else if (tab === "schedule" && S.schedDraw) S.schedDraw(); else if (tab === "hall" && S.hallDraw) S.hallDraw(); }
-      setTimeout(ownerAskOnOpen, 1500); checkReminders(); autoCancel();
+      setTimeout(ownerAskOnOpen, 1500); checkReminders(); autoProps();
     };
     S.roleUnsubs.push(fb.onSnapshot(fb.query(fb.collection(db, "bookings"), fb.where("ownerId", "==", uid)), snap => onBk("a", snap), () => {}));
     S.roleUnsubs.push(fb.onSnapshot(fb.query(fb.collection(db, "bookings"), fb.where("shopId", "==", uid)), snap => onBk("b", snap), () => {}));
