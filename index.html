@@ -609,8 +609,12 @@ dl.dash dt{color:#AFC0D8}dl.dash dd{margin:0}dl.dash .rng{color:#fff}
    v6.0: types (pitches 5/7-a-side, rooms, device halls) with name / description / count / price / multi price and their own
          times; open-time ("مفتوح") bookings; times grouped by period incl. after midnight; 10-minute lateness rule with
          "العميل وصل" + auto-cancel; offers billboard managed by the admin; backup download; complaints WhatsApp 01507796698.
+   v9.0: CRM in the admin panel (leads/{id}): places contacted by Karim / Saged, status, notes, follow-ups, history,
+         WhatsApp invite with &lead=<id>; a place that registers from it (or with the same mobile) is marked joined / live.
+   v10.0: CRM "⚡ زيارة سريعة": name, type, mobile, one note, result, follow-up (+ optional location); places with missing
+         details carry a ⚠ warning, a "بيانات ناقصة" filter and a banner until they are completed.
    ============================================================ */
-const APP_VERSION = "8.1";
+const APP_VERSION = "10.0";
 
 // ---- 1) Firebase project settings: paste the values from Firebase console → Project settings → Your apps ----
 const firebaseConfig = {
@@ -854,7 +858,7 @@ function getInvite() { try { return JSON.parse(load("dawrak.invite") || "null");
   try {
     const q = new URLSearchParams(location.search);
     if (q.get("invite") !== "barber") return;
-    const inv = { name: (q.get("name") || "").slice(0, 60), area: (q.get("area") || "").slice(0, 60), wa: normPhone(q.get("wa") || ""), cat: CATS[q.get("cat")] ? q.get("cat") : "" };
+    const inv = { name: (q.get("name") || "").slice(0, 60), area: (q.get("area") || "").slice(0, 60), wa: normPhone(q.get("wa") || ""), cat: CATS[q.get("cat")] ? q.get("cat") : "", lead: /^[A-Za-z0-9]{1,40}$/.test(q.get("lead") || "") ? q.get("lead") : "" };
     if (!validPhone(inv.wa)) inv.wa = "";
     store("dawrak.invite", JSON.stringify(inv)); store("dawrak.role", "barber");
     history.replaceState(null, "", location.pathname);
@@ -2616,25 +2620,28 @@ function cleanServices(list) { const l = list.filter(x => x.name); if (!l.length
 /* ---------------- admin ---------------- */
 const A = { data: null, tab: "overview" };
 async function adminLoad() {
-  const [u, sh, bk, rv, fbk, of] = await Promise.all([
+  const [u, sh, bk, rv, fbk, of, ld] = await Promise.all([
     fb.getDocs(fb.collection(db, "users")), fb.getDocs(fb.collection(db, "shops")),
     fb.getDocs(fb.query(fb.collection(db, "bookings"), fb.limit(1000))), fb.getDocs(fb.query(fb.collection(db, "reviews"), fb.limit(500))),
-    fb.getDocs(fb.query(fb.collection(db, "feedback"), fb.limit(500))), fb.getDocs(fb.collection(db, "offers"))
+    fb.getDocs(fb.query(fb.collection(db, "feedback"), fb.limit(500))), fb.getDocs(fb.collection(db, "offers")),
+    fb.getDocs(fb.collection(db, "leads")).catch(() => null)
   ]);
   const m = s => s.docs.map(d => ({ id: d.id, ...d.data() }));
-  A.data = { users: m(u), shops: m(sh), bookings: m(bk), reviews: m(rv), feedback: m(fbk), offers: m(of).sort((a, b) => (+a.order || 0) - (+b.order || 0)) };
+  A.data = { users: m(u), shops: m(sh), bookings: m(bk), reviews: m(rv), feedback: m(fbk), offers: m(of).sort((a, b) => (+a.order || 0) - (+b.order || 0)), leads: ld ? m(ld) : [], leadsOff: !ld };
+  await syncLeads();
 }
 function ts(x) { return x && x.seconds ? new Date(x.seconds * 1000) : null; }
 function fmtTs(x) { const d = ts(x); return d ? n(d.getDate()) + " " + MONTHS[d.getMonth()] : "—"; }
 async function vAdmin() {
   const tab = S.params.tab || A.tab; A.tab = tab;
-  const tabs = [["overview", "نظرة عامة"], ["shops", "الأماكن"], ["users", "المستخدمين"], ["bookings", "الحجوزات"], ["reviews", "التقييمات"], ["feedback", "الشكاوى والمقترحات"], ["offers", "العروض"], ["settings", "الإعدادات والنسخ الاحتياطي"]];
+  const tabs = [["overview", "نظرة عامة"], ["crm", "العملاء المحتملين"], ["shops", "الأماكن"], ["users", "المستخدمين"], ["bookings", "الحجوزات"], ["reviews", "التقييمات"], ["feedback", "الشكاوى والمقترحات"], ["offers", "العروض"], ["settings", "الإعدادات والنسخ الاحتياطي"]];
   const pendShops = A.data ? A.data.shops.filter(s => s.status === "pending").length : 0, newFb = A.data ? A.data.feedback.filter(f => f.status === "new").length : 0;
   main.innerHTML = `<div class="wrap"><div class="row between"><h2 style="font-size:1.5rem">لوحة الإدارة</h2><button class="btn sm" data-act="adminreload">تحديث</button></div>
-  <div class="tabs" role="tablist">${tabs.map(t => `<button class="tab" role="tab" aria-selected="${tab === t[0]}" data-act="atab" data-t="${t[0]}">${t[1]}${t[0] === "shops" && pendShops ? ` <span class="badge">${n(pendShops)}</span>` : ""}${t[0] === "feedback" && newFb ? ` <span class="badge">${n(newFb)}</span>` : ""}</button>`).join("")}</div>
+  <div class="tabs" role="tablist">${tabs.map(t => `<button class="tab" role="tab" aria-selected="${tab === t[0]}" data-act="atab" data-t="${t[0]}">${t[1]}${t[0] === "shops" && pendShops ? ` <span class="badge">${n(pendShops)}</span>` : ""}${t[0] === "feedback" && newFb ? ` <span class="badge">${n(newFb)}</span>` : ""}${t[0] === "crm" && leadCount() ? ` <span class="badge">${n(leadCount())}</span>` : ""}</button>`).join("")}</div>
   <div id="apanel"><div class="spinner" role="status" aria-label="بيحمّل"></div></div></div>`;
   if (!A.data) { try { await adminLoad(); } catch (e) { $("#apanel").innerHTML = `<div class="empty">${esc(errText(e))}</div>`; return; } if (S.view === "admin") return vAdmin(); return; }
-  ({ overview: aOverview, shops: aShops, users: aUsers, bookings: aBookings, reviews: aReviews, feedback: aFeedback, offers: aOffers, settings: aSettings })[tab]();
+  if (tab === "crm" && A.data.leadsOff) { $("#apanel").innerHTML = `<div class="empty">العملاء المحتملين محتاجين قواعد v9.0: Firebase ← Firestore ← Rules ← الصق firestore-rules-v9.0 ← Publish، وبعدين «تحديث».</div>`; return; }
+  ({ overview: aOverview, crm: aCrm, shops: aShops, users: aUsers, bookings: aBookings, reviews: aReviews, feedback: aFeedback, offers: aOffers, settings: aSettings })[tab]();
 }
 function aOverview() {
   const d = A.data, cnt = (l, f) => l.filter(f).length, week = Date.now() - 7 * 864e5;
@@ -2719,7 +2726,7 @@ async function downloadBackup(btn) {
   try {
     const out = { app: "Dorak", version: APP_VERSION, at: new Date().toISOString(), collections: {} };
     const grab = async path => (await fb.getDocs(fb.collection(db, ...path))).docs.map(d => ({ id: d.id, ...d.data() }));
-    for (const c of ["users", "admins", "shops", "bookings", "reviews", "feedback", "settings", "offers"]) out.collections[c] = await grab([c]);
+    for (const c of ["users", "admins", "shops", "bookings", "reviews", "feedback", "settings", "offers", "leads"]) out.collections[c] = await grab([c]);
     for (const sh of out.collections.shops) { sh._slots = await grab(["shops", sh.id, "slots"]); sh._photos = await grab(["shops", sh.id, "photos"]); }
     const url = URL.createObjectURL(new Blob([JSON.stringify(out)], { type: "application/json" })), a = document.createElement("a");
     a.href = url; a.download = `dorak-backup-${dkey(new Date())}.json`; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 5000);
@@ -2734,7 +2741,7 @@ function aSettings() {
   <label class="f">رقم الشكاوى (واتساب فقط)<input id="st-wa" inputmode="tel" dir="ltr" value="${esc(s.supportWhatsapp)}"></label>
   <label class="f">اسم المسؤول عن الدعم<input id="st-name" value="${esc(s.supportName)}" maxlength="40"></label>
   <div class="err" id="st-err"></div><button class="btn pri" data-act="savesettings">حفظ</button></div>
-  <div class="card"><h3>النسخ الاحتياطي</h3><p class="muted small" style="margin:0">نسخة من كل البيانات (الحسابات، الأماكن، الحجوزات، التقييمات، الشكاوى، العروض) في ملف واحد. فيه كمان سكريبت <span class="num">backup.js</span> على كمبيوتر الأدمن بياخد نسخة كل يوم لوحده.</p><button class="btn navy" data-act="backup">⬇ نزّل نسخة احتياطية دلوقتي</button></div>
+  <div class="card"><h3>النسخ الاحتياطي</h3><p class="muted small" style="margin:0">نسخة من كل البيانات (الحسابات، الأماكن، الحجوزات، التقييمات، الشكاوى، العروض، العملاء المحتملين) في ملف واحد. فيه كمان سكريبت <span class="num">backup.js</span> على كمبيوتر الأدمن بياخد نسخة كل يوم لوحده.</p><button class="btn navy" data-act="backup">⬇ نزّل نسخة احتياطية دلوقتي</button></div>
   <div class="card"><h3>نسيان كلمة السر</h3><p class="muted small" style="margin:0">لما حد يبعت على واتساب إنه نسي كلمة السر: على الكمبيوتر اللي عليه فولدر <span class="num">dorak-admin</span> دوس دبل كليك على <span class="num">reset.bat</span> واكتب رقمه (أو <span class="num">node reset.js 01xxxxxxxxx</span>). هتطلع كلمة سر مؤقتة ولينك واتساب جاهز تبعتهاله. أول ما يدخل بيها التطبيق هيطلب منه يغيّرها.</p></div>
   <div class="card"><h3>إضافة أدمن</h3><p class="muted small" style="margin:0">الأدمن الجديد بيتضاف من Firebase console بس، عشان الأمان: Firestore ← اعمل collection اسمها <span class="num">admins</span> ← Document ID = رقم حساب الشخص (بيظهر له في "حسابي").</p></div>`;
 }
@@ -2742,6 +2749,216 @@ function adminEditShop(id) {
   const s = A.data.shops.find(x => x.id === id); if (!s) return;
   S.svcDraft = (s.services || []).map(x => ({ ...x }));
   openSheet(`خدمات ${esc(s.name)}`, `<div id="svc-wrap">${servicesEditor(S.svcDraft)}</div><div class="err" id="sv-err"></div><button class="btn pri block" data-act="adminsavesvc" data-id="${esc(id)}">حفظ</button>`);
+}
+
+/* ---------------- v9.0: CRM — places Karim / Saged contact before they join (admin only, leads/{id}) ---------------- */
+const LEAD_CATS = { barber: "حلاق", salon: "كوافير", football: "كورة", padel: "بادل", gaming: "بلايستيشن", cyber: "سيبر", other: "غيره" };
+const LEAD_ST = { new: "لسه", invited: "اتبعتله دعوة", talked: "اتكلمنا", visit: "ميعاد زيارة", joined: "وافق — اتسجّل", live: "شغال (جاله حجوزات)", later: "متابعة بعدين", no: "رفض" };
+const LEAD_ST_CLR = { new: ["#5B6474", "#F2F4F7", "#D5DAE2"], invited: ["#1D4E89", "#E8F0FB", "#B9CDEB"], talked: ["#5B3FA0", "#F0ECFA", "#CFC3EE"], visit: ["#8A6A00", "#FBF3DC", "#E7D18A"], joined: ["#1F7A45", "#EDF7F0", "#A9D3B8"], live: ["#0E6E6E", "#E4F5F4", "#A6D8D5"], later: ["#A3520F", "#FCEFE4", "#EDC7A4"], no: ["#B42318", "#FBEDEC", "#E3B9B6"] };
+const LEAD_VIA = { call: "مكالمة", visit: "زيارة", wa: "واتساب", ig: "إنستجرام" };
+const LEAD_WHO = ["كريم", "ساجد"];
+const LEAD_DONE = ["joined", "live", "no"];      // no follow-up needed
+// the 16 barbers / salons that got WhatsApp invites before v9.0 (the same list as the CRM sheet)
+const LEAD_SEED = [["Dream Style", "01221367416"], ["salonElmasry", "01284959071"], ["Spa Hair Style", "01095909825"], ["الباز صالون", "01007331545"], ["Zero", "01553939303"], ["M&O babershop", "01280800867"], ["Not a Barber", "01284848347"], ["صالون سامي وأحمد / SAMOO & KAREEM", "01099147392"], ["Royal Saloon", "01090930793"], ["ELNANA VIP", "01096871792"], ["قيس الشام", "01003358963"], ["Amr salon", "01007061274"], ["Menawy barber shop", "01014349011"], ["Ahmed Alkewy", "01015349598"], ["7mato Salon", "01090000503"], ["Hillooo Beauty Center", "0572400049", "salon", "new", "رقم أرضي — محتاج زيارة", "visit"]];
+
+function leadBadge(s) { const c = LEAD_ST_CLR[s] || LEAD_ST_CLR.new; return `<span class="status" style="color:${c[0]};background:${c[1]};border-color:${c[2]}">${esc(LEAD_ST[s] || s)}</span>`; }
+function leadDue(l) { const t = dkey(new Date()); return l.next && !LEAD_DONE.includes(l.status) ? (l.next < t ? "late" : l.next === t ? "today" : "") : ""; }
+// v10.0: what is still missing on a place (quick visits save only name, type, mobile and a note)
+function leadMissing(l) {
+  const m = [];
+  if (!l.phone) m.push("الموبايل");
+  if (!l.owner) m.push("اسم صاحب المكان");
+  if (!l.area) m.push("المنطقة");
+  if (!l.who) m.push("مين ماسكه");
+  if (!l.next && !LEAD_DONE.includes(l.status)) m.push("المتابعة الجاية");
+  if (l.status === "no" && !l.reason) m.push("سبب الرفض");
+  return m;
+}
+function leadCount() { return A.data && A.data.leads ? A.data.leads.filter(l => leadDue(l)).length : 0; }
+function leadPhoneKey(p) { return normPhone(p || "").replace(/^\+?2?0?/, ""); }
+function inviteURL(l) {
+  const base = location.origin + location.pathname, q = new URLSearchParams({ invite: "barber", name: l.name || "" });
+  if (validPhone(normPhone(l.phone || ""))) q.set("wa", normPhone(l.phone));
+  if (l.area) q.set("area", l.area);
+  if (CATS[l.cat]) q.set("cat", l.cat);
+  q.set("lead", l.id);
+  return base + "?" + q.toString();
+}
+function inviteMsg(l) {
+  return `أهلاً${l.owner ? " " + l.owner : ""} 👋\nمعاك ${S.profile.name} من «احجز دورك» — تطبيق الحجز في دمياط الجديدة.\nعايزين ${l.name} يكون من أول الأماكن معانا (شريك مؤسس): مجاني، وهنعملك إعلان على صفحاتنا ببلاش، والعملاء يحجزوا منك من الموبايل.\nسجّل مكانك من اللينك ده في دقيقة:\n${inviteURL(l)}`;
+}
+function leadLog(by, status, note) { return { at: Date.now(), by: by || "", status, note: (note || "").slice(0, 300) }; }
+
+// a lead whose place registered (invite link with &lead=, or the same mobile) moves to "joined", and to "live" once it has bookings
+async function syncLeads() {
+  const d = A.data; if (!d || !d.leads || !d.leads.length) return;
+  const byPhone = {};
+  d.shops.forEach(s => { const o = d.users.find(u => u.id === ownerOf(s)); [s.whatsapp, s.phone, o && o.phone].forEach(p => { const k = leadPhoneKey(p); if (k.length >= 9) byPhone[k] = byPhone[k] || s; }); });
+  const booked = new Set(d.bookings.filter(b => ["accepted", "arrived", "done"].includes(b.status)).map(b => b.shopId));
+  for (const l of d.leads) {
+    if (l.status === "no" && !l.shopId) continue;
+    const shop = d.shops.find(s => s.leadId === l.id) || (l.shopId && d.shops.find(s => s.id === l.shopId)) || byPhone[leadPhoneKey(l.phone)];
+    if (!shop) continue;
+    const want = booked.has(shop.id) ? "live" : "joined";
+    if (l.shopId === shop.id && (l.status === want || (l.status === "live" && want === "joined"))) continue;
+    const up = { shopId: shop.id, updatedAt: fb.serverTimestamp() };
+    if (l.status !== want && !(l.status === "live" && want === "joined")) { up.status = want; up.log = [...(l.log || []), leadLog("التطبيق", want, want === "live" ? "جاله أول حجز" : "سجّل المكان في التطبيق: " + shop.name)].slice(-60); }
+    try { await fb.updateDoc(fb.doc(db, "leads", l.id), up); Object.assign(l, up); } catch (e) {}
+  }
+}
+
+function aCrm() {
+  const P = S.params, all = A.data.leads || [], today = dkey(new Date());
+  const q = (P.lq || "").trim(), fc = P.lc || "all", fs = P.ls || "all";
+  const late = all.filter(l => leadDue(l) === "late").length, tod = all.filter(l => leadDue(l) === "today").length;
+  let l = all.filter(x => (fc === "all" || x.cat === fc) && (fs === "all" || (fs === "due" ? leadDue(x) : fs === "missing" ? leadMissing(x).length : x.status === fs)) && (!q || [x.name, x.phone, x.owner, x.area, x.note].join(" ").toLowerCase().includes(q.toLowerCase())));
+  const miss = all.filter(x => leadMissing(x).length).length;
+  const rank = x => leadDue(x) === "late" ? 0 : leadDue(x) === "today" ? 1 : LEAD_DONE.includes(x.status) ? 3 : 2;
+  l.sort((a, b) => rank(a) - rank(b) || (a.next || "9").localeCompare(b.next || "9") || (ts(b.updatedAt) || 0) - (ts(a.updatedAt) || 0));
+  const stat = (v, lb, f) => `<button class="stat" style="cursor:pointer;text-align:start" data-act="lfilter" data-s="${f}"><span class="v">${v}</span><span class="l">${lb}</span></button>`;
+  const cnt = (c, s) => all.filter(x => x.cat === c && (!s || x.status === s)).length;
+  const cats = Object.keys(LEAD_CATS).filter(c => cnt(c));
+  $("#apanel").innerHTML = `<div class="stack">
+  <div class="stats">${stat(n(late), "متابعات متأخرة", "due")}${stat(n(tod), "متابعات النهارده", "due")}${stat(n(all.length), "كل الأماكن", "all")}${stat(n(all.filter(x => x.status === "joined" || x.status === "live").length), "اتسجّلوا", "joined")}</div>
+  <div class="row between"><button class="btn pri block lg" data-act="leadquick">⚡ زيارة سريعة — سجّل مكان في ثواني</button>
+  ${miss ? `<div class="item" role="button" tabindex="0" data-act="lfilter" data-s="missing" style="cursor:pointer;border-color:#E7D18A;background:var(--gold-soft);flex-direction:row;align-items:center;gap:10px;min-width:0"><span style="font-size:1.4rem">⚠</span><span><strong>${n(miss)} ${miss === 1 ? "مكان بياناته ناقصة" : "أماكن بياناتها ناقصة"}</strong><br><span class="small muted">دوس هنا تشوفهم وتكمّلهم (صاحب المكان، المنطقة، المتابعة الجاية…)</span></span></div>` : ""}
+  <div class="row between"><div class="row"><button class="btn sm" data-act="leadedit">+ مكان جديد (كل البيانات)</button>${all.length ? `<button class="btn sm" data-act="leadcsv">⬇ Excel (CSV)</button>` : ""}</div>${!all.length ? `<button class="btn navy sm" data-act="leadseed">استورد الـ ١٦ حلاق اللي اتبعتلهم دعوة</button>` : ""}</div>
+  <label class="search"><span aria-hidden="true">⌕</span><input id="lq" type="search" placeholder="دوّر بالاسم أو الرقم أو الملاحظة" value="${esc(q)}" aria-label="بحث"></label>
+  <div class="tabs">${[["all", "كل الفئات"], ...Object.entries(LEAD_CATS)].map(([k, v]) => `<button class="chip" data-act="lcat" data-c="${k}" aria-pressed="${fc === k}">${v}</button>`).join("")}</div>
+  <div class="tabs">${[["all", "كل الحالات"], ["due", "متابعة النهارده/متأخرة"], ["missing", "⚠ بيانات ناقصة"], ...Object.entries(LEAD_ST)].map(([k, v]) => `<button class="chip" data-act="lfilter" data-s="${k}" aria-pressed="${fs === k}">${v}</button>`).join("")}</div>
+  ${l.length ? l.map(x => {
+    const due = leadDue(x), ph = normPhone(x.phone || "");
+    return `<div class="item"${due === "late" ? ` style="border-color:#E3B9B6"` : ""}><div class="hd"><span><span class="ttl">${esc(x.name)}</span><br><span class="muted small">${esc(LEAD_CATS[x.cat] || "—")}${x.area ? " · " + esc(x.area) : ""}${x.owner ? " · " + esc(x.owner) : ""}${x.who ? " · مع " + esc(x.who) : ""}</span></span>${leadBadge(x.status)}</div>
+    ${x.note ? `<div class="small">${esc(x.note)}</div>` : ""}
+    ${leadMissing(x).length ? `<div class="small" role="note" style="color:var(--wait);background:var(--gold-soft);border:1px solid #E7D18A;border-radius:10px;padding:6px 10px">⚠ بيانات ناقصة: ${leadMissing(x).map(esc).join("، ")} — <button class="btn sm" data-act="leadedit" data-id="${esc(x.id)}" style="padding:2px 10px">كمّل البيانات</button></div>` : ""}
+    ${x.loc ? `<div class="small"><a href="https://maps.google.com/?q=${+x.loc.lat},${+x.loc.lng}" target="_blank" rel="noopener">📍 مكانه على الخريطة</a></div>` : ""}
+    <div class="small muted">${ph ? `<span class="num">${esc(ph)}</span> · ` : ""}${x.next && !LEAD_DONE.includes(x.status) ? `<strong style="color:${due === "late" ? "var(--bad)" : due === "today" ? "var(--wait)" : "inherit"}">المتابعة: ${fmtDate(x.next)}${due === "late" ? " (متأخرة)" : due === "today" ? " (النهارده)" : ""}</strong>` : x.status === "no" && x.reason ? "السبب: " + esc(x.reason) : "مفيش متابعة"}${x.shopId ? " · ✔ مربوط بمكان في التطبيق" : ""}</div>
+    <div class="row">${ph ? `<a class="btn sm" href="tel:${esc(ph)}">📞 اتصل</a>` : ""}${validPhone(ph) ? `<a class="btn sm" href="${esc(waLink(ph, inviteMsg(x)))}" target="_blank" rel="noopener" data-act="leadwa" data-id="${esc(x.id)}">واتساب + الدعوة</a>` : ""}<button class="btn sm" data-act="leadcopy" data-id="${esc(x.id)}">انسخ لينك الدعوة</button><button class="btn pri sm" data-act="leadupd" data-id="${esc(x.id)}">سجّل تحديث</button><button class="btn sm" data-act="leadedit" data-id="${esc(x.id)}">تعديل</button></div></div>`;
+  }).join("") : `<div class="empty">${all.length ? "مفيش أماكن بالفلتر ده." : "لسه مفيش أماكن. ضيف أول مكان، أو استورد الـ ١٦ حلاق."}</div>`}
+  ${cats.length ? `<div class="card" style="min-width:0;max-width:100%"><h3>الملخص</h3><div class="scrollx" style="max-width:100%;overflow-x:auto"><table class="t"><thead><tr><th>الفئة</th><th>الكل</th>${Object.values(LEAD_ST).map(v => `<th>${v}</th>`).join("")}</tr></thead><tbody>${cats.map(c => `<tr><td>${LEAD_CATS[c]}</td><td class="num">${n(cnt(c))}</td>${Object.keys(LEAD_ST).map(s => `<td class="num">${cnt(c, s) ? n(cnt(c, s)) : "·"}</td>`).join("")}</tr>`).join("")}</tbody></table></div></div>` : ""}
+  </div>`;
+  $("#lq").addEventListener("input", e => { S.params.lq = e.target.value; const pos = e.target.selectionStart; aCrm(); const i = $("#lq"); i.focus(); try { i.setSelectionRange(pos, pos); } catch (x) {} });
+}
+const sel = (id, obj, v, blank) => `<select id="${id}">${blank ? `<option value="">${blank}</option>` : ""}${Object.entries(obj).map(([k, t]) => `<option value="${k}"${k === v ? " selected" : ""}>${t}</option>`).join("")}</select>`;
+// quick update after a call or a visit: status + one line + next follow-up (kept in the history)
+function leadUpdSheet(id) {
+  const l = A.data.leads.find(x => x.id === id); if (!l) return;
+  const next = new Date(Date.now() + 3 * 864e5);
+  openSheet(`تحديث · ${esc(l.name)}`, `<div class="stack">
+  <label class="f">الحالة دلوقتي${sel("lu-st", LEAD_ST, l.status)}</label>
+  <label class="f">حصل إيه؟<textarea id="lu-note" rows="3" maxlength="300" placeholder="مثلاً: مهتم بس عايز يشوف مكان تاني شغال"></textarea></label>
+  <div class="grid2"><label class="f">المتابعة الجاية<input id="lu-next" type="date" value="${esc(LEAD_DONE.includes(l.status) ? "" : l.next && l.next > dkey(new Date()) ? l.next : dkey(next))}"></label><label class="f">طريقة التواصل${sel("lu-via", LEAD_VIA, l.via || "call")}</label></div>
+  <label class="f" id="lu-rw">سبب الرفض<input id="lu-reason" maxlength="120" value="${esc(l.reason || "")}" placeholder="مثلاً: مش عايز تطبيقات"></label>
+  ${(l.log || []).length ? `<div class="card"><h3>اللي حصل قبل كده</h3>${[...l.log].reverse().slice(0, 12).map(g => `<div class="small"><span class="muted num">${fmtDate(dkey(new Date(g.at)))}</span> · ${esc(g.by)} · ${leadBadge(g.status)} ${esc(g.note || "")}</div>`).join("")}</div>` : ""}
+  <div class="err" id="lu-err"></div><button class="btn pri block" data-act="leadupdsave" data-id="${esc(id)}">حفظ التحديث</button></div>`, { center: true });
+  const rw = () => { $("#lu-rw").hidden = $("#lu-st").value !== "no"; };
+  $("#lu-st").addEventListener("change", () => { rw(); if (LEAD_DONE.includes($("#lu-st").value)) $("#lu-next").value = ""; }); rw();
+}
+async function saveLeadUpd(id) {
+  const l = A.data.leads.find(x => x.id === id), err = $("#lu-err"); err.textContent = "";
+  const st = $("#lu-st").value, note = $("#lu-note").value.trim(), next = $("#lu-next").value || "", reason = st === "no" ? $("#lu-reason").value.trim() : (l.reason || "");
+  if (!note && st === l.status && next === (l.next || "")) { err.textContent = "اكتب حصل إيه أو غيّر الحالة."; return; }
+  const up = { status: st, via: $("#lu-via").value, next: LEAD_DONE.includes(st) ? "" : next, reason, updatedAt: fb.serverTimestamp(), log: [...(l.log || []), leadLog(S.profile.name, st, note)].slice(-60) };
+  if (note) up.note = note;
+  if (!l.first) up.first = dkey(new Date());
+  try { await fb.updateDoc(fb.doc(db, "leads", id), up); Object.assign(l, up, { updatedAt: { seconds: Date.now() / 1000 } }); closeSheet(); toast("اتسجّل ✔"); vAdmin(); } catch (x) { err.textContent = errText(x); }
+}
+// v10.0: quick visit — only name, type, mobile and one note (+ the phone's location if allowed); the rest later
+function leadQuickSheet() {
+  const c = S.params.lc && S.params.lc !== "all" ? S.params.lc : "barber";
+  S.quickLoc = null;
+  openSheet("⚡ زيارة سريعة", `<div class="stack">
+  <label class="f">اسم المكان<input id="lk-name" maxlength="80" autocomplete="off" placeholder="مثلاً: صالون الملك"></label>
+  <label class="f">الفئة${sel("lk-cat", LEAD_CATS, c)}</label>
+  <label class="f">الموبايل<input id="lk-phone" inputmode="tel" dir="ltr" maxlength="20" placeholder="01xxxxxxxxx"></label>
+  <label class="f">حصل إيه؟ (اختياري)<input id="lk-note" maxlength="300" placeholder="مثلاً: مهتم، يكلمني بعد العصر"></label>
+  <div class="grid2"><label class="f">النتيجة<select id="lk-st"><option value="talked">اتكلمنا</option><option value="visit">ميعاد زيارة تاني</option><option value="joined">وافق — اتسجّل</option><option value="later">متابعة بعدين</option><option value="no">رفض</option></select></label>
+  <label class="f">المتابعة<select id="lk-next"><option value="1">بكرة</option><option value="3" selected>بعد ٣ أيام</option><option value="7">بعد أسبوع</option><option value="">من غير</option></select></label></div>
+  <button class="btn sm" data-act="leadloc" id="lk-loc" style="align-self:flex-start">📍 احفظ مكاني دلوقتي (اختياري)</button>
+  <p class="muted small" style="margin:0">الباقي (صاحب المكان، المنطقة…) تكمّله بعدين — هيظهر عليه ⚠ لحد ما يكمل.</p>
+  <div class="err" id="lk-err"></div><button class="btn pri block lg" data-act="leadquicksave">حفظ</button></div>`, { center: true });
+  setTimeout(() => { const i = $("#lk-name"); if (i) i.focus(); }, 50);
+}
+function grabLoc(btn) {
+  if (!navigator.geolocation) { toast("الموبايل ده مش بيدي المكان."); return; }
+  btn.disabled = true; btn.textContent = "بيجيب المكان…";
+  navigator.geolocation.getCurrentPosition(p => { S.quickLoc = { lat: +p.coords.latitude.toFixed(6), lng: +p.coords.longitude.toFixed(6) }; btn.textContent = "📍 اتحفظ المكان ✔"; },
+    () => { btn.disabled = false; btn.textContent = "📍 احفظ مكاني دلوقتي (اختياري)"; toast("ما قدرناش ناخد المكان — اسمح للموقع في الإعدادات أو كمّل من غيره."); }, { enableHighAccuracy: true, timeout: 12000 });
+}
+async function saveQuickLead(btn) {
+  const err = $("#lk-err"); err.textContent = "";
+  const name = $("#lk-name").value.trim(), phone = normPhone($("#lk-phone").value), st = $("#lk-st").value, note = $("#lk-note").value.trim(), days = $("#lk-next").value;
+  if (name.length < 2) { err.textContent = "اكتب اسم المكان."; return; }
+  if (phone && phone.length < 9) { err.textContent = "الرقم مش مظبوط."; return; }
+  const dup = phone && (A.data.leads || []).find(x => leadPhoneKey(x.phone) === leadPhoneKey(phone));
+  if (dup) { err.textContent = `الرقم ده متسجّل قبل كده: ${dup.name} — دوس «سجّل تحديث» عليه بدل ما تضيفه تاني.`; return; }
+  const next = LEAD_DONE.includes(st) || !days ? "" : dkey(new Date(Date.now() + +days * 864e5));
+  const doc = { name, cat: $("#lk-cat").value, status: st, phone, owner: "", area: "", next, via: "visit", who: LEAD_WHO.includes((S.profile.name || "").split(" ")[0]) ? S.profile.name.split(" ")[0] : "", note, reason: "", first: dkey(new Date()), shopId: "", quick: true, log: [leadLog(S.profile.name, st, note || "زيارة سريعة")], createdAt: fb.serverTimestamp(), updatedAt: fb.serverTimestamp() };
+  if (S.quickLoc) doc.loc = S.quickLoc;
+  btn.disabled = true;
+  try {
+    const ref = fb.doc(fb.collection(db, "leads")); await fb.setDoc(ref, doc);
+    const l = { id: ref.id, ...doc, updatedAt: { seconds: Date.now() / 1000 } }; A.data.leads.push(l);
+    closeSheet(); const miss = leadMissing(l);
+    toast(miss.length ? `اتحفظ ✔ — ناقص: ${miss.join("، ")}` : "اتحفظ ✔"); vAdmin();
+  } catch (x) { err.textContent = errText(x); btn.disabled = false; }
+}
+function leadEditSheet(id) {
+  const l = (A.data.leads || []).find(x => x.id === id) || { name: "", cat: S.params.lc && S.params.lc !== "all" ? S.params.lc : "barber", status: "new", note: "", next: "", phone: "", owner: "", area: "دمياط الجديدة", via: "call", who: LEAD_WHO[0], reason: "" };
+  const miss = id ? leadMissing(l) : [];
+  openSheet(id ? "تعديل المكان" : "مكان جديد", `<div class="stack">
+  ${miss.length ? `<div class="small" style="color:var(--wait);background:var(--gold-soft);border:1px solid #E7D18A;border-radius:10px;padding:8px 10px">⚠ ناقص: ${miss.map(esc).join("، ")}</div>` : ""}
+  <label class="f">اسم المكان<input id="le-name" maxlength="80" value="${esc(l.name)}"></label>
+  <div class="grid2"><label class="f">الفئة${sel("le-cat", LEAD_CATS, l.cat)}</label><label class="f">الحالة${sel("le-st", LEAD_ST, l.status)}</label></div>
+  <div class="grid2"><label class="f">الموبايل<input id="le-phone" inputmode="tel" dir="ltr" maxlength="20" value="${esc(l.phone)}" placeholder="01xxxxxxxxx"></label><label class="f">صاحب المكان<input id="le-owner" maxlength="60" value="${esc(l.owner || "")}"></label></div>
+  <div class="grid2"><label class="f">المنطقة<input id="le-area" maxlength="60" value="${esc(l.area || "")}"></label><label class="f">المتابعة الجاية<input id="le-next" type="date" value="${esc(l.next || "")}"></label></div>
+  <div class="grid2"><label class="f">طريقة التواصل${sel("le-via", LEAD_VIA, l.via || "call")}</label><label class="f">مين ماسكه<select id="le-who">${LEAD_WHO.map(w => `<option${w === l.who ? " selected" : ""}>${w}</option>`).join("")}</select></label></div>
+  <label class="f">آخر تحديث / ملاحظات<textarea id="le-note" rows="2" maxlength="300">${esc(l.note || "")}</textarea></label>
+  <label class="f">سبب الرفض (لو رفض)<input id="le-reason" maxlength="120" value="${esc(l.reason || "")}"></label>
+  <div class="err" id="le-err"></div><button class="btn pri block" data-act="leadsave" data-id="${esc(id || "")}">حفظ</button>
+  ${id ? `<button class="btn bad sm" data-act="leaddel" data-id="${esc(id)}" style="align-self:flex-start">مسح المكان من القايمة</button>` : ""}</div>`, { center: true });
+}
+async function saveLead(id) {
+  const err = $("#le-err"); err.textContent = "";
+  const d = { name: $("#le-name").value.trim(), cat: $("#le-cat").value, status: $("#le-st").value, phone: normPhone($("#le-phone").value), owner: $("#le-owner").value.trim(), area: $("#le-area").value.trim(), next: $("#le-next").value || "", via: $("#le-via").value, who: $("#le-who").value, note: $("#le-note").value.trim(), reason: $("#le-reason").value.trim() };
+  if (d.name.length < 2) { err.textContent = "اكتب اسم المكان."; return; }
+  if (d.phone && d.phone.length < 9) { err.textContent = "الرقم مش مظبوط."; return; }
+  const dup = (A.data.leads || []).find(x => x.id !== id && d.phone && leadPhoneKey(x.phone) === leadPhoneKey(d.phone));
+  if (dup) { err.textContent = `الرقم ده متسجّل قبل كده: ${dup.name}`; return; }
+  if (LEAD_DONE.includes(d.status)) d.next = "";
+  try {
+    const old = (A.data.leads || []).find(x => x.id === id);
+    if (old) {
+      const up = { ...d, updatedAt: fb.serverTimestamp() };
+      if (old.status !== d.status || (d.note && d.note !== old.note)) up.log = [...(old.log || []), leadLog(S.profile.name, d.status, d.note !== old.note ? d.note : "")].slice(-60);
+      await fb.updateDoc(fb.doc(db, "leads", id), up); Object.assign(old, up, { updatedAt: { seconds: Date.now() / 1000 } });
+    } else {
+      const ref = fb.doc(fb.collection(db, "leads"));
+      const doc = { ...d, first: d.status === "new" ? "" : dkey(new Date()), shopId: "", log: [leadLog(S.profile.name, d.status, d.note || "اتضاف للقايمة")], createdAt: fb.serverTimestamp(), updatedAt: fb.serverTimestamp() };
+      await fb.setDoc(ref, doc); A.data.leads.push({ id: ref.id, ...doc, updatedAt: { seconds: Date.now() / 1000 } });
+    }
+    closeSheet(); const left = leadMissing(d); toast(left.length ? `اتحفظ ✔ — لسه ناقص: ${left.join("، ")}` : "اتحفظ ✔"); vAdmin();
+  } catch (x) { err.textContent = errText(x); }
+}
+async function seedLeads(btn) {
+  btn.disabled = true;
+  try {
+    const batch = fb.writeBatch(db), added = [];
+    for (const [name, phone, cat, st, note, via] of LEAD_SEED) {
+      const ref = fb.doc(fb.collection(db, "leads"));
+      const doc = { name, cat: cat || "barber", status: st || "invited", phone, owner: "", area: "دمياط الجديدة", next: "", via: via || "wa", who: "", note: note || "دعوة واتساب اتبعتت — محتاج مكالمة متابعة", reason: "", first: "", shopId: "", log: [leadLog(S.profile.name, st || "invited", "اتستورد من قايمة الدعوات")], createdAt: fb.serverTimestamp(), updatedAt: fb.serverTimestamp() };
+      batch.set(ref, doc); added.push({ id: ref.id, ...doc });
+    }
+    await batch.commit(); A.data.leads.push(...added); await syncLeads(); toast(`اتضاف ${n(added.length)} مكان ✔`); vAdmin();
+  } catch (x) { toast(errText(x)); btn.disabled = false; }
+}
+function leadsCSV() {
+  const cols = [["name", "اسم المكان"], ["cat", "الفئة"], ["status", "الحالة"], ["note", "آخر تحديث / ملاحظات"], ["next", "المتابعة الجاية"], ["phone", "الموبايل"], ["owner", "صاحب المكان"], ["area", "المنطقة"], ["via", "طريقة التواصل"], ["first", "تاريخ أول تواصل"], ["reason", "سبب الرفض"], ["who", "مين ماسكه"]];
+  const val = (l, k) => k === "cat" ? LEAD_CATS[l.cat] || "" : k === "status" ? LEAD_ST[l.status] || "" : k === "via" ? LEAD_VIA[l.via] || "" : k === "phone" && l.phone ? "'" + l.phone : l[k] || "";
+  const q = v => `"${String(v).replace(/"/g, '""')}"`;
+  const csv = "﻿" + [cols.map(c => q(c[1])).join(","), ...A.data.leads.map(l => cols.map(c => q(val(l, c[0]))).join(","))].join("\r\n");
+  const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" })), a = document.createElement("a");
+  a.href = url; a.download = `dorak-crm-${dkey(new Date())}.csv`; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 5000);
 }
 
 /* ---------------- account + feedback ---------------- */
@@ -2998,6 +3215,7 @@ document.addEventListener("click", async e => {
         const doc = { ownerId: S.user.uid, brand, category: base.category, name: base.name, area: base.area, address: base.address, logo: base.logo || (d.add && S.shops[0] ? S.shops[0].logo || "" : ""), phone: base.phone, whatsapp: base.whatsapp, mapUrl: base.mapUrl, capacity: base.capacity, photo: base.photo, deposit: base.deposit, social: base.social, services, hours, status: "pending", ratingSum: 0, ratingCount: 0, createdAt: fb.serverTimestamp() };
         if (base.groups) doc.groups = base.groups;
         if (base.staff) { doc.staff = base.staff; doc.staffPick = base.staffPick; }
+        const inv = getInvite(); if (!d.add && inv && inv.lead) doc.leadId = inv.lead;   // v9.0: the CRM row this invite came from
         await fb.setDoc(ref, doc);
         if (d.add && brand && S.shops.some(s => s.brand !== brand)) { try { await saveBrand(brand); } catch (e) {} }
         store("dawrak.invite", null);
@@ -3007,6 +3225,23 @@ document.addEventListener("click", async e => {
       break;
     }
     case "atab": S.params = { tab: d.t }; A.tab = d.t; vAdmin(); break;
+    case "lfilter": S.params.ls = d.s; aCrm(); break;
+    case "lcat": S.params.lc = d.c; aCrm(); break;
+    case "leadedit": leadEditSheet(d.id || ""); break;
+    case "leadquick": leadQuickSheet(); break;
+    case "leadquicksave": saveQuickLead(t); break;
+    case "leadloc": grabLoc(t); break;
+    case "leadsave": saveLead(d.id || ""); break;
+    case "leadupd": leadUpdSheet(d.id); break;
+    case "leadupdsave": saveLeadUpd(d.id); break;
+    case "leadseed": seedLeads(t); break;
+    case "leadcsv": leadsCSV(); break;
+    case "leadcopy": { const l = A.data.leads.find(x => x.id === d.id); if (l) copyText(inviteURL(l)); break; }
+    case "leadwa": { const l = A.data.leads.find(x => x.id === d.id);
+      if (l && l.status === "new") { const up = { status: "invited", via: "wa", next: dkey(new Date(Date.now() + 2 * 864e5)), first: l.first || dkey(new Date()), updatedAt: fb.serverTimestamp(), log: [...(l.log || []), leadLog(S.profile.name, "invited", "اتبعتله لينك الدعوة على واتساب")].slice(-60) };
+        try { await fb.updateDoc(fb.doc(db, "leads", l.id), up); Object.assign(l, up); setTimeout(aCrm, 300); } catch (x) {} }
+      break; }
+    case "leaddel": if (t.dataset.sure !== "1") { t.dataset.sure = "1"; t.textContent = "متأكد؟ دوس تاني للمسح"; break; } { try { await fb.deleteDoc(fb.doc(db, "leads", d.id)); A.data.leads = A.data.leads.filter(x => x.id !== d.id); closeSheet(); toast("اتمسح."); vAdmin(); } catch (x) { toast(errText(x)); } } break;
     case "adminreload": A.data = null; vAdmin(); break;
     case "bfilter": S.params.bf = d.f; aBookings(); break;
     case "shopstatus": try { await fb.updateDoc(fb.doc(db, "shops", d.id), { status: d.s }); A.data.shops.find(x => x.id === d.id).status = d.s; shopsCache = null; toast(d.s === "active" ? "المكان بقى ظاهر للعملاء." : "المكان اتوقف."); vAdmin(); } catch (x) { toast(errText(x)); } break;
