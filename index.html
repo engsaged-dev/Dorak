@@ -269,7 +269,7 @@ table.t th{color:var(--muted);font-weight:600}
 .pcat .enl{font-size:.74rem;color:var(--gold);font-weight:700;letter-spacing:.8px;text-transform:uppercase;direction:ltr;text-align:start}
 .pcat .cnt{position:absolute;top:10px;inset-inline-start:10px;background:rgb(6 26 56 / .7);border:1px solid rgb(212 175 55 / .6);color:var(--gold);border-radius:999px;padding:0 10px;font-size:.74rem;font-weight:700;backdrop-filter:blur(4px)}
 .pcat .cnt:empty{display:none}
-img.art.pic{object-fit:cover;display:block}
+img.art.pic{object-fit:cover;display:block;max-width:none;inset:0;width:100%;height:100%}
 @media (prefers-reduced-motion:reduce){.pcat>.art{transition:none}}
 .feats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 @media (min-width:720px){.feats{grid-template-columns:repeat(4,1fr);gap:14px}}
@@ -610,7 +610,7 @@ dl.dash dt{color:#AFC0D8}dl.dash dd{margin:0}dl.dash .rng{color:#fff}
          times; open-time ("مفتوح") bookings; times grouped by period incl. after midnight; 10-minute lateness rule with
          "العميل وصل" + auto-cancel; offers billboard managed by the admin; backup download; complaints WhatsApp 01507796698.
    ============================================================ */
-const APP_VERSION = "8.0";
+const APP_VERSION = "8.1";
 
 // ---- 1) Firebase project settings: paste the values from Firebase console → Project settings → Your apps ----
 const firebaseConfig = {
@@ -980,8 +980,10 @@ const ARTS = {
     <path d="M160 300v-40q0-14 14-14h52q14 0 14 14v40" fill="#16243A" stroke="#D4AF37" stroke-opacity=".5" stroke-width="2"/>`
 };
 // v8.0: real photos for the 6 categories (Unsplash, free license); the drawing stays underneath if a photo can't load
-const CAT_PIC = { football: "photo-1487466365202-1afdb86c764e", padel: "photo-1658491830143-72808ca237e3", barber: "photo-1675599193990-33d71150902b", salon: "photo-1626383120723-2a941488860d", gaming: "photo-1701281941392-fd6c2d8d652b", cyber: "photo-1758410473735-c76baff30a79" };
-function catArt(k) { return art(k) + (CAT_PIC[k] ? `<img class="art pic" src="https://images.unsplash.com/${CAT_PIC[k]}?w=900&q=70&auto=format&fit=crop" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">` : ""); }
+// v8.1: Saged's own photos sit next to index.html (cat-*.webp); football + salon still from Unsplash until their photos come
+const CAT_PIC = { football: "photo-1487466365202-1afdb86c764e", padel: "cat-padel.webp", barber: "cat-barber.webp", salon: "photo-1626383120723-2a941488860d", gaming: "cat-gaming.webp", cyber: "cat-cyber.webp" };
+function catPicUrl(k) { const v = CAT_PIC[k]; return !v ? "" : v.startsWith("photo-") ? `https://images.unsplash.com/${v}?w=900&q=70&auto=format&fit=crop` : "./" + v; }
+function catArt(k) { return art(k) + (CAT_PIC[k] ? `<img class="art pic" src="${catPicUrl(k)}" alt="" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">` : ""); }
 function art(k, cls = "art") {
   const id = "ar" + (++artSeq), wide = k === "hero";
   return `<svg class="${cls}" viewBox="0 0 ${wide ? "800 520" : "400 300"}" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><defs><linearGradient id="${id}bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A4A8A"/><stop offset=".55" stop-color="#0B2D5B"/><stop offset="1" stop-color="#061A38"/></linearGradient><radialGradient id="${id}g" cx=".5" cy=".1" r=".7"><stop offset="0" stop-color="#F3DC86" stop-opacity=".4"/><stop offset="1" stop-color="#F3DC86" stop-opacity="0"/></radialGradient></defs><rect width="100%" height="100%" fill="url(#${id}bg)"/>${ARTS[k](id)}</svg>`;
