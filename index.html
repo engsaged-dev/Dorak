@@ -45,7 +45,7 @@ h1,h2,h3{font-family:var(--font-display);margin:0;line-height:1.3;text-wrap:bala
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:start}
 .brand .word{font-family:var(--font-display);font-weight:800;font-size:1.35rem;color:#fff;line-height:1.1;display:block}
 .brand .sub{font-size:.72rem;color:var(--gold-light);display:block;line-height:1.3;font-weight:700;letter-spacing:1px;white-space:nowrap}
-.navbtns{display:flex;gap:6px;align-items:center}
+.navbtns{display:flex;gap:6px;align-items:center;min-width:0;overflow-x:auto;scrollbar-width:none}.navbtns::-webkit-scrollbar{display:none}.navbtns>*{flex:none}
 .top .btn{background:transparent;border-color:rgb(255 255 255 / .28);color:#fff}
 .top .btn:hover{border-color:var(--gold)}
 .top .btn.pri{background:var(--gold-grad);border-color:var(--gold);color:var(--navy-deep)}
@@ -118,7 +118,11 @@ label.f textarea{min-height:90px;resize:vertical}
 .sechead::before,.sechead::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 .sechead h2{font-size:1.25rem}
 /* tabs & chips */
-.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin;padding-bottom:4px;scroll-behavior:smooth}
+.tabs::-webkit-scrollbar{height:4px}.tabs::-webkit-scrollbar-thumb{background:var(--mist);border-radius:4px}
+.tabs.tabwrap{flex-wrap:wrap;overflow:visible}
+.tabsx{position:relative}.tabsx .tarr{position:absolute;top:50%;transform:translateY(-55%);z-index:2;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--card);box-shadow:0 2px 8px rgb(0 0 0 / .15);color:var(--navy);font-weight:800;cursor:pointer;display:grid;place-items:center;padding:0}
+.tabsx .tarr.l{left:-4px}.tabsx .tarr.r{right:-4px}
 .tab{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 14px;white-space:nowrap;cursor:pointer;font-weight:700;color:var(--navy);display:inline-flex;gap:6px;align-items:center}
 .tab[aria-selected="true"]{background:var(--navy);color:#fff;border-color:var(--navy);box-shadow:inset 0 -2px 0 var(--gold)}
 .chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;white-space:nowrap;cursor:pointer;font-size:.9rem;font-weight:600;color:var(--navy)}
@@ -547,6 +551,14 @@ dl.dash dt{color:#AFC0D8}dl.dash dd{margin:0}dl.dash .rng{color:#fff}
 @media (max-width:480px){.gx-top{grid-template-columns:1fr auto}.gx-top>label{grid-column:1/-1}}
 .gx textarea{width:100%;font:inherit;border:1px solid var(--line);border-radius:10px;padding:8px 10px;resize:vertical}
 #gx-rows{display:flex;flex-direction:column;gap:10px}
+@media (max-width:430px){.crowd .brand>span{display:none}}
+.refbtn{padding:6px 7px;min-width:34px}@media (max-width:430px){.top .refbtn{padding:6px 5px}}.refbtn.spin svg{animation:rot .8s linear infinite}@keyframes rot{to{transform:rotate(360deg)}}
+.pwsteps{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:10px;line-height:1.7}
+.pill{display:inline-block;padding:1px 8px;border-radius:999px;background:var(--gold-soft);color:var(--gold-deep);font-weight:700;vertical-align:middle}
+.rv{border-top:1px solid var(--line);padding:10px 0;display:flex;flex-direction:column;gap:6px}
+.rv:first-child{border-top:0}
+.fcard{border:1px solid var(--line);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
 /* offers billboard */
 .bill{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 10px 26px rgb(7 31 66 / .18)}
 .billtrack{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
@@ -569,6 +581,10 @@ dl.dash dt{color:#AFC0D8}dl.dash dd{margin:0}dl.dash .rng{color:#fff}
 .daychip[aria-pressed="true"] small{color:var(--gold-light)}
 .seg.where{margin-bottom:2px}
 .staffs{display:flex;flex-wrap:wrap;gap:8px}.staffs .chip{padding:8px 14px}
+.stchip{display:inline-flex;align-items:center;gap:8px}.stchip img,.stchip .sti{width:34px;height:34px;border-radius:50%;object-fit:cover;flex:none;display:grid;place-items:center;background:var(--navy-soft);border:2px solid var(--gold)}
+.stph{width:58px;height:58px;border-radius:50%;border:2px dashed var(--gold);display:grid;place-items:center;overflow:hidden;cursor:pointer;flex:none;font-size:.72rem;color:var(--gold-deep);position:relative;background:var(--gold-soft)}
+.stph img{width:100%;height:100%;object-fit:cover}.stph input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.sttm{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 2px;scrollbar-width:thin}.sttm .m{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:72px;text-align:center;font-size:.82rem}.sttm .m img,.sttm .m .sti{width:62px;height:62px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);background:var(--navy-soft);display:grid;place-items:center;font-size:1.3rem}
 .note.dlv::before{content:"🛵";background:transparent}
 .propbox{display:flex;flex-direction:column;gap:6px;border:1.5px dashed var(--gold);background:var(--gold-soft);border-radius:14px;padding:10px 12px;margin-top:8px}
 .propbox strong{color:var(--navy)}.propbox.ok{border-style:solid;border-color:#A9D3B8;background:#EDF7F0}
@@ -576,9 +592,9 @@ dl.dash dt{color:#AFC0D8}dl.dash dd{margin:0}dl.dash .rng{color:#fff}
 .pins{display:flex;flex-wrap:wrap;gap:8px}
 .pin{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--gold);background:var(--gold-soft);border-radius:999px;padding:4px 6px 4px 12px;font-weight:700;color:var(--navy);font-size:.88rem}
 .pin button{border:0;background:var(--navy);color:#fff;width:24px;height:24px;border-radius:50%;cursor:pointer;font-size:.75rem}
-.stx{display:grid;grid-template-columns:1fr auto auto auto;gap:8px;align-items:end;border-bottom:1px dashed var(--line);padding-bottom:8px}
+.stx{display:grid;grid-template-columns:auto 1fr auto auto auto;gap:8px;align-items:end;border-bottom:1px dashed var(--line);padding-bottom:8px}
 .stx .strate{align-self:center;white-space:nowrap}
-@media (max-width:440px){.stx{grid-template-columns:1fr auto}.stx .strate{grid-column:1}}
+@media (max-width:440px){.stx{grid-template-columns:auto 1fr auto}.stx .strate{grid-column:2}}
 .heard{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}.heard .chip{padding:9px 14px}
 .stfrate{display:flex;flex-direction:column;align-items:center;gap:4px;border-top:1px dashed var(--line);padding-top:10px}
 .hbars{display:flex;flex-direction:column;gap:6px}
@@ -613,8 +629,12 @@ dl.dash dt{color:#AFC0D8}dl.dash dd{margin:0}dl.dash .rng{color:#fff}
          WhatsApp invite with &lead=<id>; a place that registers from it (or with the same mobile) is marked joined / live.
    v10.0: CRM "⚡ زيارة سريعة": name, type, mobile, one note, result, follow-up (+ optional location); places with missing
          details carry a ⚠ warning, a "بيانات ناقصة" filter and a banner until they are completed.
+   v11.0: fix 2+ hour bookings (rules v11.0 use fewer look-ups); morning / evening price per pitch; place card shows the
+         number of pitches + price per hour; hero clock on the left; "be there 10 minutes early" notice; refresh button;
+         owner: free times per pitch, weekly pin for one pitch and for several hours in a row, «حجز يدوي», reviews with
+         the customer's mobile, barber photos; admin: bookings per place, tab bars that scroll with arrows, password help.
    ============================================================ */
-const APP_VERSION = "10.0";
+const APP_VERSION = "11.0";
 
 // ---- 1) Firebase project settings: paste the values from Firebase console → Project settings → Your apps ----
 const firebaseConfig = {
@@ -690,6 +710,8 @@ function hasDelivery(s) { return staffCat(s) && s.delivery && s.delivery.on && A
 // v7.0: weekly pins: the owner closes a time on a weekday for every week (key = ISO weekday + "_" + HHMM)
 function pinKey(k, t) { return isoDow(parseKey(k)) + "_" + String(t).replace(":", ""); }
 function pinned(s, k, t) { return !!(s && s.weekly && s.weekly[pinKey(k, t)]); }
+// v11.0: one pitch / device pinned every week (shops.weeklyU["<ISO weekday>_<HHMM>"] = [unit numbers])
+function pinU(s, k, t) { const l = s && s.weeklyU && s.weeklyU[pinKey(k, t)]; return Array.isArray(l) ? l.map(Number) : []; }
 // v7.0: the days bar is fixed Saturday → Friday; each day is its next date (today or within 6 days)
 function weekDays(plus = 0) { return nextDays(7).map(k => { const d = parseKey(k); d.setDate(d.getDate() + plus); return dkey(d); }).sort((a, b) => WEEK_ORDER.indexOf(isoDow(parseKey(a))) - WEEK_ORDER.indexOf(isoDow(parseKey(b)))); }
 function dayChip(k, act, on, off) { const d = parseKey(k), today = k === dkey(new Date()); return `<button class="chip daychip${today ? " today" : ""}" data-act="${act}" data-d="${k}" aria-pressed="${on}"${off ? ' disabled title="إجازة"' : ""}><b>${DAYS[d.getDay()]}</b><small>${today ? "النهارده" : n(d.getDate()) + " " + MONTHS[d.getMonth()]}</small></button>`; }
@@ -708,7 +730,7 @@ function groupsOf(s) {
     const d = s.devices; l = [{ name: "القاعة العادية", count: +d.std || 0, price: +d.stdPrice || 0 }, { name: "VIP", count: +d.vip || 0, price: +d.vipPrice || +d.stdPrice || 0 }];
   } else { const g0 = defGroups(catOf(s))[0] || { name: "", price: 0 }; l = [{ name: g0.name, count: Math.max(1, Math.min(MAX_CAP, +s.capacity || 1)), price: minPrice(s) || g0.price }]; }
   let from = 1;
-  return l.map((g, i) => ({ id: String(g.id || "g" + (i + 1)), name: String(g.name || "").slice(0, 40) || "نوع " + (i + 1), desc: String(g.desc || "").slice(0, 200), count: Math.max(0, Math.min(MAX_CAP, Math.round(+g.count || 0))), price: Math.max(0, Math.round(+g.price || 0)), multi: Math.max(0, Math.round(+g.multi || 0)) }))
+  return l.map((g, i) => ({ id: String(g.id || "g" + (i + 1)), name: String(g.name || "").slice(0, 40) || "نوع " + (i + 1), desc: String(g.desc || "").slice(0, 200), count: Math.max(0, Math.min(MAX_CAP, Math.round(+g.count || 0))), price: Math.max(0, Math.round(+g.price || 0)), eve: Math.max(0, Math.round(+g.eve || 0)), multi: Math.max(0, Math.round(+g.multi || 0)) }))
     .filter(g => g.count > 0).map(g => { const o = { ...g, from, to: from + g.count - 1 }; from += g.count; return o; });
 }
 function devTotal(s) { return groupsOf(s).reduce((a, g) => a + g.count, 0) || 1; }
@@ -718,6 +740,22 @@ function groupById(s, id) { return groupsOf(s).find(g => g.id === id) || null; }
 function hallName(s, i) { return groupOf(s, i).name; }
 function unitLabel(s, i) { const g = groupOf(s, i); return devMode(s) ? "جهاز " + n(i) : g.count > 1 ? g.name + " " + n(i - g.from + 1) : g.name; }
 function unitWord(s, c) { return devMode(s) ? devWord(c) : c === 1 ? CATS[catOf(s)].unit : n(c) + " " + CATS[catOf(s)].units; }
+// v11.0: morning / evening price per pitch (padel + football). Evening = from shops.eveFrom (default 17:00) until 6 am.
+const EVE_DEF = "17:00";
+function eveFrom(s) { return s && /^([01]\d|2[0-3]):[03]0$/.test(s.eveFrom || "") ? s.eveFrom : EVE_DEF; }
+function isEve(s, t) { return t >= eveFrom(s) || t < "06:00"; }
+function hasEve(g) { return !!(g && g.eve && g.eve !== g.price); }
+function rateAt(s, g, mode, t) { if (mode === "multi" && g.multi) return g.multi; return hasEve(g) && !devMode(s) && isEve(s, t) ? g.eve : g.price; }
+function priceTxt(s, g, short) { return hasEve(g) && !devMode(s) ? `${short ? "ص" : "صباحي"} ${money(g.price)} · ${short ? "م" : "مسائي"} ${money(g.eve)}` : money(g.price); }
+// v11.0: the place card shows the number of pitches / devices and the price of one hour
+function unitCardInfo(s) {
+  const gl = groupsOf(s); if (!gl.length) return "";
+  const tot = gl.reduce((a, g) => a + g.count, 0), pr = gl.map(g => g.price).filter(Boolean), ev = gl.map(g => hasEve(g) ? g.eve : g.price).filter(Boolean);
+  if (!pr.length) return `<span class="small"><b>${unitWord(s, tot)}</b></span>`;
+  const lo = Math.min(...pr), hiE = Math.min(...ev), same = gl.every(g => g.price === gl[0].price && (g.eve || g.price) === (gl[0].eve || gl[0].price)), anyEve = !devMode(s) && gl.some(hasEve);
+  const per = devMode(s) ? "للجهاز" : "للملعب";
+  return `<span class="small"><b>${CATS[catOf(s)].unit === "ملعب" ? "⚽ " : ""}${unitWord(s, tot)}</b></span><span class="price small">${same ? "" : "من "}${anyEve ? `صباحي ${money(lo)} · مسائي ${money(hiE)}` : money(lo)} / الساعة ${per}</span>`;
+}
 function minRate(s) { const p = groupsOf(s).map(g => g.price).filter(Boolean); return p.length ? Math.min(...p) : 0; }
 function bkDevs(b) { return Array.isArray(b && b.devices) ? b.devices : []; }
 function bkN(b) { return bkDevs(b).length || 1; }
@@ -851,6 +889,17 @@ async function fitImage(file, max, limit) {
   throw userErr("الصورة كبيرة قوي. جرّب صورة تانية.");
 }
 const MAX_PHOTOS = 8;
+// v11.0: a small square face picture (centre crop) for each barber
+async function squareImage(file, size, limit) {
+  const url = await new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(file); });
+  const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = () => rej(userErr("الصورة دي مش مدعومة. جرّب صورة JPG أو PNG.")); i.src = url; });
+  for (const sz of [size, Math.round(size * .8), Math.round(size * .6)]) {
+    const c = document.createElement("canvas"), m = Math.min(img.width, img.height); c.width = c.height = sz;
+    const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, sz, sz); g.drawImage(img, (img.width - m) / 2, (img.height - m) / 2, m, m, 0, 0, sz, sz);
+    for (const q of [.8, .68, .55]) { const out = c.toDataURL("image/jpeg", q); if (out.length < limit) return out; }
+  }
+  throw userErr("الصورة كبيرة قوي. جرّب صورة تانية.");
+}
 
 /* ---------------- owner invite links: ?invite=barber&name=...&area=...&wa=...&cat=padel|football|barber|salon|gaming|cyber ---------------- */
 function getInvite() { try { return JSON.parse(load("dawrak.invite") || "null"); } catch (e) { return null; } }
@@ -921,10 +970,10 @@ if ("serviceWorker" in navigator) { window.addEventListener("load", () => { navi
 /* ---------------- illustrations (v4.0): drawn in the brand colours, no photo files needed ---------------- */
 let artSeq = 0;
 const ARTS = {
-  hero: id => `<defs><radialGradient id="${id}h" cx=".78" cy=".22" r=".6"><stop offset="0" stop-color="#F3DC86" stop-opacity=".5"/><stop offset="1" stop-color="#F3DC86" stop-opacity="0"/></radialGradient><linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D4AF37" stop-opacity=".0"/><stop offset="1" stop-color="#D4AF37" stop-opacity=".35"/></linearGradient></defs>
+  hero: id => `<defs><radialGradient id="${id}h" cx=".28" cy=".22" r=".6"><stop offset="0" stop-color="#F3DC86" stop-opacity=".5"/><stop offset="1" stop-color="#F3DC86" stop-opacity="0"/></radialGradient><linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D4AF37" stop-opacity=".0"/><stop offset="1" stop-color="#D4AF37" stop-opacity=".35"/></linearGradient></defs>
     <rect width="800" height="520" fill="url(#${id}h)"/>
     <g fill="#F3DC86">${[[60,40],[140,90],[250,30],[330,120],[420,60],[90,170],[480,150],[200,200],[700,330],[760,80]].map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="${i % 3 ? 1.4 : 2.2}" opacity="${i % 2 ? .5 : .85}"/>`).join("")}</g>
-    <g transform="translate(610 175)" fill="none" stroke="#D4AF37"><circle r="128" stroke-opacity=".25" stroke-width="2"/><circle r="104" stroke-width="5"/><circle r="92" stroke-opacity=".35"/>
+    <g transform="translate(262 175)" fill="none" stroke="#D4AF37"><circle r="128" stroke-opacity=".25" stroke-width="2"/><circle r="104" stroke-width="5"/><circle r="92" stroke-opacity=".35"/>
       ${Array.from({ length: 12 }, (_, i) => `<path d="M0 -${i % 3 ? 86 : 80}V-96" stroke-width="${i % 3 ? 3 : 5}" stroke-linecap="round" transform="rotate(${i * 30})"/>`).join("")}
       <path d="M0 0V-62M0 0l44 26" stroke-width="8" stroke-linecap="round"/><circle r="9" fill="#F3DC86" stroke="none"/></g>
     <path d="M0 330h800v190H0z" fill="url(#${id}s)"/>
@@ -1038,6 +1087,7 @@ function homeView() {
 }
 
 /* ---------------- layout ---------------- */
+const ICO_REFRESH = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg>`;
 function renderTop() {
   let right = "";
   if (S.user && S.profile) {
@@ -1053,7 +1103,10 @@ function renderTop() {
   const atHome = (S.view === "home" && !P.cat) || S.view === "welcome" || S.view === "auth" || S.view === "profile"
     || (S.view === "barber" && !P.add && (P.list || (!P.sid && !P.tab) || (S.shops && S.shops.length === 1 && (!P.tab || P.tab === "dash"))));
   const homeBtn = atHome ? "" : `<button class="btn sm homebtn" data-act="home" aria-label="الرئيسية">${ICO_HOME}<span class="hl">الرئيسية</span></button>`;
-  topbar.innerHTML = brand() + `<div class="navbtns">${homeBtn}${right}</div>`;
+  // v11.0: refresh button (the app installed on the phone has no browser reload)
+  const refBtn = !isStandalone() ? "" : `<button class="btn sm ghost refbtn" data-act="refresh" aria-label="تحديث" title="تحديث">${ICO_REFRESH}</button>`;
+  topbar.innerHTML = brand() + `<div class="navbtns">${refBtn}${homeBtn}${right}</div>`;
+  topbar.classList.toggle("crowd", (topbar.querySelectorAll(".navbtns > .btn").length) >= 5);
 }
 function renderFoot() {
   const s = S.settings;
@@ -1175,15 +1228,15 @@ async function loadShops() {
   return shopsCache;
 }
 function brandRow(g, cat) {
-  const best = Math.max(...g.map(ratingOf)), cnt = g.reduce((a, s) => a + (s.ratingCount || 0), 0), mp = Math.min(...g.map(minPrice).filter(Boolean).concat([Infinity]));
-  return `<button class="shop brandrow" data-act="brand" data-o="${esc(ownerOf(g[0]))}" data-c="${esc(cat)}"><span class="avs">${g.slice(0, 2).map(s => avatar(s, "av")).join("")}</span><span class="info"><span class="name">${esc(brandOf(g))}</span><span><span class="brpill">${OI.store.replace(/22/g, "14")} ${n(g.length)} فروع</span></span><span class="muted small">${esc([...new Set(g.map(s => s.area))].join(" · "))}</span><span class="small">${cnt ? `<span class="stars">${stars(best)}</span> ${n(best.toFixed(1))}` : `<span class="muted">لسه مفيش تقييمات</span>`}${isFinite(mp) ? ` · <span class="price">من ${money(mp)}</span>` : ""}</span></span><span aria-hidden="true" class="muted">‹</span></button>`;
+  const best = Math.max(...g.map(ratingOf)), cnt = g.reduce((a, s) => a + (s.ratingCount || 0), 0), mp = Math.min(...g.map(x => unitMode(x) ? minRate(x) : minPrice(x)).filter(Boolean).concat([Infinity]));
+  return `<button class="shop brandrow" data-act="brand" data-o="${esc(ownerOf(g[0]))}" data-c="${esc(cat)}"><span class="avs">${g.slice(0, 2).map(s => avatar(s, "av")).join("")}</span><span class="info"><span class="name">${esc(brandOf(g))}</span><span><span class="brpill">${OI.store.replace(/22/g, "14")} ${n(g.length)} فروع</span></span><span class="muted small">${esc([...new Set(g.map(s => s.area))].join(" · "))}</span><span class="small">${cnt ? `<span class="stars">${stars(best)}</span> ${n(best.toFixed(1))}` : `<span class="muted">لسه مفيش تقييمات</span>`}${isFinite(mp) ? ` · <span class="price">من ${money(mp)}${unitMode(g[0]) ? " / الساعة" : ""}</span>` : ""}</span></span><span aria-hidden="true" class="muted">‹</span></button>`;
 }
 // customer taps a business with several branches: its branches as icons, tap one to open its page
 function brandListSheet(owner, cat) {
   const all = (shopsCache || []).filter(s => ownerOf(s) === owner).sort((a, b) => (catOf(a) === cat ? 0 : 1) - (catOf(b) === cat ? 0 : 1) || ratingOf(b) - ratingOf(a));
   if (!all.length) return;
   openSheet(esc(brandOf(all)), `<p class="muted small" style="margin:0">${n(all.length)} فروع. اختار الفرع اللي يناسبك.</p>
-  <div class="bgrid">${all.map(s => `<button class="bcard" data-act="openshop" data-id="${esc(s.id)}"><span class="bimg">${s.photo ? `<img src="${esc(s.photo)}" alt="">` : catArt(catOf(s))}</span><span class="bt"><strong>${esc(s.name)}</strong><span>${esc(s.area)} · ${esc(CATS[catOf(s)].ar)}</span><span>${s.ratingCount ? `<span class="stars">${stars(ratingOf(s))}</span> ${n(ratingOf(s).toFixed(1))}` : "لسه مفيش تقييمات"}${minPrice(s) ? ` · <span class="price">من ${money(minPrice(s))}</span>` : ""}</span></span></button>`).join("")}</div>`);
+  <div class="bgrid">${all.map(s => `<button class="bcard" data-act="openshop" data-id="${esc(s.id)}"><span class="bimg">${s.photo ? `<img src="${esc(s.photo)}" alt="">` : catArt(catOf(s))}</span><span class="bt"><strong>${esc(s.name)}</strong><span>${esc(s.area)} · ${esc(CATS[catOf(s)].ar)}</span><span>${s.ratingCount ? `<span class="stars">${stars(ratingOf(s))}</span> ${n(ratingOf(s).toFixed(1))}` : "لسه مفيش تقييمات"}${unitMode(s) ? ` · ${unitWord(s, devTotal(s))}${minRate(s) ? ` · <span class="price">${money(minRate(s))} / الساعة</span>` : ""}` : minPrice(s) ? ` · <span class="price">من ${money(minPrice(s))}</span>` : ""}</span></span></button>`).join("")}</div>`);
 }
 // shop page: the other branches of the same business
 function drawSiblings(s) {
@@ -1196,7 +1249,7 @@ function drawSiblings(s) {
   (shopsCache ? Promise.resolve(shopsCache) : loadShops()).then(put).catch(() => {});
 }
 function shopRow(s, withCat) {
-  return `<button class="shop" data-act="openshop" data-id="${esc(s.id)}">${avatar(s, "av")}<span class="info"><span class="name">${esc(s.name)}</span><span class="muted small">${withCat && s.brand && s.brand !== s.name ? esc(s.brand) + " · " : ""}${withCat ? `حجز ${esc(CATS[catOf(s)].ar)} · ` : ""}${esc(s.area)}</span><span class="small">${s.ratingCount ? `<span class="stars" aria-label="التقييم ${n(ratingOf(s).toFixed(1))} من ٥">${stars(ratingOf(s))}</span> ${n(ratingOf(s).toFixed(1))} <span class="muted">(${n(s.ratingCount)} تقييم)</span>` : `<span class="muted">لسه مفيش تقييمات</span>`}</span>${minPrice(s) ? `<span class="price small">من ${money(minPrice(s))}</span>` : ""}</span><span aria-hidden="true" class="muted">‹</span></button>`;
+  return `<button class="shop" data-act="openshop" data-id="${esc(s.id)}">${avatar(s, "av")}<span class="info"><span class="name">${esc(s.name)}</span><span class="muted small">${withCat && s.brand && s.brand !== s.name ? esc(s.brand) + " · " : ""}${withCat ? `حجز ${esc(CATS[catOf(s)].ar)} · ` : ""}${esc(s.area)}</span><span class="small">${s.ratingCount ? `<span class="stars" aria-label="التقييم ${n(ratingOf(s).toFixed(1))} من ٥">${stars(ratingOf(s))}</span> ${n(ratingOf(s).toFixed(1))} <span class="muted">(${n(s.ratingCount)} تقييم)</span>` : `<span class="muted">لسه مفيش تقييمات</span>`}</span>${unitMode(s) ? unitCardInfo(s) : minPrice(s) ? `<span class="price small">من ${money(minPrice(s))}</span>` : ""}</span><span aria-hidden="true" class="muted">‹</span></button>`;
 }
 function vHome() {
   const cat = S.params.cat && CATS[S.params.cat] ? S.params.cat : null;
@@ -1330,6 +1383,7 @@ async function vShop() {
         <a class="btn sm" target="_blank" rel="noopener" href="${esc(/^https:\/\//.test(s.mapUrl || "") ? s.mapUrl : "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(s.name + " " + s.area + " دمياط الجديدة"))}">الموقع على الخريطة</a>
       </div>
       ${soc.length ? `<div class="socials" aria-label="صفحات المكان">${soc.map(k => `<a class="soc soc-${k}" target="_blank" rel="noopener" href="${esc(s.social[k])}"><span class="sd" aria-hidden="true"></span>${SOCIAL[k].ar}<span class="en">${SOCIAL[k].en}</span></a>`).join("")}</div>` : ""}
+      ${staffOn(s).some(x => x.img) ? `<div class="sttm" aria-label="الحلاقين">${staffOn(s).map(x => `<span class="m">${x.img ? `<img src="${esc(x.img)}" alt="">` : `<span class="sti">✂</span>`}<b>${esc(x.name)}</b></span>`).join("")}</div>` : ""}
       <details class="small"><summary class="muted" style="cursor:pointer">مواعيد العمل</summary><dl class="kv" style="margin-top:6px">${WEEK_ORDER.map(k => `<dt>${ISO_DAYS[k]}</dt><dd>${hoursText(s.hours[k])}</dd>`).join("")}</dl></details>
     </div>
     ${um ? "" : `<div class="card"><h3>${st()}. اختار الخدمة</h3>${hasDelivery(s) ? `<div class="seg where" role="group" aria-label="في المحل أو دليفري"><button data-act="where" data-w="shop" aria-pressed="${bk.where !== "home"}">📍 في المحل</button><button data-act="where" data-w="home" aria-pressed="${bk.where === "home"}">🛵 دليفري · في البيت</button></div>` : ""}<div id="svcs" class="stack"></div><div id="delbox"></div></div>`}
@@ -1376,7 +1430,7 @@ function drawSvcs() {
 function drawStaff() {
   const el = $("#staffpick"); if (!el) return;
   const st = no => { const x = bk.staffStats[no]; return x && x.c ? ` <span class="stars">★</span>${n((x.sum / x.c).toFixed(1))}` : ""; };
-  el.innerHTML = `<button class="chip" data-act="staff" data-no="0" aria-pressed="${!bk.st}">👥 أي حلاق متاح</button>` + staffOn(bk.s).map(x => `<button class="chip" data-act="staff" data-no="${+x.no}" aria-pressed="${bk.st === +x.no}">✂ ${esc(x.name)}${st(+x.no)}</button>`).join("");
+  el.innerHTML = `<button class="chip" data-act="staff" data-no="0" aria-pressed="${!bk.st}">👥 أي حلاق متاح</button>` + staffOn(bk.s).map(x => `<button class="chip stchip" data-act="staff" data-no="${+x.no}" aria-pressed="${bk.st === +x.no}">${x.img ? `<img src="${esc(x.img)}" alt="">` : `<span class="sti">✂</span>`}<span>${esc(x.name)}${st(+x.no)}</span></button>`).join("");
 }
 function nextKey(day) { const d = parseKey(day); d.setDate(d.getDate() + 1); return dkey(d); }
 // every bookable slot of a day in order; a day that runs until midnight continues into the next day if it opens at 00:00
@@ -1430,7 +1484,7 @@ function devState(seq, gid) {
   seq.forEach(x => {
     const sd = bk.slots[slotId(x.k, x.t)] || {}, cap = typeof sd.cap === "number" ? sd.cap : s.capacity;
     if (sd.closed || pinned(s, x.k, x.t)) closed = true;
-    (sd.taken || []).forEach(i => taken.add(+i)); (sd.off || []).forEach(i => off.add(+i));
+    (sd.taken || []).forEach(i => taken.add(+i)); (sd.off || []).forEach(i => off.add(+i)); pinU(s, x.k, x.t).forEach(i => off.add(i));
     room = Math.min(room, cap - (sd.count || 0));
   });
   const free = closed ? [] : all.filter(i => !taken.has(i) && !off.has(i));
@@ -1475,7 +1529,7 @@ function drawSlots() {
     const gl = groupsOf(s);
     $("#slots").innerHTML = gl.map(g => {
       const ok = ents.filter(e => entryOk(e, g.id)), on = bk.g === g.id && bk.sel;
-      return `<div class="gcard${on ? " on" : ""}"><div class="gch"><div><strong>${esc(g.name)}</strong>${g.desc ? `<span class="gdesc">${esc(g.desc)}</span>` : ""}<span class="muted small">${unitWord(s, g.count)}</span></div><div class="gpr"><b>${money(g.price)}</b><small>/ ساعة${devMode(s) ? " للجهاز" : ""}</small>${g.multi ? `<small>مالتي ${money(g.multi)}</small>` : ""}</div></div>
+      return `<div class="gcard${on ? " on" : ""}"><div class="gch"><div><strong>${esc(g.name)}</strong>${g.desc ? `<span class="gdesc">${esc(g.desc)}</span>` : ""}<span class="muted small">${unitWord(s, g.count)}</span></div><div class="gpr">${hasEve(g) && !devMode(s) ? `<b>${money(g.price)}</b><small>صباحي / ساعة</small><b>${money(g.eve)}</b><small>مسائي (من ${fmtT(eveFrom(s))})</small>` : `<b>${money(g.price)}</b><small>/ ساعة${devMode(s) ? " للجهاز" : " للملعب"}</small>`}${g.multi ? `<small>مالتي ${money(g.multi)}</small>` : ""}</div></div>
       ${ok.length ? periodsHtml(ok, bk.day, chip(g.id)) : `<div class="muted small">مفيش مواعيد فاضية${multiHour(s) && bk.hrs !== "open" && bk.hrs > 1 ? " للمدة دي" : ""} في اليوم ده.</div>`}
       ${on && g.multi ? `<div class="modes" role="group" aria-label="سينجل أو مالتي"><button class="chip" data-act="mode" data-m="single" aria-pressed="${bk.mode === "single"}">🎮 سينجل · ${money(g.price)}</button><button class="chip" data-act="mode" data-m="multi" aria-pressed="${bk.mode === "multi"}">🎮🎮 مالتي · ${money(g.multi)}</button></div>` : ""}</div>`;
     }).join("") || none;
@@ -1510,12 +1564,22 @@ function devCount(dx) {
 }
 // price per hour of the whole booking (all units)
 function rateOf(g, mode, count) { return (mode === "multi" && g.multi ? g.multi : g.price) * count; }
+// v11.0: the service line of a pitch / device booking; with morning + evening hours the price is the average and tot is exact
+function unitSvc(s, g, mode, c, seq) {
+  const rates = seq.map(x => rateAt(s, g, mode, x.t) * c), same = rates.every(r => r === rates[0]), tot = rates.reduce((a, r) => a + r, 0);
+  const nm = `${unitWord(s, c)} · ${g.name}${g.multi ? (mode === "multi" ? " · مالتي" : " · سينجل") : ""}`;
+  if (same) return [{ name: nm, price: rates[0], mins: 60 }];
+  const m = rates.filter(r => r === g.price * c).length, e = rates.length - m;
+  const l = [{ name: `${nm} · ${m ? `${n(m)} صباحي × ${money(g.price * c)}` : ""}${m && e ? " + " : ""}${e ? `${n(e)} مسائي × ${money(g.eve * c)}` : ""}`.slice(0, 120), price: Math.round(tot / rates.length), mins: 60 }];
+  l.tot = tot; return l;
+}
+function svcTotal(sv, hrs) { return typeof sv.tot === "number" ? sv.tot : sv.reduce((a, x) => a + (+x.price || 0), 0) * hrs; }
 function chosenServices() {
   const s = bk.s;
   if (unitMode(s)) {
     const g = groupById(s, bk.g); if (!g || !bk.sel) return [];
     const c = devMode(s) ? bk.devs.size : 1; if (!c) return [];
-    return [{ name: `${unitWord(s, c)} · ${g.name}${g.multi ? (bk.mode === "multi" ? " · مالتي" : " · سينجل") : ""}`, price: rateOf(g, bk.mode, c), mins: 60 }];
+    return unitSvc(s, g, bk.mode, c, (bk.hrs === "open" ? null : seqFor(bk.sel.k, bk.sel.t, hrsN())) || [bk.sel]);
   }
   const l = svcList().filter((_, i) => bk.svc.has(i));
   if (l.length && bk.where === "home" && +(s.delivery || {}).fee > 0) l.push({ name: "رسوم الدليفري", price: +s.delivery.fee, mins: 0 });
@@ -1523,12 +1587,12 @@ function chosenServices() {
 }
 function bookMins(sv) { return multiHour(bk.s) ? 60 * hrsN() : Math.max(stepOf(bk.s), sv.reduce((a, x) => a + (+x.mins || 0), 0)); }
 function drawSummary() {
-  const s = bk.s, sv = chosenServices(), open = bk.hrs === "open", hrs = hrsN(), rate = sv.reduce((a, x) => a + (+x.price || 0), 0), tot = rate * hrs, um = unitMode(s), dm = devMode(s), dl = [...bk.devs].sort((a, b) => a - b);
+  const s = bk.s, sv = chosenServices(), open = bk.hrs === "open", hrs = hrsN(), rate = sv.reduce((a, x) => a + (+x.price || 0), 0), tot = svcTotal(sv, hrs), um = unitMode(s), dm = devMode(s), dl = [...bk.devs].sort((a, b) => a - b);
   const g = um ? groupById(s, bk.g) : null, t = bk.sel ? bk.sel.t : null;
   const durTxt = open ? "مفتوح · بتدفع على قد ما تلعب" : (multiHour(s) ? hrsLabel(hrs) : (sv.length ? fmtDur(bookMins(sv)) : "—")) + (t && sv.length ? ` · ${bkRange({ time: t, mins: bookMins(sv) })}` : "");
   $("#summary").innerHTML = `<div class="ticket" aria-label="ملخص الحجز"><div class="tp"><div><div class="small" style="opacity:.8">دورك عند</div><div style="font-weight:600">${esc(s.name)}</div></div><div style="text-align:end"><div class="when">${t ? fmtT(t) : "—"}</div><div class="small">${bk.sel ? fmtDate(bk.sel.k) : bk.day ? fmtDate(bk.day) : ""}</div></div></div><div class="perf"></div>
   <dl>${um ? `<dt>${dm ? "القاعة" : "الملعب"}</dt><dd>${g ? esc(g.name) + (g.multi ? (bk.mode === "multi" ? " · مالتي" : " · سينجل") : "") : "—"}</dd>${dm ? `<dt>الأجهزة</dt><dd>${dl.length ? devChips({ devices: dl }) : "—"}</dd>` : ""}` : `<dt>الخدمة</dt><dd>${sv.length ? esc(sv.map(x => x.name).join(" + ")) : "—"}</dd>${staffPick(s) ? `<dt>الحلاق</dt><dd>${bk.st ? esc(staffName(s, bk.st)) : "أي حلاق متاح"}</dd>` : ""}${bk.where === "home" ? `<dt>المكان</dt><dd>🛵 دليفري · في البيت</dd>` : ""}`}<dt>المدة</dt><dd>${durTxt}</dd><dt>الدفع</dt><dd>في المكان</dd>
-  <dt>${open ? "السعر" : "الإجمالي"}</dt><dd class="total">${open ? (sv.length ? `${money(rate)} / ساعة` : "—") : money(tot)}${!open && hrs > 1 && sv.length ? ` <span class="muted small">(${money(rate)} × ${hrsLabel(hrs)})</span>` : ""}</dd></dl></div>`;
+  <dt>${open ? "السعر" : "الإجمالي"}</dt><dd class="total">${open ? (sv.length ? `${money(rate)} / ساعة` : "—") : money(tot)}${!open && hrs > 1 && sv.length ? ` <span class="muted small">(${typeof sv.tot === "number" ? esc(sv[0].name.split(" · ").slice(-1)[0]) : `${money(rate)} × ${hrsLabel(hrs)}`})</span>` : ""}</dd></dl></div>`;
   const b = $("#bk-go"); if (b) { b.disabled = !(sv.length && bk.sel); if (S.user && dm) b.textContent = dl.length ? `أكّد حجز ${devWord(dl.length)}` : "أكّد الحجز"; }
 }
 async function confirmBooking() {
@@ -1569,12 +1633,12 @@ async function confirmBooking() {
       } else if (!um) units = [];
       if (um && !dm) {   // pitches: the first free pitch of this type for the whole time
         const need = open ? 1 : seq.length;
-        units = [devList(sh).filter(i => i >= g.from && i <= g.to).find(i => data.slice(0, need).every(d => freeIn(d, i)))].filter(Boolean);
+        units = [devList(sh).filter(i => i >= g.from && i <= g.to).find(i => data.slice(0, need).every((d, j) => freeIn(d, i) && !pinU(sh, seq[j].k, seq[j].t).includes(i)))].filter(Boolean);
         if (!units.length) throw userErr(`مفيش ${g.name} فاضي في المعاد ده. اختار معاد تاني.`);
       }
       if (um && units.some(i => i < g.from || i > g.to)) throw userErr("عدد الأجهزة في المكان اتغيّر. اختار تاني.");
       const k = um ? units.length : 1;
-      const okAt = j => { const d = data[j]; if ((d && d.closed) || pinned(sh, seq[j].k, seq[j].t)) return false; if (d && (d.count || 0) + k > capOf(d)) return false; if (sm && staffLeft(sh, d) < 1) return false; return units.every(i => freeIn(d, i)); };
+      const okAt = j => { const d = data[j]; if ((d && d.closed) || pinned(sh, seq[j].k, seq[j].t)) return false; if (d && (d.count || 0) + k > capOf(d)) return false; if (sm && staffLeft(sh, d) < 1) return false; const pu = pinU(sh, seq[j].k, seq[j].t); return units.every(i => freeIn(d, i) && !pu.includes(i)); };
       let len = seq.length;
       if (open) { len = 0; while (len < seq.length && okAt(len)) len++; if (!len) throw userErr(`الأجهزة دي مش فاضية الساعة ${fmtT(time)}. اختار تاني.`); }
       else for (let j = 0; j < seq.length; j++) if (!okAt(j)) {
@@ -1590,8 +1654,8 @@ async function confirmBooking() {
         else { const nw = { date: x.k, time: x.t, count: k, closed: false, lastBooking: bref.id }; if (units.length) nw.taken = units; tx.set(refs[j], nw); }
       });
       const startAt = slotDateTime(day, time, shop.hours[isoDow(parseKey(day))]).getTime(), dur = open ? 60 * len : bookMins(sv);
-      const svc = um ? [{ name: `${unitWord(sh, k)} · ${g.name}${g.multi ? (bk.mode === "multi" ? " · مالتي" : " · سينجل") : ""}`, price: rateOf(g, bk.mode, k), mins: 60 }] : sv.map(x => ({ name: x.name, price: +x.price || 0, mins: +x.mins || 0 }));
-      const total = svc.reduce((a, x) => a + x.price, 0) * (open ? 1 : hrsN());
+      const svc = um ? unitSvc(sh, g, bk.mode, k, seq) : sv.map(x => ({ name: x.name, price: +x.price || 0, mins: +x.mins || 0 }));
+      const total = open ? svc.reduce((a, x) => a + x.price, 0) : svcTotal(svc, hrsN());
       const doc = {
         shopId: s.id, ownerId: shop.ownerId || s.id, shopName: shop.name, customerId: S.user.uid, customerName: S.profile.name, customerPhone: S.profile.phone,
         services: svc, total, hours: seq.length, mins: dur, slots: seq.map(x => slotId(x.k, x.t)),
@@ -1621,7 +1685,7 @@ function depositNote(s) {
 // v6.0: be on time — 10 minutes late at most. v7.0: nothing is cancelled automatically any more; the place cancels by hand if needed
 const LATE_MIN = 10;
 function lateNote(start) {
-  return `<div class="note late"><strong>تنويه هام: الالتزام بالمعاد.</strong> أقصى تأخير ${n(LATE_MIN)} دقايق${start ? ` (لحد ${fmtT(hhmm(new Date(start + LATE_MIN * 60000).getHours() * 60 + new Date(start + LATE_MIN * 60000).getMinutes()))})` : ""}، بعدها من حق المكان يلغي الحجز.</div>`;
+  return `<div class="note late"><strong>تنويه هام:</strong> يُرجى التواجد قبل المعاد بـ ${n(LATE_MIN)} دقايق${start ? ` (الساعة ${fmtT(hhmm(new Date(start - LATE_MIN * 60000).getHours() * 60 + new Date(start - LATE_MIN * 60000).getMinutes()))})` : ""}، وأقصى حد للتأخير ${n(LATE_MIN)} دقايق${start ? ` (لحد ${fmtT(hhmm(new Date(start + LATE_MIN * 60000).getHours() * 60 + new Date(start + LATE_MIN * 60000).getMinutes()))})` : ""}، بعدها من حق المكان يلغي الحجز.</div>`;
 }
 async function loadReviews(shopId) {
   try {
@@ -1974,9 +2038,25 @@ function bDash() {
   <div class="card"><div class="row between"><h3>الحجوزات آخر ٣٠ يوم</h3><span class="muted small">إيراد الفترة: <strong class="total">${money(per.reduce((a, p) => a + p.r, 0))}</strong></span></div>${chart}<p class="muted small" style="margin:0">العمود الدهبي = النهارده. الإيراد = الحجوزات اللي علّمت عليها "العميل خلّص" (الدفع كاش في المكان).</p></div>
   ${staffCat(s) && !staffOn(s).length ? `<div class="note">ضيف أسماء الحلاقين عشان العميل يقدر يختار الحلاق وهو بيحجز. <button class="btn sm pri" data-act="btab" data-t="staff" style="margin-inline-start:6px">✂ ضيف الحلاقين</button></div>` : ""}
   ${heardCard(all)}
+  <div class="card" id="ownrev"><div class="row between"><h3>⭐ تقييمات العملاء</h3><span class="muted small">مع رقم كل عميل عشان تكلمه</span></div><div id="ownrev-l"><div class="muted small">بيحمّل…</div></div></div>
   <div class="card"><div class="row between"><h3>مواعيد النهارده</h3><button class="btn switch sm" data-act="btab" data-t="schedule">الجدول كله</button></div>
   ${todays.length ? todays.map(b => `<div class="appt"><span class="dot" style="background:${dotc[b.status] || "#8A93A3"}"></span><span class="tm">${bkTime(b)}</span><span class="nm"><strong>${esc(b.customerName)}</strong><br><span class="muted small">${esc((b.services || []).map(x => x.name).join(" + "))}</span></span>${stBadge(b.status)}</div>`).join("") : `<div class="muted small">مفيش حجوزات النهارده لسه.</div>`}</div>
   </div>`;
+  loadOwnerReviews(s);
+}
+// v11.0: the owner sees every review of the place with the customer's mobile (from the booking) to call or WhatsApp them
+function loadOwnerReviews(s) {
+  fb.getDocs(fb.query(fb.collection(db, "reviews"), fb.where("shopId", "==", s.id), fb.limit(200))).then(snap => {
+    const el = $("#ownrev-l"); if (!el || !S.shop || S.shop.id !== s.id) return;
+    const l = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => ((b.createdAt && b.createdAt.seconds) || 0) - ((a.createdAt && a.createdAt.seconds) || 0));
+    const show = S.revAll ? l : l.slice(0, 5);
+    el.innerHTML = l.length ? show.map(r => { const b = S.shopBookings.find(x => x.id === r.id) || {}, ph = b.customerPhone || "";
+      return `<div class="rv"><div class="row between"><strong>${esc(r.customerName || b.customerName || "عميل")}</strong><span class="stars">${stars(r.rating)}</span></div>
+      ${r.text ? `<div>${esc(r.text)}</div>` : ""}<div class="muted small">${b.date ? fmtDate(b.date) + " · " : ""}${r.staffName ? `✂ ${esc(r.staffName)} ${r.staffRating ? "★" + n(r.staffRating) : ""} · ` : ""}${ph ? `<span class="num" dir="ltr">${esc(ph)}</span>` : "الرقم مش متاح"}</div>
+      ${ph ? `<div class="row"><a class="btn sm" href="tel:${esc(ph)}">📞 اتصل</a><a class="btn sm wa" target="_blank" rel="noopener" href="${waLink(ph, `أهلاً ${(r.customerName || "").split(" ")[0]}، معاك ${s.name} على احجز دورك. شكراً على تقييمك 🙏`)}">واتساب</a></div>` : ""}</div>`; }).join("")
+      + (l.length > 5 && !S.revAll ? `<button class="btn sm" data-act="revall">كل التقييمات (${n(l.length)})</button>` : "")
+      : `<div class="muted small">لسه مفيش تقييمات. التقييم بيظهر للعميل بعد ما الحجز يخلص.</div>`;
+  }).catch(e => { const el = $("#ownrev-l"); if (el) el.innerHTML = `<div class="muted small">${esc(errText(e))}</div>`; });
 }
 function heardCard(all) {
   const c = {}; all.forEach(b => { if (b.heard && b.heard !== "-") c[b.heard] = (c[b.heard] || 0) + 1; });
@@ -1984,8 +2064,8 @@ function heardCard(all) {
   return l.length ? `<div class="card"><h3>العملاء عرفوك منين؟</h3><div class="hbars">${l.map(([k, v]) => `<div class="hb"><span>${esc(k)}</span><i style="width:${Math.max(6, Math.round(v / mx * 100))}%"></i><b>${n(v)}</b></div>`).join("")}</div></div>` : "";
 }
 function bookingCard(b, actions) {
-  return `<div class="item"><div class="hd"><span class="ttl">${esc(b.customerName)}</span>${bkBadge(b)}</div>
-  <dl class="kv"><dt>الموبايل</dt><dd>${tel(b.customerPhone)} <button class="btn sm ghost" data-act="copy" data-t="${esc(b.customerPhone)}">نسخ</button> <a class="btn sm ghost" target="_blank" rel="noopener" href="${waLink(b.customerPhone)}">واتساب</a></dd>
+  return `<div class="item"><div class="hd"><span class="ttl">${esc(b.customerName)}${b.manual ? ` <span class="pill small">✍ يدوي</span>` : ""}</span>${bkBadge(b)}</div>
+  <dl class="kv">${b.customerPhone ? `<dt>الموبايل</dt><dd>${tel(b.customerPhone)} <button class="btn sm ghost" data-act="copy" data-t="${esc(b.customerPhone)}">نسخ</button> <a class="btn sm ghost" target="_blank" rel="noopener" href="${waLink(b.customerPhone)}">واتساب</a></dd>` : ""}
   <dt>المعاد</dt><dd>${fmtDate(b.date)}<br>${bkTime(b)}</dd>${b.staff ? `<dt>الحلاق</dt><dd>✂ ${esc(b.staff.name)}</dd>` : ""}${b.home ? `<dt>دليفري</dt><dd>🛵 ${esc(b.addr)}</dd>` : ""}${bkDevs(b).length && !b.staff ? (devMode(S.shop || {}) ? `<dt>الأجهزة</dt><dd>${devChips(b)}</dd>` : `<dt>الملعب</dt><dd>${esc(bkDevs(b).map(i => unitLabel(S.shop, i)).join("، "))}</dd>`) : ""}<dt>${bkDevs(b).length && !b.staff ? "التفاصيل" : "الخدمة"}</dt><dd>${esc((b.services || []).map(x => x.name).join(" + "))}</dd><dt>الإجمالي</dt><dd class="total">${money(b.total)} · في المكان</dd>${b.note ? `<dt>ملاحظة</dt><dd>${esc(b.note)}</dd>` : ""}${b.heard && b.heard !== "-" ? `<dt>عرف المكان من</dt><dd>${esc(b.heard)}</dd>` : ""}</dl>
   ${ownerPropNote(b)}
   ${actions || ["pending", "accepted"].includes(b.status) ? `<div class="row">${actions || ""}${["pending", "accepted"].includes(b.status) ? `<button class="btn sm ghost" data-act="remind" data-id="${esc(b.id)}">${ICO_BELL} تذكير</button>` : ""}</div>` : ""}</div>`;
@@ -2099,10 +2179,11 @@ function moveUnits(shop, b, datas, seq) {
   const room = k => datas.every(d => { if (!d) return k <= shop.capacity; return (d.count || 0) + k <= capOf(d) && (!staffMode(shop) || unitMode(shop) || staffLeft(shop, d) >= k); });
   if (!dv.length) return room(1) ? [] : null;
   if (!room(dv.length)) return null;
-  if (dv.every(i => datas.every(d => freeIn(d, i)))) return dv;
+  const okU = i => datas.every((d, j) => freeIn(d, i) && !pinU(shop, seq[j].k, seq[j].t).includes(i));
+  if (dv.every(okU)) return dv;
   if (!unitMode(shop)) return null;   // a chosen stylist: only that stylist
   const g = groupById(shop, b.group) || groupOf(shop, dv[0]);
-  const free = devList(shop).filter(i => i >= g.from && i <= g.to && datas.every(d => freeIn(d, i)));
+  const free = devList(shop).filter(i => i >= g.from && i <= g.to && okU(i));
   return free.length >= dv.length ? free.slice(0, dv.length) : null;
 }
 function withoutBk(d, id, b) { return d && bkSlots(b).includes(id) ? { ...d, ...giveBack(d, b) } : d; }
@@ -2199,6 +2280,7 @@ function bSchedule() {
   <p class="muted small" style="margin:0">دوس على أي معاد عشان تفتح الاختصار: تخليه متاح أو مش متاح${dm ? `، وتحدد ${devMode(s) ? "الأجهزة" : "الملاعب"} الشغالة وتقفل اللي مش شغال` : "، وتغيّر العدد"}. المواعيد كل ${stepLabel(s)}، حسب مواعيد العمل اللي في "المكان". ${dm ? groupsOf(s).map(g => `${esc(g.name)}: ${unitWord(s, g.count)}`).join(" · ") + "." : sm ? `الكراسي: ${n(s.capacity)} · الحلاقين: ${staffOn(s).map(x => esc(x.name)).join("، ")}.` : `العدد العادي: ${n(s.capacity)} ${unitsOf(s)}.`} 📌 = مقفول كل أسبوع.</p>
   <div class="seg wk"><button data-act="bweek" data-w="0" aria-pressed="${!wk}">الأسبوع ده</button><button data-act="bweek" data-w="1" aria-pressed="${!!wk}">الأسبوع الجاي</button></div>
   <div class="tabs">${days.map(k => { const h = s.hours[isoDow(parseKey(k))]; return dayChip(k, "bday", k === day, !h || !h.open); }).join("")}</div>
+  ${dm ? `<button class="btn acc" data-act="freesheet" data-d="${day}">🟢 المواعيد الفاضية لكل ${devMode(s) ? "جهاز" : "ملعب"} · ${dayLabel(day)}</button>` : ""}
   <div class="row"><button class="btn sm" data-act="closeday" data-d="${day}">اقفل اليوم كله</button><button class="btn sm" data-act="openday" data-d="${day}">افتح اليوم كله</button></div>
   <div id="slotgrid" class="slotgrid"><div class="muted small">بيحمّل…</div></div>
   <h3>حجوزات ${fmtDate(day)}</h3><div id="daybk"></div></div>`;
@@ -2208,8 +2290,9 @@ function bSchedule() {
     const h = s.hours[isoDow(parseKey(day))], times = slotTimes(h, stepOf(s));
     $("#slotgrid").innerHTML = times.length ? times.map(t => {
       const d = slots[slotId(day, t)] || {}, cap = typeof d.cap === "number" ? d.cap : s.capacity, cnt = d.count || 0, pin = pinned(s, day, t), closed = !!d.closed || pin, off = (d.off || []).length;
-      const info = pin ? "📌 مقفول كل أسبوع" : closed ? "مش متاح" : sm ? `${n(cnt)} من ${n(cap)} كرسي محجوز${off ? `<br><span class="muted">${n(off)} حلاق مش موجود</span>` : ""}` : dm ? `${n(cnt)} محجوز${off ? ` · ${n(off)} مقفول` : ""}<br><span class="muted">${n(Math.max(0, devTotal(s) - cnt - off))} فاضي</span>` : `${n(cnt)} من ${n(cap)} محجوز`;
-      return `<div class="sl tap${closed ? " closed" : (dm ? cnt + off >= devTotal(s) : cnt >= cap || (sm && staffLeft(s, d) < 1)) ? " full" : ""}" data-act="slotsheet" data-d="${day}" data-t="${t}" role="button" tabindex="0" aria-label="اختصار معاد ${fmtT(t)}"><span class="t">${fmtT(t)}</span><span class="small">${info}</span>
+      const npu = dm ? pinU(s, day, t).length : 0;
+      const info = pin ? "📌 مقفول كل أسبوع" : closed ? "مش متاح" : dm && npu ? `${n(cnt)} محجوز · 📌 ${n(npu)} مثبّت${off ? ` · ${n(off)} مقفول` : ""}<br><span class="muted">${n(Math.max(0, devTotal(s) - cnt - off - npu))} فاضي</span>` : sm ? `${n(cnt)} من ${n(cap)} كرسي محجوز${off ? `<br><span class="muted">${n(off)} حلاق مش موجود</span>` : ""}` : dm ? `${n(cnt)} محجوز${off ? ` · ${n(off)} مقفول` : ""}<br><span class="muted">${n(Math.max(0, devTotal(s) - cnt - off))} فاضي</span>` : `${n(cnt)} من ${n(cap)} محجوز`;
+      return `<div class="sl tap${closed ? " closed" : (dm ? cnt + off + npu >= devTotal(s) : cnt >= cap || (sm && staffLeft(s, d) < 1)) ? " full" : ""}" data-act="slotsheet" data-d="${day}" data-t="${t}" role="button" tabindex="0" aria-label="اختصار معاد ${fmtT(t)}"><span class="t">${fmtT(t)}</span><span class="small">${info}</span>
       ${pin ? `<button class="btn sm" data-act="slotsheet" data-d="${day}" data-t="${t}">📌 تعديل</button>` : `<button class="btn sm${closed ? " pri" : ""}" data-act="toggleslot" data-d="${day}" data-t="${t}">${closed ? "خليه متاح" : "مش متاح"}</button>`}
       ${dm ? `<span class="small gold">⚙ ${devMode(s) ? "الأجهزة" : "الملاعب"}</span>` : `<div class="row" style="justify-content:center;gap:2px;flex-wrap:nowrap"><button class="btn sm ghost" data-act="cap" data-d="${day}" data-t="${t}" data-x="-1" aria-label="أقل">−</button><span class="small">${n(cap)} ${unitOf(s)}</span><button class="btn sm ghost" data-act="cap" data-d="${day}" data-t="${t}" data-x="1" aria-label="زيادة">+</button></div>`}</div>`;
     }).join("") : `<div class="empty" style="grid-column:1/-1">اليوم ده إجازة في مواعيد العمل. غيّرها من "المكان".</div>`;
@@ -2222,9 +2305,89 @@ function bSchedule() {
   const u = fb.onSnapshot(fb.query(fb.collection(db, "shops", s.id, "slots"), fb.where("date", "==", day)), snap => { slots = {}; snap.forEach(d => slots[d.id] = d.data()); draw(); }, e => { $("#slotgrid").innerHTML = `<div class="empty">${esc(errText(e))}</div>`; });
   S.viewUnsubs.push(u);
 }
+// v11.0: «حجز يدوي» — the owner records a walk-in / phone booking; it takes the chair / pitch / devices and counts in revenue
+function manualSheet(day, t) {
+  const s = S.shop; if (!s) return;
+  S.man = { day, t, hrs: 1, units: new Set(), svc: new Set(), st: 0, g: groupsOf(s)[0] ? groupsOf(s)[0].id : "", total: null };
+  openSheet(`حجز يدوي · ${fmtT(t)}`, `<div id="mansheet" class="stack"></div>`); drawManual();
+}
+function manualCalc() {
+  const s = S.shop, m = S.man, um = unitMode(s), seq = pinSeq({ day: m.day, t: m.t }, multiHour(s) ? m.hrs : 1);
+  if (um) { const g = groupById(s, m.g); const c = m.units.size; if (!g || !c) return { svc: [], total: 0, seq }; const sv = unitSvc(s, g, "single", c, seq); return { svc: sv, total: svcTotal(sv, seq.length), seq }; }
+  const sv = (s.services || []).filter((_, i) => m.svc.has(i)).map(x => ({ name: x.name, price: +x.price || 0, mins: +x.mins || 0 }));
+  return { svc: sv, total: sv.reduce((a, x) => a + x.price, 0), seq };
+}
+function drawManual() {
+  const el = $("#mansheet"); if (!el || !S.man) return;
+  const s = S.shop, m = S.man, um = unitMode(s), dm = devMode(s), sl = (S.schedSlots ? S.schedSlots() : {}) || {}, c = manualCalc();
+  const busy = i => c.seq.some(x => { const d = sl[slotId(x.k, x.t)] || {}; return (d.taken || []).map(Number).includes(i) || (d.off || []).map(Number).includes(i) || pinU(s, x.k, x.t).includes(i); });
+  const g = um ? groupById(s, m.g) : null;
+  el.innerHTML = `<div class="muted small" style="text-align:center">${fmtDate(m.day)} · ${bkRange({ time: m.t, mins: multiHour(s) ? 60 * m.hrs : Math.max(stepOf(s), c.svc.reduce((a, x) => a + x.mins, 0)) })}</div>
+  <div class="grid2"><label class="f">اسم العميل<input id="mn-name" maxlength="60" value="${esc(m.name || "")}" placeholder="مثلاً: كابتن أحمد"></label>
+  <label class="f">موبايله (اختياري)<input id="mn-phone" inputmode="tel" dir="ltr" value="${esc(m.phone || "")}" placeholder="01xxxxxxxxx"></label></div>
+  ${multiHour(s) ? `<div class="row between"><span>المدة</span><div class="chips">${[1, 2, 3, 4].map(h => `<button class="chip" data-act="manhrs" data-h="${h}" aria-pressed="${m.hrs === h}">${hrsLabel(h)}</button>`).join("")}</div></div>` : ""}
+  ${um ? `${groupsOf(s).length > 1 ? `<div class="chips">${groupsOf(s).map(x => `<button class="chip" data-act="mang" data-g="${esc(x.id)}" aria-pressed="${m.g === x.id}">${esc(x.name)}</button>`).join("")}</div>` : ""}
+    <div class="small" style="font-weight:700">${dm ? "الأجهزة" : "الملعب"}:</div><div class="chips">${g ? devList(s).filter(i => i >= g.from && i <= g.to).map(i => `<button class="chip" data-act="manu" data-i="${i}" aria-pressed="${m.units.has(i)}"${busy(i) ? " disabled" : ""}>${esc(unitLabel(s, i))}${busy(i) ? " · مش فاضي" : ""}</button>`).join("") : ""}</div>`
+  : `<div class="small" style="font-weight:700">الخدمة:</div><div class="chips">${(s.services || []).map((x, i) => `<button class="chip" data-act="mansvc" data-i="${i}" aria-pressed="${m.svc.has(i)}">${esc(x.name)} · ${money(x.price)}</button>`).join("")}</div>
+    ${staffMode(s) ? `<div class="small" style="font-weight:700">الحلاق:</div><div class="chips"><button class="chip" data-act="manst" data-i="0" aria-pressed="${!m.st}">أي حلاق</button>${staffOn(s).map(x => `<button class="chip" data-act="manst" data-i="${+x.no}" aria-pressed="${m.st === +x.no}"${busy(+x.no) ? " disabled" : ""}>${esc(x.name)}${busy(+x.no) ? " · مشغول" : ""}</button>`).join("")}</div>` : ""}`}
+  <label class="f">الإجمالي (جنيه)<input id="mn-total" type="number" min="0" inputmode="numeric" value="${m.total != null ? m.total : c.total}"></label>
+  <div class="err" id="mn-err" role="alert"></div>
+  <button class="btn pri block" data-act="mansave">✓ سجّل الحجز</button>
+  <p class="muted small" style="margin:0">الحجز اليدوي بيتسجّل «متأكد» على طول، وبياخد ${um ? (dm ? "الأجهزة" : "الملعب") : "الكرسي"} من المعاد، وبيتحسب في الدخل. تقدر تلغيه أو تخلّصه زي أي حجز.</p>`;
+  $("#mn-total").addEventListener("input", e => { m.total = e.target.value; });
+}
+function manualKeep(reprice) { const m = S.man; if (!m) return; const a = $("#mn-name"), b = $("#mn-phone"); if (a) m.name = a.value; if (b) m.phone = b.value; if (reprice) m.total = null; }
+async function saveManual() {
+  const s = S.shop, m = S.man, err = $("#mn-err"); if (!s || !m) return; manualKeep();
+  const name = (m.name || "").trim().slice(0, 60), phone = normPhone(m.phone || ""), um = unitMode(s), c = manualCalc();
+  if (name.length < 2) { err.textContent = "اكتب اسم العميل."; return; }
+  if (phone && !validPhone(phone)) { err.textContent = "الموبايل لازم يبقى ١١ رقم ويبدأ بـ 01."; return; }
+  if (um && !m.units.size) { err.textContent = devMode(s) ? "اختار جهاز واحد على الأقل." : "اختار الملعب."; return; }
+  if (!um && !c.svc.length) { err.textContent = "اختار خدمة."; return; }
+  const total = Math.max(0, Math.round(+(m.total != null && m.total !== "" ? m.total : c.total) || 0));
+  try {
+    const bref = fb.doc(fb.collection(db, "bookings")); let out = null;
+    await fb.runTransaction(db, async tx => {
+      const sh = { ...(await tx.get(fb.doc(db, "shops", s.id))).data(), id: s.id };
+      const seq = seqFor(m.day, m.t, multiHour(sh) ? m.hrs : 1, sh); if (!seq) throw userErr("المدة دي أطول من مواعيد المكان.");
+      const refs = seq.map(x => fb.doc(db, "shops", s.id, "slots", slotId(x.k, x.t))), datas = [];
+      for (const r of refs) { const sn = await tx.get(r); datas.push(sn.exists() ? sn.data() : null); }
+      const want = um ? [...m.units].sort((a, b) => a - b) : m.st ? [m.st] : [];
+      const fake = { devices: want, group: m.g };
+      const units = moveUnits(sh, fake, datas, seq);
+      if (!units || (want.length && units.join() !== want.join())) throw userErr(um ? "اللي اخترته مش فاضي في كل المدة دي. اختار تاني." : "المعاد ده مليان (أو الحلاق مشغول).");
+      const k = units.length || 1;
+      seq.forEach((x, j) => { const d = datas[j];
+        if (d) { const up = { count: (d.count || 0) + k, lastBooking: bref.id }; if (units.length) up.taken = (d.taken || []).concat(units); tx.update(refs[j], up); }
+        else { const nw = { date: x.k, time: x.t, count: k, closed: false, lastBooking: bref.id }; if (units.length) nw.taken = units; tx.set(refs[j], nw); } });
+      const h = sh.hours[isoDow(parseKey(m.day))], mins0 = multiHour(sh) ? 60 * seq.length : Math.max(stepOf(sh), c.svc.reduce((a, x) => a + x.mins, 0));
+      const doc = { shopId: s.id, ownerId: ownerOf(sh), shopName: sh.name, customerId: S.user.uid, customerName: name, customerPhone: phone, services: c.svc.map(x => ({ name: x.name.slice(0, 120), price: x.price, mins: x.mins })), total, hours: seq.length, mins: mins0, slots: seq.map(x => slotId(x.k, x.t)), date: m.day, time: m.t, startAt: slotDateTime(m.day, m.t, h).getTime(), status: "accepted", payment: "cash", manual: true, note: "", createdAt: fb.serverTimestamp(), updatedAt: fb.serverTimestamp() };
+      if (units.length) doc.devices = units;
+      if (um) doc.group = m.g;
+      if (!um && m.st) doc.staff = { no: m.st, name: staffName(sh, m.st).slice(0, 30) };
+      tx.set(bref, doc); out = doc;
+    });
+    closeSheet(); S.man = null; toast(`✓ اتسجّل حجز ${name} (${fmtT(m.t)}).`);
+  } catch (e) { err.textContent = errText(e); }
+}
+// v11.0: the free times of every pitch / device on one day (not booked, not closed, not pinned, not past)
+function freeSheet(day) {
+  const s = S.shop, sl = (S.schedSlots ? S.schedSlots() : {}) || {}, h = s.hours[isoDow(parseKey(day))], times = slotTimes(h, stepOf(s)), now = Date.now() + 5 * 60000;
+  const freeAt = (i, t) => { const d = sl[slotId(day, t)] || {}; if (d.closed || pinned(s, day, t) || pinU(s, day, t).includes(i)) return false; if ((d.taken || []).map(Number).includes(i) || (d.off || []).map(Number).includes(i)) return false; return slotDateTime(day, t, h).getTime() > now; };
+  const rows = devList(s).map(i => { const f = times.filter(t => freeAt(i, t)); return `<div class="fcard"><div class="row between"><strong>${esc(unitLabel(s, i))}</strong><span class="muted small">${f.length ? `${n(f.length)} ${stepOf(s) === 60 ? "ساعة" : "معاد"} فاضي` : "مفيش"}</span></div>${f.length ? `<div class="chips">${f.map(t => `<button class="chip" data-act="freeslot" data-d="${day}" data-t="${t}">${fmtT(t)}</button>`).join("")}</div>` : `<div class="muted small">كله محجوز أو مقفول.</div>`}</div>`; }).join("");
+  openSheet(`المواعيد الفاضية · ${fmtDate(day)}`, `<div class="stack">${times.length ? rows : `<div class="empty">اليوم ده إجازة.</div>`}<p class="muted small" style="margin:0">دوس على أي ساعة عشان تفتح اختصارها (تقفلها، تثبّتها، أو تسجّل حجز يدوي).</p></div>`);
+}
 // v5.0: the slot shortcut — tap any time to make it available / not available and choose which devices are open
 function holdsHere(b, day, t) { return HOLD.includes(b.status) && bkSlots(b).includes(slotId(day, t)); }
-function slotSheet(day, t) { S.slotSheetAt = { day, t }; drawSlotSheet(true); }
+function slotSheet(day, t) { S.slotSheetAt = { day, t }; S.pinHrs = 1; S.pinSel = new Set(); drawSlotSheet(true); }
+// v11.0: the times a weekly pin covers: this time + the next hours (same as a booking of that length)
+function pinSeq(at, hrs) { const s = S.shop, tl = timeline(at.day, s), i = tl.findIndex(x => x.k === at.day && x.t === at.t); return i < 0 ? [{ k: at.day, t: at.t }] : tl.slice(i, i + Math.max(1, hrs)); }
+async function setUnitPins(seq, units, on) {
+  const s = S.shop, up = {}, w = { ...(s.weeklyU || {}) };
+  seq.forEach(x => { const k = pinKey(x.k, x.t), cur = new Set(pinU(s, x.k, x.t)); units.forEach(i => on ? cur.add(i) : cur.delete(i)); const l = [...cur].sort((a, b) => a - b); up["weeklyU." + k] = l.length ? l : fb.deleteField(); if (l.length) w[k] = l; else delete w[k]; });
+  try { await fb.updateDoc(fb.doc(db, "shops", s.id), up); s.weeklyU = w; toast(on ? `📌 اتثبّت كل أسبوع (${n(units.length)} × ${hrsLabel(seq.length)}).` : "اتشال التثبيت."); S.pinSel = new Set(); S.schedRedraw && S.schedRedraw(); drawSlotSheet(false); drawPins(); }
+  catch (e) { toast(errText(e)); }
+}
 function drawSlotSheet(open) {
   const at = S.slotSheetAt; if (!at || !S.shop) return;
   if (!open && !$("#slotsheet")) { S.slotSheetAt = null; return; }
@@ -2233,11 +2396,18 @@ function drawSlotSheet(open) {
   const cap = typeof d.cap === "number" ? d.cap : s.capacity, here = myBk().filter(b => holdsHere(b, at.day, at.t));
   const who = {}; here.forEach(b => bkDevs(b).forEach(i => who[i] = b));
   const taken = new Set((d.taken || []).map(Number)), off = new Set((d.off || []).map(Number));
-  const tile = i => { const b = who[i], st = taken.has(i) || b ? "busy" : off.has(i) ? "off" : "free";
-    return `<button class="dev own ${st}" data-act="slotdev" data-i="${i}" ${st === "busy" ? "disabled" : ""} aria-label="${esc(sm ? staffName(s, i) : unitLabel(s, i))}">${devMode(s) ? ICO_PC : ""}<b>${devMode(s) ? n(i) : esc(sm ? staffName(s, i) : unitLabel(s, i))}</b><small>${st === "busy" ? esc(b ? b.customerName.split(" ")[0] : "محجوز") : st === "off" ? (sm ? "مش موجود" : "مقفول") : sm ? "متاح" : "شغال"}</small></button>`; };
+  const pu = dm ? pinU(s, at.day, at.t) : [], hrs = S.pinHrs || 1, sel = S.pinSel || new Set();
+  const tile = i => { const b = who[i], st = taken.has(i) || b ? "busy" : off.has(i) || pu.includes(i) ? "off" : "free";
+    return `<button class="dev own ${st}" data-act="slotdev" data-i="${i}" ${st === "busy" ? "disabled" : ""} aria-label="${esc(sm ? staffName(s, i) : unitLabel(s, i))}">${devMode(s) ? ICO_PC : ""}<b>${devMode(s) ? n(i) : esc(sm ? staffName(s, i) : unitLabel(s, i))}</b><small>${st === "busy" ? esc(b ? b.customerName.split(" ")[0] : "محجوز") : pu.includes(i) && !off.has(i) ? "📌 كل أسبوع" : st === "off" ? (sm ? "مش موجود" : "مقفول") : sm ? "متاح" : "شغال"}</small></button>`; };
+  const unitPin = dm && devTotal(s) > 1 ? `<div class="small" style="font-weight:700">ثبّت ${devMode(s) ? "أجهزة معيّنة" : "ملعب معيّن"} بس (مش كل ${devMode(s) ? "الأجهزة" : "الملاعب"}):</div>
+    <div class="chips">${devList(s).map(i => `<button class="chip" data-act="pinsel" data-i="${i}" aria-pressed="${sel.has(i)}">${pu.includes(i) ? "📌 " : ""}${esc(unitLabel(s, i))}</button>`).join("")}</div>
+    <div class="grid2"><button class="btn sm pri" data-act="pinunits" data-v="1"${sel.size ? "" : " disabled"}>📌 ثبّت ${sel.size ? esc([...sel].map(i => unitLabel(s, i)).join(" + ")) : "المختار"} كل أسبوع</button><button class="btn sm" data-act="pinunits" data-v="0"${sel.size ? "" : " disabled"}>شيل تثبيت المختار</button></div>
+    <div class="muted small">أو اقفل المعاد ده لكل ${devMode(s) ? "الأجهزة" : "الملاعب"}:</div>` : "";
   const body = `<div class="muted small" style="text-align:center">${fmtDate(at.day)} · ${bkRange({ time: at.t, mins: stepOf(s) })}</div>
   <div class="seg"><button data-act="slotset" data-c="0" aria-pressed="${!closed}">✓ متاح</button><button data-act="slotset" data-c="1" aria-pressed="${closed}">✕ مش متاح</button></div>
-  <div class="pinbox"><div class="row between"><strong>📌 ثبّت كل أسبوع</strong><span class="muted small">كل ${wd} الساعة ${fmtT(at.t)}</span></div>
+  <div class="pinbox"><div class="row between"><strong>📌 ثبّت كل أسبوع</strong><span class="muted small">كل ${wd} ${hrs > 1 ? `من ${fmtT(at.t)} لحد ${fmtT(hhmm(mins(at.t) + hrs * stepOf(s)))}` : `الساعة ${fmtT(at.t)}`}</span></div>
+    <div class="row between"><span class="small">لكام ${stepOf(s) === 60 ? "ساعة" : "نص ساعة"} ورا بعض؟</span><div class="cnt"><button class="cb" data-act="pinhrs" data-x="-1" aria-label="أقل">−</button><output>${n(hrs)}</output><button class="cb" data-act="pinhrs" data-x="1" aria-label="زيادة">+</button></div></div>
+    ${unitPin}
     <div class="seg"><button data-act="pinset" data-v="0" aria-pressed="${!pin}">✓ مفتوح كل أسبوع</button><button data-act="pinset" data-v="1" aria-pressed="${pin}">✕ مقفول كل أسبوع</button></div>
     <button class="btn sm" data-act="pinall" data-v="${allPin ? 0 : 1}">${allPin ? `افتح الساعة ${fmtT(at.t)} كل أيام الأسبوع` : `اقفل الساعة ${fmtT(at.t)} كل أيام الأسبوع`}</button></div>
   ${dm ? `<div class="devmap own">
@@ -2252,6 +2422,7 @@ function drawSlotSheet(open) {
     <div class="hallh"><span>الحلاقين</span><span class="muted small">دوس على الحلاق لو مش موجود الساعة دي</span></div><div class="devgrid wide">${staffOn(s).map(x => tile(+x.no)).join("")}</div></div>
   <p class="muted small" style="margin:0">المعاد بيتقفل عند العميل لما الكراسي تخلص أو مفيش حلاق فاضي.</p>`
   : `<div class="row between"><span>العدد في المعاد ده</span><div class="cnt"><button class="cb" data-act="cap" data-d="${at.day}" data-t="${at.t}" data-x="-1" aria-label="أقل">−</button><output>${n(cap)}</output><button class="cb" data-act="cap" data-d="${at.day}" data-t="${at.t}" data-x="1" aria-label="زيادة">+</button></div></div><p class="muted small" style="margin:0">${n(d.count || 0)} محجوز من ${n(cap)} ${unitsOf(s)}.</p>`}
+  <button class="btn navy" data-act="manual">＋ حجز يدوي (عميل جه أو كلّمك)</button>
   <h3 style="font-size:1rem">الحجوزات في المعاد ده</h3>${here.length ? here.map(b => `<div class="appt"><span class="nm"><strong>${esc(b.customerName)}</strong> ${devChips(b)}<br><span class="muted small">${bkRange(b)}</span></span>${stBadge(b.status)}</div>`).join("") : `<div class="muted small">مفيش حجوزات.</div>`}`;
   if (open) openSheet(`اختصار معاد ${fmtT(at.t)}`, `<div id="slotsheet" class="stack">${body}</div>`);
   else $("#slotsheet").innerHTML = body;
@@ -2295,6 +2466,7 @@ function bHall() {
       let cls = "free", l1 = "متاح", l2 = next ? `بعدين ${fmtT(next.time)}` : "";
       if (nowB) { busyN++; cls = "busy"; l1 = "شغال · " + esc(nowB.customerName.split(" ")[0]); l2 = left(span(nowB)[1] - now) + " باقي"; }
       else if (offNow.has(i) || sd.closed || (cur && pinned(s, cur.day, cur.t))) { cls = "off"; l1 = offNow.has(i) ? "صيانة" : "المعاد مقفول"; l2 = "لا يعمل"; }
+      else if (cur && pinU(s, cur.day, cur.t).includes(i)) { cls = "res"; l1 = "📌 مثبّت كل أسبوع"; l2 = fmtT(cur.t); }
       else if (next) { cls = next.status === "pending" ? "res pend" : "res"; l1 = (next.status === "pending" ? "طلب · " : "محجوز · ") + esc(next.customerName.split(" ")[0]); l2 = fmtT(next.time); }
       const g = groupOf(s, i), gl = groupsOf(s);
       return `<button class="htile ${cls}${gl.length > 1 && g !== gl[0] ? " vip" : ""}" data-act="hdev" data-i="${i}"><b>${devMode(s) ? n(i) : esc(unitLabel(s, i))}</b>${gl.length > 1 && devMode(s) ? `<em>${esc(g.name)}</em>` : ""}<span>${l1}</span><small>${l2}</small></button>`;
@@ -2321,7 +2493,7 @@ function devSheet(i, redraw) {
   S.devAt = cur ? { ...cur, i } : { i };
   const sd = cur ? (S.schedSlots() || {})[slotId(cur.day, cur.t)] || {} : {}, isOff = (sd.off || []).map(Number).includes(i);
   const today = dkey(new Date()), mine = myBk().filter(b => bkDevs(b).includes(i) && HOLD.includes(b.status) && b.date >= dkey(new Date(Date.now() - 864e5))).sort((a, b) => bkStartMs(a) - bkStartMs(b)).filter(b => bkStartMs(b) + bkMins(b) * 60000 > Date.now() - 3600000 && (b.date === today || bkStartMs(b) < Date.now() + 864e5));
-  const g = groupOf(s, i), body = `<div class="muted small" style="text-align:center">${esc(g.name)} · ${money(g.price)} / ساعة${g.multi ? ` · مالتي ${money(g.multi)}` : ""}</div>
+  const g = groupOf(s, i), body = `<div class="muted small" style="text-align:center">${esc(g.name)} · ${priceTxt(s, g)} / ساعة${g.multi ? ` · مالتي ${money(g.multi)}` : ""}</div>
   ${cur ? `<div class="grid2"><button class="btn${isOff ? " pri" : ""}" data-act="hdevoff" data-w="now">${isOff ? "شغّل الجهاز تاني" : "اقفله الساعة دي (صيانة)"}</button><button class="btn" data-act="hdevoff" data-w="day">${isOff ? "شغّله باقي اليوم" : "اقفله باقي اليوم"}</button></div>` : `<div class="note">المكان مقفول دلوقتي حسب مواعيد العمل. تقدر تقفل الجهاز لأي معاد من «الجدول».</div>`}
   <h3 style="font-size:1rem">حجوزات الجهاز ده</h3>${mine.length ? mine.map(b => `<div class="appt"><span class="nm"><strong>${esc(b.customerName)}</strong><br><span class="muted small">${dayLabel(b.date)} · ${bkRange(b)}</span></span>${stBadge(b.status)}</div>`).join("") : `<div class="muted small">مفيش حجوزات على الجهاز ده النهارده.</div>`}`;
   if (redraw && $("#devsheet")) $("#devsheet").innerHTML = body;
@@ -2358,8 +2530,10 @@ async function setPins(keys, closed) {
 function drawPins() {
   const el = $("#pinlist"); if (!el || !S.shop) return;
   const keys = Object.keys(S.shop.weekly || {}).filter(k => S.shop.weekly[k]).sort((a, b) => WEEK_ORDER.indexOf(a.split("_")[0]) - WEEK_ORDER.indexOf(b.split("_")[0]) || a.localeCompare(b));
-  el.innerHTML = keys.length ? `<div class="pins">${keys.map(k => { const [d, t] = k.split("_"); return `<span class="pin">📌 ${ISO_DAYS[d]} ${fmtT(t.slice(0, 2) + ":" + t.slice(2))}<button data-act="unpin" data-k="${esc(k)}" aria-label="افتحه">✕</button></span>`; }).join("")}</div>`
-    : `<div class="muted small">مفيش. من «الجدول» دوس على أي معاد ← «مقفول كل أسبوع».</div>`;
+  const wu = S.shop.weeklyU || {}, ukeys = Object.keys(wu).filter(k => Array.isArray(wu[k]) && wu[k].length).sort((a, b) => WEEK_ORDER.indexOf(a.split("_")[0]) - WEEK_ORDER.indexOf(b.split("_")[0]) || a.localeCompare(b));
+  const tt = t => fmtT(t.slice(0, 2) + ":" + t.slice(2));
+  el.innerHTML = keys.length || ukeys.length ? `<div class="pins">${keys.map(k => { const [d, t] = k.split("_"); return `<span class="pin">📌 ${ISO_DAYS[d]} ${tt(t)}<button data-act="unpin" data-k="${esc(k)}" aria-label="افتحه">✕</button></span>`; }).join("")}${ukeys.map(k => { const [d, t] = k.split("_"); return wu[k].map(i => `<span class="pin">📌 ${esc(unitLabel(S.shop, +i))} · ${ISO_DAYS[d]} ${tt(t)}<button data-act="unpinu" data-k="${esc(k + "|" + i)}" aria-label="شيل التثبيت">✕</button></span>`).join(""); }).join("")}</div>`
+    : `<div class="muted small">مفيش. من «الجدول» دوس على أي معاد ← «📌 ثبّت كل أسبوع».</div>`;
 }
 async function writeSlot(day, t, patch) {
   const ref = fb.doc(db, "shops", S.shop.id, "slots", slotId(day, t)), cur = (S.schedSlots ? S.schedSlots() : {})[slotId(day, t)];
@@ -2430,7 +2604,8 @@ function groupsEditor(list, cat) {
     <div class="fx">العدد${stepper("gx-c" + i, Math.max(1, +g.count || 1), 1, MAX_CAP, "العدد")}</div>
     <button type="button" class="btn sm bad" data-act="delgroup" aria-label="مسح النوع">مسح</button></div>
     <label class="f">الوصف والمواصفات (اختياري)<textarea data-k="desc" maxlength="200" rows="2" placeholder="${multi ? "مثلاً: شاشة ٥٥ بوصة، ٤ دراعات، تكييف" : "مثلاً: نجيلة صناعية، إضاءة، ٥ ضد ٥"}">${esc(g.desc || "")}</textarea></label>
-    <div class="grid2"><label class="f">سعر الساعة${multi ? " للجهاز (سينجل)" : ""} (جنيه)<input data-k="price" type="number" min="0" inputmode="numeric" value="${esc(g.price || "")}"></label>
+    <div class="grid2"><label class="f">سعر الساعة${multi ? " للجهاز (سينجل)" : " الصباحي"} (جنيه)<input data-k="price" type="number" min="0" inputmode="numeric" value="${esc(g.price || "")}"></label>
+    ${!multi ? `<label class="f">سعر الساعة المسائي (اختياري)<input data-k="eve" type="number" min="0" inputmode="numeric" value="${esc(g.eve || "")}" placeholder="سيبه فاضي لو نفس السعر"></label>` : ""}
     ${multi ? `<label class="f">سعر الساعة مالتي (اختياري)<input data-k="multi" type="number" min="0" inputmode="numeric" value="${esc(g.multi || "")}" placeholder="سيبه فاضي لو مفيش مالتي"></label>` : ""}</div></div>`).join("");
 }
 function readGroups() {
@@ -2438,7 +2613,7 @@ function readGroups() {
   const l = rows.map((r, i) => {
     let id = r.dataset.g || "g" + (i + 1); while (used.has(id)) id = "g" + Math.random().toString(36).slice(2, 6); used.add(id);
     const v = k => { const e = r.querySelector(`[data-k=${k}]`); return e ? e.value : ""; };
-    return { id, name: v("name").trim().slice(0, 40), desc: v("desc").trim().slice(0, 200), count: +r.querySelector("output").dataset.v || 1, price: Math.max(0, Math.round(+v("price") || 0)), multi: Math.max(0, Math.round(+v("multi") || 0)) };
+    return { id, name: v("name").trim().slice(0, 40), desc: v("desc").trim().slice(0, 200), count: +r.querySelector("output").dataset.v || 1, price: Math.max(0, Math.round(+v("price") || 0)), eve: Math.max(0, Math.round(+v("eve") || 0)), multi: Math.max(0, Math.round(+v("multi") || 0)) };
   });
   if (!l.length) throw userErr("ضيف نوع واحد على الأقل.");
   if (l.some(g => g.name.length < 1)) throw userErr("اكتب اسم كل نوع.");
@@ -2464,6 +2639,7 @@ function shopFields(s, opts = {}) {
     <p class="muted small" style="margin:0" id="gx-help">${groupsHelp(catOf(s))}</p>
     <div id="gx-rows">${groupsEditor(dm ? groupsOf(s) : defGroups(catOf(s)), catOf(s))}</div>
     <button type="button" class="btn sm" data-act="addgroup">+ ضيف نوع</button>
+    <label class="f" id="eve-box"${devMode(s) ? " hidden" : ""}>السعر المسائي بيبدأ من الساعة<select id="sh-eve">${Array.from({ length: 13 }, (_, i) => hhmm((12 + i) * 60 % 1440)).map(t => `<option value="${t}"${t === eveFrom(s) ? " selected" : ""}>${fmtT(t)}</option>`).join("")}</select><span class="small muted" style="font-weight:400">من الساعة دي لحد ٦ الصبح بيتحسب السعر المسائي (لو كتبته).</span></label>
     <p class="muted small" style="margin:0">أقصى حاجة ${n(MAX_CAP)} في المكان كله، و${n(MAX_GROUPS)} أنواع.</p>
   </div>
   ${opts.staff ? `<div class="devbox" id="staff-box"${staffCat(s) ? "" : " hidden"}>
@@ -2508,16 +2684,17 @@ async function saveStaff() {
     toast(on ? `اتحفظ ✔ ${n(on)} ${on === 1 ? "حلاق" : "حلاقين"} موجودين. العميل هيختار منهم.` : "اتحفظ.");
   } catch (e) { er.textContent = errText(e); }
 }
-function staffRow(x) { return `<div class="stx" data-no="${+x.no}"><label class="f">اسم الحلاق<input data-k="name" maxlength="30" value="${esc(x.name || "")}" placeholder="مثلاً: أحمد"></label><label class="f inl"><input type="checkbox" data-k="on"${x.on !== false ? " checked" : ""}> موجود</label><span class="muted small strate" data-strate="${+x.no}"></span><button type="button" class="btn sm bad" data-act="delstaff" aria-label="مسح الحلاق">مسح</button></div>`; }
+function staffRow(x) { return `<div class="stx" data-no="${+x.no}"${x.img ? ` data-img="${esc(x.img)}"` : ""}><label class="stph" title="صورة الحلاق">${x.img ? `<img src="${esc(x.img)}" alt="">` : "<span>+ صورة</span>"}<input type="file" accept="image/*" data-stimg="1" aria-label="صورة الحلاق"></label><label class="f">اسم الحلاق<input data-k="name" maxlength="30" value="${esc(x.name || "")}" placeholder="مثلاً: أحمد"></label><label class="f inl"><input type="checkbox" data-k="on"${x.on !== false ? " checked" : ""}> موجود</label><span class="muted small strate" data-strate="${+x.no}"></span><button type="button" class="btn sm bad" data-act="delstaff" aria-label="مسح الحلاق">مسح</button></div>`; }
 function readStaff() {
-  const l = [...document.querySelectorAll("#st-rows .stx")].map(r => ({ no: +r.dataset.no, name: r.querySelector("[data-k=name]").value.trim().slice(0, 30), on: r.querySelector("[data-k=on]").checked })).filter(x => x.name);
+  const l = [...document.querySelectorAll("#st-rows .stx")].map(r => { const o = { no: +r.dataset.no, name: r.querySelector("[data-k=name]").value.trim().slice(0, 30), on: r.querySelector("[data-k=on]").checked }; if (r.dataset.img) o.img = r.dataset.img; return o; }).filter(x => x.name);
+  if (l.reduce((a, x) => a + (x.img || "").length, 0) > 300000) throw userErr("صور الحلاقين كتير/كبيرة. امسح صورة أو اتنين.");
   if (l.length > MAX_CAP) throw userErr(`أقصى حاجة ${n(MAX_CAP)} حلاق.`);
   return l;
 }
 function toggleCatBoxes(cat, fresh) {
   const stb = $("#staff-box"); if (stb) stb.hidden = !STAFF_CATS.includes(cat);
   const um = UNIT_CATS.includes(cat);
-  const c = $("#cap-box"), d = $("#dev-box"), sv = $("#svc-card"); if (c) c.hidden = um; if (d) d.hidden = !um; if (sv) sv.hidden = um;
+  const c = $("#cap-box"), d = $("#dev-box"), sv = $("#svc-card"); if (c) c.hidden = um; if (d) d.hidden = !um; if (sv) sv.hidden = um; const ev = $("#eve-box"); if (ev) ev.hidden = DEV_CATS.includes(cat);
   if (um && fresh && $("#gx-rows")) { $("#gx-rows").innerHTML = groupsEditor(defGroups(cat), cat); $("#gx-help").textContent = groupsHelp(cat); $("#gx-title").textContent = DEV_CATS.includes(cat) ? "القاعات والأجهزة والأسعار" : "الملاعب والأسعار"; }
 }
 function readShopFields(base) {
@@ -2529,7 +2706,7 @@ function readShopFields(base) {
   if (d.area.length < 2) throw userErr("اكتب المنطقة أو الحي.");
   if (d.phone && !validPhone(d.phone)) throw userErr("رقم التليفون لازم يبقى ١١ رقم ويبدأ بـ 01.");
   if (!validPhone(d.whatsapp)) throw userErr("رقم الواتساب مطلوب، ولازم يبقى ١١ رقم ويبدأ بـ 01.");
-  if (dm) { d.groups = readGroups(); d.capacity = d.groups.reduce((a, g) => a + g.count, 0); delete d.devices; }
+  if (dm) { d.groups = readGroups(); d.capacity = d.groups.reduce((a, g) => a + g.count, 0); delete d.devices; if (!DEV_CATS.includes(cat) && $("#sh-eve")) d.eveFrom = $("#sh-eve").value; d.groups.forEach(g => { if (DEV_CATS.includes(cat) || !g.eve || g.eve === g.price) delete g.eve; }); }
   else { delete d.groups; delete d.devices; }
   if (STAFF_CATS.includes(cat) && $("#st-rows")) {
     d.staff = readStaff(); d.staffPick = !!($("#st-pick") || {}).checked;
@@ -2637,7 +2814,7 @@ async function vAdmin() {
   const tabs = [["overview", "نظرة عامة"], ["crm", "العملاء المحتملين"], ["shops", "الأماكن"], ["users", "المستخدمين"], ["bookings", "الحجوزات"], ["reviews", "التقييمات"], ["feedback", "الشكاوى والمقترحات"], ["offers", "العروض"], ["settings", "الإعدادات والنسخ الاحتياطي"]];
   const pendShops = A.data ? A.data.shops.filter(s => s.status === "pending").length : 0, newFb = A.data ? A.data.feedback.filter(f => f.status === "new").length : 0;
   main.innerHTML = `<div class="wrap"><div class="row between"><h2 style="font-size:1.5rem">لوحة الإدارة</h2><button class="btn sm" data-act="adminreload">تحديث</button></div>
-  <div class="tabs" role="tablist">${tabs.map(t => `<button class="tab" role="tab" aria-selected="${tab === t[0]}" data-act="atab" data-t="${t[0]}">${t[1]}${t[0] === "shops" && pendShops ? ` <span class="badge">${n(pendShops)}</span>` : ""}${t[0] === "feedback" && newFb ? ` <span class="badge">${n(newFb)}</span>` : ""}${t[0] === "crm" && leadCount() ? ` <span class="badge">${n(leadCount())}</span>` : ""}</button>`).join("")}</div>
+  <div class="tabs tabwrap" role="tablist">${tabs.map(t => `<button class="tab" role="tab" aria-selected="${tab === t[0]}" data-act="atab" data-t="${t[0]}">${t[1]}${t[0] === "shops" && pendShops ? ` <span class="badge">${n(pendShops)}</span>` : ""}${t[0] === "feedback" && newFb ? ` <span class="badge">${n(newFb)}</span>` : ""}${t[0] === "crm" && leadCount() ? ` <span class="badge">${n(leadCount())}</span>` : ""}</button>`).join("")}</div>
   <div id="apanel"><div class="spinner" role="status" aria-label="بيحمّل"></div></div></div>`;
   if (!A.data) { try { await adminLoad(); } catch (e) { $("#apanel").innerHTML = `<div class="empty">${esc(errText(e))}</div>`; return; } if (S.view === "admin") return vAdmin(); return; }
   if (tab === "crm" && A.data.leadsOff) { $("#apanel").innerHTML = `<div class="empty">العملاء المحتملين محتاجين قواعد v9.0: Firebase ← Firestore ← Rules ← الصق firestore-rules-v9.0 ← Publish، وبعدين «تحديث».</div>`; return; }
@@ -2662,21 +2839,39 @@ function aShops() {
   const owner = s => A.data.users.find(u => u.id === ownerOf(s));
   $("#apanel").innerHTML = l.length ? `<div class="stack">${l.map(s => `<div class="item"><div class="hd"><span class="row" style="gap:10px">${avatar(s, "av")}<span><span class="ttl">${esc(s.name)}</span><br><span class="muted small">${esc(CATS[catOf(s)].ar)} · ${esc(s.area)} · صاحب المكان: ${esc((owner(s) || {}).name || "—")}${s.brand ? ` · البيزنس: ${esc(s.brand)}` : ""}</span><br>${tel(s.whatsapp)}</span></span>${stBadge(s.status, s.status === "pending" ? "في انتظار الموافقة" : null)}</div>
   <div class="small muted">${n((s.services || []).length)} خدمة · ${n(s.capacity)} ${unitOf(s)} · ${s.ratingCount ? n(ratingOf(s).toFixed(1)) + " ★ (" + n(s.ratingCount) + ")" : "مفيش تقييمات"}</div>
-  <div class="row">${s.status !== "active" ? `<button class="btn sm pri" data-act="shopstatus" data-id="${esc(s.id)}" data-s="active">${s.status === "pending" ? "موافقة ونشر" : "تشغيل"}</button>` : ""}${s.status !== "suspended" ? `<button class="btn sm bad" data-act="shopstatus" data-id="${esc(s.id)}" data-s="suspended">إيقاف</button>` : ""}<button class="btn sm" data-act="adminedit" data-id="${esc(s.id)}">تعديل الخدمات والأسعار</button></div></div>`).join("")}</div>` : `<div class="empty">لسه مفيش أماكن مسجّلة.</div>`;
+  <div class="row">${s.status !== "active" ? `<button class="btn sm pri" data-act="shopstatus" data-id="${esc(s.id)}" data-s="active">${s.status === "pending" ? "موافقة ونشر" : "تشغيل"}</button>` : ""}${s.status !== "suspended" ? `<button class="btn sm bad" data-act="shopstatus" data-id="${esc(s.id)}" data-s="suspended">إيقاف</button>` : ""}<button class="btn sm" data-act="adminedit" data-id="${esc(s.id)}">تعديل الخدمات والأسعار</button><button class="btn sm navy" data-act="shopbk" data-id="${esc(s.id)}">📋 الحجوزات (${n(A.data.bookings.filter(b => b.shopId === s.id).length)})</button></div></div>`).join("")}</div>` : `<div class="empty">لسه مفيش أماكن مسجّلة.</div>`;
 }
 function aUsers() {
   const q = S.params.uq || "";
   const l = A.data.users.filter(u => !q || (u.name + " " + u.phone).includes(q)).sort((a, b) => (ts(b.createdAt) || 0) - (ts(a.createdAt) || 0));
   $("#apanel").innerHTML = `<label class="search" style="margin-bottom:10px"><span aria-hidden="true">⌕</span><input id="uq" type="search" placeholder="دوّر بالاسم أو الرقم" value="${esc(q)}" aria-label="بحث"></label>
-  <div class="scrollx"><table class="t"><thead><tr><th>الاسم</th><th>الرقم</th><th>النوع</th><th>الحالة</th><th></th></tr></thead><tbody>${l.map(u => `<tr><td>${esc(u.name)}</td><td class="num">${esc(u.phone)}</td><td>${u.role === "barber" ? "صاحب مكان" : "عميل"}</td><td>${stBadge(u.status)}</td><td>${u.id === S.user.uid ? `<span class="muted small">إنت</span>` : u.status === "active" ? `<button class="btn sm bad" data-act="userstatus" data-id="${esc(u.id)}" data-s="suspended">إيقاف</button>` : `<button class="btn sm pri" data-act="userstatus" data-id="${esc(u.id)}" data-s="active">تشغيل</button>`}</td></tr>`).join("")}</tbody></table></div>`;
+  <div class="scrollx"><table class="t"><thead><tr><th>الاسم</th><th>الرقم</th><th>النوع</th><th>الحالة</th><th></th></tr></thead><tbody>${l.map(u => `<tr><td>${esc(u.name)}</td><td class="num">${esc(u.phone)}</td><td>${u.role === "barber" ? "صاحب مكان" : "عميل"}</td><td>${stBadge(u.status)}</td><td>${u.id === S.user.uid ? `<span class="muted small">إنت</span>` : u.status === "active" ? `<button class="btn sm bad" data-act="userstatus" data-id="${esc(u.id)}" data-s="suspended">إيقاف</button>` : `<button class="btn sm pri" data-act="userstatus" data-id="${esc(u.id)}" data-s="active">تشغيل</button>`} <button class="btn sm" data-act="pwhelp" data-p="${esc(u.phone)}" data-n="${esc(u.name)}">🔑 كلمة السر</button></td></tr>`).join("")}</tbody></table></div>
+  <p class="muted small">🔑 = تغيير كلمة سر أي حساب (لو صاحبه نسيها): بتطلع كلمة سر مؤقتة من الكمبيوتر، وأول ما يدخل بيها التطبيق بيطلب منه يغيّرها.</p>`;
   $("#uq").addEventListener("input", e => { S.params.uq = e.target.value; const pos = e.target.selectionStart; aUsers(); const i = $("#uq"); i.focus(); try { i.setSelectionRange(pos, pos); } catch (x) {} });
 }
+// v11.0: how the admin changes the password of any account (free plan: the reset tool on Karim's computer)
+function pwHelp(phone, name) {
+  const cmd = `node reset.js ${phone}`;
+  openSheet(`🔑 كلمة سر جديدة · ${esc(name || phone)}`, `<div class="stack">
+  <ol class="pwsteps">
+    <li>على الكمبيوتر اللي عليه فولدر <span class="num">dorak-admin</span>: دبل كليك على <span class="num">reset.bat</span> واكتب الرقم <span class="num" dir="ltr">${esc(phone)}</span> ← Enter.<br><span class="muted small">أو افتح CMD جوه الفولدر واكتب: <span class="num" dir="ltr">${esc(cmd)}</span></span> <button class="btn sm ghost" data-act="copy" data-t="${esc(cmd)}">نسخ الأمر</button></li>
+    <li>هتطلع <b>كلمة سر مؤقتة</b> + لينك واتساب جاهز. ابعتهاله.</li>
+    <li>هو يدخل التطبيق برقمه + الكلمة المؤقتة ← التطبيق بيطلب منه يكتب كلمة سر جديدة على طول.</li>
+  </ol>
+  <a class="btn wa" target="_blank" rel="noopener" href="${waLink(phone, `أهلاً ${(name || "").split(" ")[0]}، معاك الدعم بتاع احجز دورك. كلمة السر المؤقتة بتاعتك: ____\nادخل بيها برقمك، والتطبيق هيطلب منك تغيّرها على طول.`)}">افتح واتساب برسالة جاهزة (اكتب الكلمة مكان ____)</a>
+  <div class="note">لو هو فاكر كلمة السر القديمة: يغيّرها بنفسه من «حسابي» ← «كلمة السر».</div></div>`);
+}
 function aBookings() {
-  const f = S.params.bf || "all";
-  const l = A.data.bookings.filter(b => f === "all" || b.status === f).sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time));
-  const opts = ["pending", "accepted", "done", "rejected", "cancelled"];
-  $("#apanel").innerHTML = `<div class="tabs" style="margin-bottom:10px">${["all", ...opts].map(k => `<button class="chip" data-act="bfilter" data-f="${k}" aria-pressed="${f === k}">${k === "all" ? "الكل" : STATUS[k]}</button>`).join("")}</div>
-  ${l.length ? `<div class="scrollx"><table class="t"><thead><tr><th>المعاد</th><th>المكان</th><th>العميل</th><th>الإجمالي</th><th>الحالة</th></tr></thead><tbody>${l.map(b => `<tr><td>${fmtDate(b.date)}<br><span class="muted">${bkTime(b)}</span></td><td>${esc(b.shopName)}</td><td>${esc(b.customerName)}<br><span class="num muted">${esc(b.customerPhone)}</span></td><td class="num">${money(b.total)}</td><td><select data-act-change="adminbk" data-id="${esc(b.id)}" aria-label="حالة الحجز">${opts.map(o => `<option value="${o}"${o === b.status ? " selected" : ""}>${STATUS[o]}</option>`).join("")}</select></td></tr>`).join("")}</tbody></table></div>` : `<div class="empty">مفيش حجوزات.</div>`}`;
+  const f = S.params.bf || "all", sp = S.params.bshop || "all", when = S.params.bwhen || "all", today = dkey(new Date());
+  // v11.0: the admin picks a place and sees its bookings (with counts and totals)
+  const shops = [...new Map(A.data.bookings.map(b => [b.shopId, b.shopName])).entries()].map(([id, nm]) => ({ id, nm: (A.data.shops.find(x => x.id === id) || {}).name || nm || id, c: A.data.bookings.filter(b => b.shopId === id).length })).sort((a, b) => b.c - a.c);
+  const l = A.data.bookings.filter(b => (f === "all" || b.status === f) && (sp === "all" || b.shopId === sp) && (when === "all" || (when === "today" ? b.date === today : when === "next" ? b.date >= today : b.date < today))).sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time));
+  const opts = ["pending", "accepted", "done", "rejected", "cancelled"], live = l.filter(b => !["rejected", "cancelled"].includes(b.status));
+  $("#apanel").innerHTML = `<label class="f">المكان<select id="ab-shop"><option value="all">كل الأماكن (${n(A.data.bookings.length)} حجز)</option>${shops.map(x => `<option value="${esc(x.id)}"${sp === x.id ? " selected" : ""}>${esc(x.nm)} (${n(x.c)})</option>`).join("")}</select></label>
+  <div class="tabs" style="margin:8px 0 4px">${[["all", "كل الأيام"], ["today", "النهارده"], ["next", "الجاي"], ["past", "اللي فات"]].map(([k, v]) => `<button class="chip" data-act="bwhen" data-w="${k}" aria-pressed="${when === k}">${v}</button>`).join("")}</div>
+  <div class="tabs" style="margin-bottom:10px">${["all", ...opts].map(k => `<button class="chip" data-act="bfilter" data-f="${k}" aria-pressed="${f === k}">${k === "all" ? "الكل" : STATUS[k]}</button>`).join("")}</div>
+  <div class="muted small" style="margin-bottom:8px">${n(l.length)} حجز · ${n(live.length)} شغال · الإجمالي ${money(live.reduce((a, b) => a + (+b.total || 0), 0))}${sp !== "all" ? ` · <button class="btn sm ghost" data-act="bshopall">كل الأماكن</button>` : ""}</div>
+  ${l.length ? `<div class="scrollx"><table class="t"><thead><tr><th>المعاد</th><th>المكان</th><th>العميل</th><th>الإجمالي</th><th>الحالة</th></tr></thead><tbody>${l.map(b => `<tr><td>${fmtDate(b.date)}<br><span class="muted">${bkTime(b)}</span></td><td><button class="btn sm ghost" data-act="bshop" data-id="${esc(b.shopId)}" style="padding:0;min-height:0">${esc(b.shopName)}</button>${bkDevs(b).length && !b.staff ? `<br><span class="muted small">${esc((b.services || [{}])[0].name.split(" · ").slice(0, 2).join(" · "))}</span>` : ""}</td><td>${esc(b.customerName)}${b.manual ? ` <span class="pill small">يدوي</span>` : ""}<br><span class="num muted">${esc(b.customerPhone)}</span></td><td class="num">${money(b.total)}</td><td><select data-act-change="adminbk" data-id="${esc(b.id)}" aria-label="حالة الحجز">${opts.map(o => `<option value="${o}"${o === b.status ? " selected" : ""}>${STATUS[o]}</option>`).join("")}</select></td></tr>`).join("")}</tbody></table></div>` : `<div class="empty">مفيش حجوزات.</div>`}`;
 }
 function aReviews() {
   const shop = id => (A.data.shops.find(s => s.id === id) || {}).name || "—";
@@ -2972,6 +3167,7 @@ function vAccount() {
   <label class="f">الإيميل<input id="ac-email" type="email" inputmode="email" autocomplete="email" dir="ltr" maxlength="100" placeholder="name@gmail.com" value="${esc(p.email || "")}"></label><div class="err" id="em-err" role="alert"></div>
   <button class="btn navy sm" data-act="saveemail" style="align-self:flex-start">حفظ الإيميل</button></div>
   <div class="card"><h3>كلمة السر</h3>
+  <p class="muted small" style="margin:0">عشان تغيّرها: اكتب الحالية، وبعدين الجديدة مرتين ← «غيّر كلمة السر». <b>نسيت الحالية؟</b> اخرج من الحساب ← «دخول» ← «نسيت كلمة السر؟» وابعت للدعم على واتساب، هيبعتلك كلمة سر مؤقتة تدخل بيها وتغيّرها على طول.</p>
   <label class="f">كلمة السر الحالية<input id="pw-cur" type="password" dir="ltr" autocomplete="current-password"></label>
   <div class="grid2"><label class="f">كلمة السر الجديدة<input id="pw-new" type="password" dir="ltr" autocomplete="new-password" minlength="6"></label><label class="f">اكتب الجديدة تاني<input id="pw-new2" type="password" dir="ltr" autocomplete="new-password" minlength="6"></label></div>
   <div class="err" id="pw-err" role="alert"></div><button class="btn navy sm" data-act="changepass" style="align-self:flex-start">غيّر كلمة السر</button></div>
@@ -3068,6 +3264,13 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") closeSheet()
 /* ---------------- events ---------------- */
 document.addEventListener("change", async e => {
   const t = e.target;
+  if (t.dataset.stimg) {   // v11.0: barber photo (small, square, saved inside the place)
+    const row = t.closest(".stx"); if (!row || !t.files[0]) return;
+    try { const img = await squareImage(t.files[0], 160, 14000); row.dataset.img = img; t.closest(".stph").innerHTML = `<img src="${img}" alt=""><input type="file" accept="image/*" data-stimg="1" aria-label="صورة الحلاق">`; toast("الصورة جاهزة. دوس «حفظ الحلاقين»."); }
+    catch (x) { toast(errText(x)); }
+    return;
+  }
+  if (t.id === "ab-shop") { S.params.bshop = t.value; aBookings(); return; }
   if (t.dataset.hk === "all") { const box = t.closest(".hday").querySelector(".htimes"); if (box) box.hidden = t.checked; }
   if (t.dataset.svc != null && bk) { const i = +t.dataset.svc; t.checked ? bk.svc.add(i) : bk.svc.delete(i); drawSummary(); }
   if (t.dataset.actChange === "adminbk") {
@@ -3139,7 +3342,12 @@ document.addEventListener("click", async e => {
     case "pptime": if (S.prop) { S.prop.sel = { k: d.k, t: d.t }; drawProp(); } break;
     case "ppsend": t.disabled = true; await sendProp(); break;
     case "bweek": S.params.wk = +d.w || 0; S.params.day = null; bSchedule(); break;
-    case "pinset": { const at = S.slotSheetAt; if (at) await setPins([pinKey(at.day, at.t)], d.v === "1"); break; }
+    case "pinset": { const at = S.slotSheetAt; if (at) await setPins(pinSeq(at, S.pinHrs || 1).map(x => pinKey(x.k, x.t)), d.v === "1"); break; }
+    case "pinhrs": { S.pinHrs = Math.max(1, Math.min(stepOf(S.shop) === 60 ? 8 : 16, (S.pinHrs || 1) + +d.x)); drawSlotSheet(false); break; }
+    case "pinsel": { const i = +d.i; S.pinSel = S.pinSel || new Set(); S.pinSel.has(i) ? S.pinSel.delete(i) : S.pinSel.add(i); drawSlotSheet(false); break; }
+    case "pinunits": { const at = S.slotSheetAt; if (at && S.pinSel && S.pinSel.size) await setUnitPins(pinSeq(at, S.pinHrs || 1), [...S.pinSel], d.v === "1"); break; }
+    case "unpinu": { const [k, i] = d.k.split("|"); const s0 = S.shop, w = { ...(s0.weeklyU || {}) }, l = (w[k] || []).map(Number).filter(x => x !== +i);
+      try { await fb.updateDoc(fb.doc(db, "shops", s0.id), { ["weeklyU." + k]: l.length ? l : fb.deleteField() }); if (l.length) w[k] = l; else delete w[k]; s0.weeklyU = w; toast("اتشال التثبيت."); drawPins(); S.schedRedraw && S.schedRedraw(); } catch (e) { toast(errText(e)); } break; }
     case "pinall": { const at = S.slotSheetAt; if (at) await setPins(["1", "2", "3", "4", "5", "6", "7"].map(k => k + "_" + at.t.replace(":", "")), d.v === "1"); break; }
     case "unpin": await setPins([d.k], false); break;
     case "addstaff": { const rows = $("#st-rows"); if (!rows) break; const nos = [...rows.querySelectorAll(".stx")].map(r => +r.dataset.no).concat(((S.shop || {}).staff || []).map(x => +x.no)); if (rows.querySelectorAll(".stx").length >= MAX_CAP) { toast(`أقصى حاجة ${n(MAX_CAP)}.`); break; }
@@ -3180,6 +3388,21 @@ document.addEventListener("click", async e => {
     case "pickdev": { const i = +d.i; bk.devs.has(i) ? bk.devs.delete(i) : bk.devs.add(i); drawDevices(); drawSummary(); break; }
     case "devcnt": devCount(+d.x); break;
     case "slotsheet": slotSheet(d.d, d.t); break;
+    case "freesheet": freeSheet(d.d); break;
+    case "pwhelp": pwHelp(d.p, d.n); break;
+    case "bwhen": S.params.bwhen = d.w; aBookings(); break;
+    case "bshop": S.params.bshop = d.id; aBookings(); break;
+    case "bshopall": S.params.bshop = "all"; aBookings(); break;
+    case "refresh": { t.disabled = true; t.classList.add("spin"); try { if (navigator.serviceWorker) { const r = await navigator.serviceWorker.getRegistration(); if (r) await r.update(); } } catch (x) {} setTimeout(() => location.reload(), 150); break; }
+    case "revall": S.revAll = true; if (S.shop) loadOwnerReviews(S.shop); break;
+    case "manual": { const at = S.slotSheetAt; if (at) { closeSheet(); manualSheet(at.day, at.t); } break; }
+    case "manhrs": manualKeep(1); S.man.hrs = +d.h; S.man.units = new Set(); drawManual(); break;
+    case "mang": manualKeep(1); S.man.g = d.g; S.man.units = new Set(); drawManual(); break;
+    case "manu": { manualKeep(1); const m = S.man, i = +d.i; if (devMode(S.shop)) { m.units.has(i) ? m.units.delete(i) : m.units.add(i); } else m.units = m.units.has(i) ? new Set() : new Set([i]); drawManual(); break; }
+    case "mansvc": { manualKeep(1); const m = S.man, i = +d.i; m.svc.has(i) ? m.svc.delete(i) : m.svc.add(i); drawManual(); break; }
+    case "manst": manualKeep(); S.man.st = +d.i; drawManual(); break;
+    case "mansave": { t.disabled = true; await saveManual(); t.disabled = false; break; }
+    case "freeslot": closeSheet(); slotSheet(d.d, d.t); break;
     case "slotset": { const at = S.slotSheetAt; if (at) { try { await writeSlot(at.day, at.t, { closed: d.c === "1" }); } catch (x) { toast(errText(x)); } } break; }
     case "slotdev": await slotDev(+d.i); break;
     case "slotdevall": await slotDev(0, d.o); break;
@@ -3203,6 +3426,7 @@ document.addEventListener("click", async e => {
       const v = readShopFields(S.shop), hours = readHours();
       const up = { category: v.category, name: v.name, area: v.area, address: v.address, phone: v.phone, whatsapp: v.whatsapp, capacity: v.capacity, mapUrl: v.mapUrl, deposit: v.deposit, social: v.social, hours };
       if (v.groups) up.groups = v.groups;
+      if (v.eveFrom) up.eveFrom = v.eveFrom;
       await fb.updateDoc(fb.doc(db, "shops", S.shop.id), up); Object.assign(S.shop, up); toast("اتحفظ."); $("#sh-err").textContent = "";
     } catch (x) { $("#sh-err").textContent = errText(x); } break;
     case "createshop": {
@@ -3214,6 +3438,7 @@ document.addEventListener("click", async e => {
         const ref = fb.doc(fb.collection(db, "shops"));
         const doc = { ownerId: S.user.uid, brand, category: base.category, name: base.name, area: base.area, address: base.address, logo: base.logo || (d.add && S.shops[0] ? S.shops[0].logo || "" : ""), phone: base.phone, whatsapp: base.whatsapp, mapUrl: base.mapUrl, capacity: base.capacity, photo: base.photo, deposit: base.deposit, social: base.social, services, hours, status: "pending", ratingSum: 0, ratingCount: 0, createdAt: fb.serverTimestamp() };
         if (base.groups) doc.groups = base.groups;
+        if (base.eveFrom) doc.eveFrom = base.eveFrom;
         if (base.staff) { doc.staff = base.staff; doc.staffPick = base.staffPick; }
         const inv = getInvite(); if (!d.add && inv && inv.lead) doc.leadId = inv.lead;   // v9.0: the CRM row this invite came from
         await fb.setDoc(ref, doc);
@@ -3225,6 +3450,7 @@ document.addEventListener("click", async e => {
       break;
     }
     case "atab": S.params = { tab: d.t }; A.tab = d.t; vAdmin(); break;
+    case "shopbk": S.params = { tab: "bookings", bshop: d.id }; A.tab = "bookings"; vAdmin(); break;
     case "lfilter": S.params.ls = d.s; aCrm(); break;
     case "lcat": S.params.lc = d.c; aCrm(); break;
     case "leadedit": leadEditSheet(d.id || ""); break;
@@ -3357,6 +3583,31 @@ async function boot() {
     else render();
   });
 }
+// v11.0: tab / chip bars that are wider than the screen get ‹ › arrows, the mouse wheel scrolls them, and the chosen one is shown
+function enhanceTabs() {
+  document.querySelectorAll(".tabs:not(.tabwrap)").forEach(el => {
+    if (!el.dataset.tx) {
+      el.dataset.tx = "1";
+      el.addEventListener("wheel", e => { if (el.scrollWidth > el.clientWidth && Math.abs(e.deltaY) > Math.abs(e.deltaX)) { el.scrollLeft += e.deltaY; e.preventDefault(); } }, { passive: false });
+      el.addEventListener("scroll", () => tabArrows(el), { passive: true });
+      const on = el.querySelector('[aria-pressed="true"],[aria-selected="true"]'); if (on) try { on.scrollIntoView({ block: "nearest", inline: "center", behavior: "instant" }); } catch (x) {}
+    }
+    tabArrows(el);
+  });
+}
+function tabArrows(el) {
+  let w = el.parentElement && el.parentElement.classList.contains("tabsx") ? el.parentElement : null;
+  const over = el.scrollWidth > el.clientWidth + 4;
+  if (!over) { if (w) w.querySelectorAll(".tarr").forEach(b => b.hidden = true); return; }
+  if (!w) { w = document.createElement("div"); w.className = "tabsx"; el.parentNode.insertBefore(w, el); w.appendChild(el);
+    ["l", "r"].forEach(k => { const b = document.createElement("button"); b.type = "button"; b.className = "tarr " + k; b.textContent = k === "l" ? "‹" : "›"; b.setAttribute("aria-label", k === "l" ? "شمال" : "يمين"); b.addEventListener("click", () => el.scrollBy({ left: (k === "l" ? -1 : 1) * el.clientWidth * .7, behavior: "smooth" })); w.appendChild(b); }); }
+  const max = el.scrollWidth - el.clientWidth, x = Math.abs(el.scrollLeft);   // RTL: scrollLeft runs 0 → −max
+  const atRight = getComputedStyle(el).direction === "rtl" ? x < 4 : x > max - 4, atLeft = getComputedStyle(el).direction === "rtl" ? x > max - 4 : x < 4;
+  w.querySelector(".tarr.l").hidden = atLeft; w.querySelector(".tarr.r").hidden = atRight;
+}
+let tabT = 0;
+new MutationObserver(() => { clearTimeout(tabT); tabT = setTimeout(enhanceTabs, 60); }).observe(document.body, { childList: true, subtree: true });
+addEventListener("resize", () => { clearTimeout(tabT); tabT = setTimeout(enhanceTabs, 120); });
 render(); boot();
 </script>
 </body>
