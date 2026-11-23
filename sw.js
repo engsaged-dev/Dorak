@@ -1,34 +1,10 @@
-/* احجز دورك (Dorak) service worker — makes the app installable on the home screen.
-   © 2026 Sahla AI. All rights reserved.
-   Pages are always fetched from the network first, so every new index.html shows up at once;
-   the cached copy is used only when there is no internet. Firebase traffic is never touched. */
-const CACHE = "dawrak-v12.1";
-const SHELL = ["./", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png", "./icon-maskable-512.png", "./apple-touch-icon.png", "./cat-padel.webp", "./cat-barber.webp", "./cat-gaming.webp", "./cat-cyber.webp"];
-
-self.addEventListener("install", e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).catch(() => {}).then(() => self.skipWaiting()));
-});
-
+/* احجز دورك moved to https://ehgez-dorak.web.app — this worker removes the old installed copy and sends every page to the new address. */
+self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", e => {
-  e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim()));
-});
-
-self.addEventListener("fetch", e => {
-  const req = e.request;
-  if (req.method !== "GET") return;
-  const url = new URL(req.url);
-  if (url.origin !== location.origin) return;            // Firebase, fonts, maps, category photos: straight to the network
-
-  if (req.mode === "navigate") {                          // the page itself: network first, cached copy offline
-    e.respondWith(
-      fetch(req).then(res => {
-        if (res.ok) { const copy = res.clone(); caches.open(CACHE).then(c => c.put("./", copy)); }
-        return res;
-      }).catch(() => caches.match("./"))
-    );
-    return;
-  }
-  if (SHELL.some(p => url.pathname.endsWith(p.slice(1)) && p !== "./")) {   // icons + manifest: cache first
-    e.respondWith(caches.match(req).then(r => r || fetch(req)));
-  }
+  e.waitUntil((async () => {
+    const keys = await caches.keys(); await Promise.all(keys.map(k => caches.delete(k)));
+    await self.registration.unregister();
+    const cs = await self.clients.matchAll({ type: "window" });
+    cs.forEach(c => { try { const u = new URL(c.url); c.navigate("https://ehgez-dorak.web.app/" + u.search + u.hash); } catch (x) {} });
+  })());
 });
